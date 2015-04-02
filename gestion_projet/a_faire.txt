@@ -1,0 +1,53 @@
+ ------------------------------------ ---------------------------------------
+-----------------------  Liste tâches :  ------------------------------------
+------------------------------------ ---------------------------------------
+
+------------------       Equipe       ------------------
+
+Product owner : DIAS / qui?
+Scrum master : Hippolyte
+Amjad
+Clément
+Philémon
+Régis
+
+
+
+
+
+***** Jeudi 02/04 *****
+
+- examen php ok
+- préparation entretien Dias  Régis
+- scenario node Amjad
+- scénario j2ee Hippo
+- scenario lourd Amjad
+- organisation : roles dans l'équipe ok
+
+- organisation : mise en place maven et compagnie
+		- dépôt git + maven =  Clément
+
+		- git : GitHub ou GitLab? Clément
+				- Valilab inaccessible depuis l'extérieur
+		- intégration continue : maven, travis
+		- tickets : mantis
+
+- organisation : post its, sprints....
+		durée sprints : 1 jour
+
+
+
+à venir...
+
+
+-- une fois scénario validé
+
+développement =>
+- packaging
+- interface web
+- tests unitaires (à faire avant les fonctionnalités)		
+- MicMacManager v2
+
+
+
+
