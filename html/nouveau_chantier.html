@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
+<meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -21,6 +21,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="assets/js/afficher_cacher_div.js"></script>
 </head>
 <body>
     <header>
@@ -46,14 +47,11 @@
             <div class="left-div">
                 <div class="user-settings-wrapper">
                     <ul class="nav">
-
                         <li class="dropdown">
                             <a href="login.html">
                                 <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
                             </a>
                         </li>
-
-
                     </ul>
                 </div>
             </div>
@@ -82,24 +80,59 @@
             <div class="row">
                 <div class="col-md-12">
                     <h4 class="page-head-line">Nouveau chantier</h4>
-
                 </div>
-
             </div>
+            
             <div class="row">
-                 <div class="col-md-3 col-sm-3 col-xs-6">
-                    <div class="dashboard-div-wrapper bk-clr-one">
-                        <i class="fa fa-chevron-right dashboard-div-icon" ></i>
-                        <h5>Création du chantier</h5>
-                    </div>
+                <div class="col-md-3 col-sm-3 col-xs-6">
+                    <a href="#">
+                        <div class="dashboard-div-wrapper bk-clr-one" onclick="javascript:afficher_cacher('on_click1');">
+                            <i class="fa fa-chevron-right dashboard-div-icon" ></i>
+                            <h5>Création du chantier</h5>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-md-3 col-sm-3 col-xs-6">
+                    <a href="#">
+                        <div class="dashboard-div-wrapper bk-clr-two" onclick="javascript:afficher_cacher('on_click2');">
+                            <i  class="fa fa-chevron-right dashboard-div-icon" ></i>
+                            <h5>Import des images</h5>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-md-3 col-sm-3 col-xs-6">
+                    <a href="#">
+                        <div class="dashboard-div-wrapper bk-clr-three" onclick="javascript:afficher_cacher('on_click3');">
+                            <i  class="fa fa-chevron-right dashboard-div-icon" ></i>
+                            <h5>Paramétrage du chantier</h5>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="col-md-3 col-sm-3 col-xs-6">
+                    <a href="#">
+                        <div class="dashboard-div-wrapper bk-clr-four" onclick="javascript:afficher_cacher('on_click4');">
+                            <i  class="fa fa-stop dashboard-div-icon" ></i>
+                            <h5>Validation</h5>
+                        </div>
+                    </a>
                     
-                    <div class="on_click">
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="on_click1">
                         <div class="form-group">
                             <label>Nom du chantier</label>
                             <input type="text" class="form-control" placeholder="Text input" />
-                                
+                            <br />
+                                        
                             <label>Commentaire</label>
                             <textarea class="form-control" rows="3" placeholder="Text Area"></textarea>
+                            <br />
                                 
                             <label>Type de chantier</label>
                             <div class="radio">
@@ -110,36 +143,110 @@
                             </div>
                             <div class="radio disabled">
                                 <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" disabled />
                                     Façade
                                 </label>
                             </div>
-                        </div>                            
+                        </div>
+                    </div>
+                        
+                    <div id="on_click2" style="display:none;">
+                        <div class="form-group">
+                            <label>TO DO</label>
+                        </div>
+                    </div>  
+                    
+                    <div id="on_click3" style="display:none;">
+                        <div class="form-group">
+                            <label>Mode de restriction de la zone de travail</label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked />
+                                    Deux masques 2D
+                                </label>
+                            </div>
+                            <div class="radio disabled">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />
+                                    Un masque 3D
+                                </label>
+                            </div>
+                            <br />
+                            
+                            <label>Nombre de points de liaison</label>
+                            <select class="form-control">
+                                <option>Faible</option>
+                                <option selected="selected">Moyen</option>
+                                <option>Important</option>
+                                <option>Maximal</option>
+                            </select>
+                            <br />
+                            
+                            <label> Géoréférencement des données</label>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" />
+                                    Mise à l'échelle
+                                </label>
+                                <br />
+                                <label>
+                                    <input type="checkbox" value="" />
+                                    Basculement
+                                </label>
+                            </div>
+                            <br />
+                            
+                            <label> Produits à livrer</label>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" checked />
+                                    Nuage de points 3D
+                                </label>
+                                <br />
+                                <label>
+                                    <input type="checkbox" value="" />
+                                    Points de liaison
+                                </label>
+                                <br />
+                                <label>
+                                    <input type="checkbox" value="" />
+                                    Nuage de points de liaison et position des caméras
+                                </label>
+                                <br />
+                                <label>
+                                    <input type="checkbox" value="" />
+                                    Calibration
+                                </label>
+                                <br />
+                                <label>
+                                    <input type="checkbox" value="" />
+                                    Fichiers d'orientation
+                                </label>
+                                <br />
+                                <label>
+                                    <input type="checkbox" value="" />
+                                    Rapport de mise en place
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="on_click4" style="display:none;">
+                        <div class="form-group">
+                            Résumé de ce qu'il s'est passé avant.
+                             <a href="index.html" class="btn btn-social btn-other"><span class="glyphicon glyphicon-user"></span> &nbsp;LANCER LE CALCUL </a>&nbsp;
+                        </div>
                     </div>
                 </div>
-                
-                 <div class="col-md-3 col-sm-3 col-xs-6">
-                    <div class="dashboard-div-wrapper bk-clr-two">
-                        <i  class="fa fa-chevron-right dashboard-div-icon" ></i>
-                        <h5>Import des images</h5>
-                    </div>
-                </div>
-                 <div class="col-md-3 col-sm-3 col-xs-6">
-                    <div class="dashboard-div-wrapper bk-clr-three">
-                        <i  class="fa fa-chevron-right dashboard-div-icon" ></i>
-                        <h5>Paramétrage du chantier</h5>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-6">
-                    <div class="dashboard-div-wrapper bk-clr-four">
-                    <i  class="fa fa-stop dashboard-div-icon" ></i>
-                    <h5>Validation</h5>
-                </div>
-
             </div>
         </div>
     </div>
-        
+    
+    <script type="text/javascript">
+        //afficher_cacher('on_click1');
+    </script>
+
+
     <!-- CONTENT-WRAPPER SECTION END-->
     <footer>
         <div class="container">
@@ -159,4 +266,3 @@
     <script src="assets/js/bootstrap.js"></script>
 </body>
 </html>
- 
