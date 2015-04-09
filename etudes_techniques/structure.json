@@ -38,5 +38,5 @@ chantier
             rapport_mise_place:0:Non, 1:Oui,
 
             }
+  masque: "masque.xml"
 }
-// A voir comment on va faire pour intégrer le masque
