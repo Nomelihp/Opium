@@ -5,6 +5,7 @@ chantier
   nom: "bla",
   date: "455656"
   etat: 1:En attente de l'utilisateur, 2:Calcul en cours, 3:Non exécuté, 4:Calcul terminé avec succès, 5:Echec,
+  avancement: 3/7 (rapport des commandes faie sur restante)
   commentaires: "lablablabla"
   type: 1: Statue, 2: façade,
   blocs:[
