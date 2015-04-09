@@ -86,8 +86,8 @@
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-6">
                     <a href="#">
-                        <div class="dashboard-div-wrapper bk-clr-one" onclick="javascript:afficher('on_click1');">
-                            <i class="fa fa-chevron-right dashboard-div-icon" ></i>
+                        <div id="cliquable1" class="dashboard-div-wrapper bk-clr-one" onclick="javascript:afficher_cacher('on_click1');">
+                            <i class="fa fa-chevron-down dashboard-div-icon" ></i>
                             <h5>Création du chantier</h5>
                         </div>
                     </a>
@@ -95,16 +95,16 @@
                 
                 <div class="col-md-3 col-sm-3 col-xs-6">
                     <a href="#">
-                        <div class="dashboard-div-wrapper bk-clr-two" onclick="javascript:afficher('on_click2');">
+                        <div id="cliquable2" class="dashboard-div-wrapper bk-clr-two" onclick="javascript:afficher_cacher('on_click2');">
                             <i  class="fa fa-chevron-right dashboard-div-icon" ></i>
-                            <h5>Import des images</h5>
+                            <h5>Export des images</h5>
                         </div>
                     </a>
                 </div>
                 
                 <div class="col-md-3 col-sm-3 col-xs-6">
                     <a href="#">
-                        <div class="dashboard-div-wrapper bk-clr-three" onclick="javascript:afficher('on_click3');">
+                        <div id="cliquable3" class="dashboard-div-wrapper bk-clr-three" onclick="javascript:afficher_cacher('on_click3');">
                             <i  class="fa fa-chevron-right dashboard-div-icon" ></i>
                             <h5>Paramétrage du chantier</h5>
                         </div>
@@ -113,7 +113,7 @@
                 
                 <div class="col-md-3 col-sm-3 col-xs-6">
                     <a href="#">
-                        <div class="dashboard-div-wrapper bk-clr-four" onclick="javascript:afficher('on_click4');">
+                        <div id="cliquable4" class="dashboard-div-wrapper bk-clr-four" onclick="javascript:afficher_cacher('on_click4');">
                             <i  class="fa fa-stop dashboard-div-icon" ></i>
                             <h5>Validation</h5>
                         </div>
@@ -124,8 +124,8 @@
         
             <div class="row">
                 <div class="col-md-12">
-                    <div id="on_click1">
-                        <div class="form-group">
+                    <div class="col-md-6" id="on_click1">
+                        <div class="notice-board">
                             <label>Nom du chantier</label>
                             <input type="text" class="form-control" placeholder="Text input" />
                             <br />
@@ -134,7 +134,15 @@
                             <textarea class="form-control" rows="3" placeholder="Text Area"></textarea>
                             <br />
                                 
-                            <label>Type de chantier</label>
+                            <label class="dropdown">Type de chantier
+                                    <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                        <i class="fa fa-question" ></i>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                        <li role="presentation">Plein de texte explicatif.</li>
+                                    </ul>
+                            </label>
+                            
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked />
@@ -148,17 +156,68 @@
                                 </label>
                             </div>
                         </div>
+                        
+                        <br />
+                        <a href="#" class="btn btn-social btn-other" onclick="javascript:afficher_cacher('on_click2');">
+                            </span>Suivant 
+                        </a>
+        
                     </div>
                         
-                    <div id="on_click2" style="display:none;">
-                        <div class="form-group">
-                            <label>TO DO</label>
+                    <div class="col-md-6" id="on_click2" style="display:none;">
+                        <div class="notice-board">
+                            <label>À FAIRE : ZONE D'IMPORT DES IMAGES</label>
+                            <br />
+                            <div class="pull-right" >
+                                <a href="#" class="btn btn-info"><span class="glyphicon glyphicon-upload"></span>&nbsp;Exporter </a>&nbsp;
+                            </div>
+                            <br />
+                            <br />
+                            <label class="dropdown">Mode avancé pour les paramètres de traitement
+                                <button class="btn btn-success btn-xs" id="param-button" type="button" aria-expanded="true" onclick="javascript:afficher('param');javascript:tournerChevron('param-button');">
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                                <div id="param" style="display:none;">
+                                    Diverses possibilités de choix.
+                                </div>
+                            </label>  
+                            
+                            <label class="dropdown">Mode avancé pour la configuration des images
+                                <button class="btn btn-success btn-xs" id="config-button" type="button" aria-expanded="true" onclick="javascript:afficher('config');javascript:tournerChevron('config-button');">
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                                <div id="config" style="display:none;">
+                                    Diverses possibilités de choix.
+                                </div>
+                            </label>
+                            
+                            <label class="dropdown">Mode avancé pour la gestion des caméras
+                                <button class="btn btn-success btn-xs" id="camera-button" type="button" aria-expanded="true" onclick="javascript:afficher('camera');javascript:tournerChevron('camera-button');">
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                                <div id="camera" style="display:none;">
+                                    Diverses possibilités de choix.
+                                </div>
+                            </label>
+                            
                         </div>
+                        <br />
+                        <a href="#" class="btn btn-social btn-other" onclick="javascript:afficher_cacher('on_click3');">
+                            </span>Suivant 
+                        </a>
                     </div>  
                     
-                    <div id="on_click3" style="display:none;">
-                        <div class="form-group">
-                            <label>Mode de restriction de la zone de travail</label>
+                    <div class="col-md-6" id="on_click3" style="display:none;">
+                        <div class="notice-board">
+                            <label class="dropdown">Mode de restriction de la zone de travail
+                                <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-question" ></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation">Plein de texte explicatif.</li>
+                                </ul>
+                            </label>
+                            
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked />
@@ -173,7 +232,15 @@
                             </div>
                             <br />
                             
-                            <label>Nombre de points de liaison</label>
+                            <label class="dropdown">Nombre de points de liaison
+                                <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-question" ></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation">Plein de texte explicatif.</li>
+                                </ul>
+                            </label>
+                            
                             <select class="form-control">
                                 <option>Faible</option>
                                 <option selected="selected">Moyen</option>
@@ -182,7 +249,15 @@
                             </select>
                             <br />
                             
-                            <label> Géoréférencement des données</label>
+                            <label class="dropdown">Géoréférencement des données
+                                <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-question" ></i>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                    <li role="presentation">Plein de texte explicatif.</li>
+                                </ul>
+                            </label>
+                            
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" value="" />
@@ -229,10 +304,15 @@
                                 </label>
                             </div>
                         </div>
+                        
+                        <br />
+                        <a href="#" class="btn btn-social btn-other" onclick="javascript:afficher_cacher('on_click4');">
+                            </span>Suivant 
+                        </a>
                     </div>
                     
-                    <div id="on_click4" style="display:none;">
-                        <div class="form-group">
+                    <div class="col-md-6" id="on_click4" style="display:none;">
+                        <div class="notice-board">
                             Résumé de ce qu'il s'est passé avant.
                             <br />
                             <a href="chantiers.html" class="btn btn-social btn-other"><span class="glyphicon glyphicon-check"></span> &nbsp;LANCER LE CALCUL </a>&nbsp;
