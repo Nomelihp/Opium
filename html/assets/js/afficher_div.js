@@ -1,6 +1,5 @@
 function afficher_cacher(id) {    
-    console.log("AFFICHER_CACHER");
-    
+   
     var affichages = ["on_click1","on_click2","on_click3","on_click4"];
     var boutons = ["cliquable1","cliquable2","cliquable3","cliquable4"]
     
@@ -31,14 +30,12 @@ function afficher(id) {
 function tournerChevron(id) {
     console.log("TOURNER_CHEVRON");
 
-    //if the chevron is right, set it down, and if down, set it right
+    //if the chevron is right, set it to down, and if down, set it to right
     if (document.getElementById(id).innerHTML.indexOf("right") > -1)  {
         chevronDown(id);
     } else {
         chevronRight(id);
     }
-    
-    console.log(id+"tourné");
 
     return true;
 }
@@ -50,5 +47,17 @@ function chevronRight(id) {
 
 function chevronDown(id) {
     document.getElementById(id).innerHTML = document.getElementById(id).innerHTML.replace("right","down");
+    return true;
+}
+
+function plusMoins(id) {
+
+    //if icon is +, set it to -, and if -, set it to +
+    if (document.getElementById(id).innerHTML.indexOf("plus") > -1)  {
+        document.getElementById(id).innerHTML = document.getElementById(id).innerHTML.replace("plus","minus");
+    } else {
+        document.getElementById(id).innerHTML = document.getElementById(id).innerHTML.replace("minus","plus");
+    }
+
     return true;
 }
