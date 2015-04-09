@@ -1,0 +1,12 @@
+esclaves
+{
+      esclave
+      {
+        ip:"172.30.30.3",
+        port:8650,
+        operationnel: 0 Non, 1 Oui,
+      }
+}
+// operationnel est un flag que le maître peut changer en faisant des ping sur
+l'esclave. Si l'eclave ne répond pas il le change en 0 (le flag "operationnel"
+est par défaut sur 1, la première fois que l'esclave s'inscrit dans le registre du maître)
