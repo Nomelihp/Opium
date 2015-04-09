@@ -40,7 +40,7 @@
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="index.html">
-                    <img src="assets/img/logo.png" />
+                    <img src="assets/img/logo.png" alt="logo"/>
                 </a>
             </div>
 
@@ -133,15 +133,16 @@
                             <label>Commentaire</label>
                             <textarea class="form-control" rows="3" placeholder="Text Area"></textarea>
                             <br />
-                                
-                            <label class="dropdown">Type de chantier
-                                    <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-question" ></i>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                        <li role="presentation">Plein de texte explicatif.</li>
-                                    </ul>
-                            </label>
+                            
+                            <div class="dropdown">
+                                <label>Type de chantier</label>
+                                <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-question" ></i>
+                                </button>
+                                <div class="dropdown-menu" role="presentation" aria-labelledby="dropdownMenu1">
+                                    &nbsp;Plein de texte explicatif.
+                                </div>
+                            </div>
                             
                             <div class="radio">
                                 <label>
@@ -149,6 +150,7 @@
                                     Statue
                                 </label>
                             </div>
+                            
                             <div class="radio disabled">
                                 <label>
                                     <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" disabled />
@@ -159,11 +161,10 @@
                         
                         <br />
                         <a href="#" class="btn btn-social btn-other" onclick="javascript:afficher_cacher('on_click2');">
-                            </span>Suivant 
+                            Suivant 
                         </a>
-        
                     </div>
-                        
+                
                     <div class="col-md-6" id="on_click2" style="display:none;">
                         <div class="notice-board">
                             <label>À FAIRE : ZONE D'IMPORT DES IMAGES</label>
@@ -171,143 +172,143 @@
                             <div class="pull-right" >
                                 <a href="#" class="btn btn-info"><span class="glyphicon glyphicon-upload"></span>&nbsp;Exporter </a>&nbsp;
                             </div>
-                            <br />
-                            <br />
-                            <label class="dropdown">Mode avancé pour les paramètres de traitement
-                                <button class="btn btn-success btn-xs" id="param-button" type="button" aria-expanded="true" onclick="javascript:afficher('param');javascript:tournerChevron('param-button');">
-                                    <i class="fa fa-chevron-right"></i>
-                                </button>
-                                <div id="param" style="display:none;">
-                                    Diverses possibilités de choix.
-                                </div>
-                            </label>  
-                            
-                            <label class="dropdown">Mode avancé pour la configuration des images
-                                <button class="btn btn-success btn-xs" id="config-button" type="button" aria-expanded="true" onclick="javascript:afficher('config');javascript:tournerChevron('config-button');">
-                                    <i class="fa fa-chevron-right"></i>
-                                </button>
-                                <div id="config" style="display:none;">
-                                    Diverses possibilités de choix.
-                                </div>
-                            </label>
-                            
-                            <label class="dropdown">Mode avancé pour la gestion des caméras
-                                <button class="btn btn-success btn-xs" id="camera-button" type="button" aria-expanded="true" onclick="javascript:afficher('camera');javascript:tournerChevron('camera-button');">
-                                    <i class="fa fa-chevron-right"></i>
-                                </button>
-                                <div id="camera" style="display:none;">
-                                    Diverses possibilités de choix.
-                                </div>
-                            </label>
-                            
                         </div>
                         <br />
                         <a href="#" class="btn btn-social btn-other" onclick="javascript:afficher_cacher('on_click3');">
-                            </span>Suivant 
+                            Suivant 
                         </a>
                     </div>  
                     
                     <div class="col-md-6" id="on_click3" style="display:none;">
-                        <div class="notice-board">
-                            <label class="dropdown">Mode de restriction de la zone de travail
-                                <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-question" ></i>
-                                </button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                    <li role="presentation">Plein de texte explicatif.</li>
-                                </ul>
-                            </label>
-                            
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked />
-                                    Deux masques 2D
-                                </label>
-                            </div>
-                            <div class="radio disabled">
-                                <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />
-                                    Un masque 3D
-                                </label>
-                            </div>
-                            <br />
-                            
-                            <label class="dropdown">Nombre de points de liaison
-                                <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-question" ></i>
-                                </button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                    <li role="presentation">Plein de texte explicatif.</li>
-                                </ul>
-                            </label>
-                            
-                            <select class="form-control">
-                                <option>Faible</option>
-                                <option selected="selected">Moyen</option>
-                                <option>Important</option>
-                                <option>Maximal</option>
-                            </select>
-                            <br />
-                            
-                            <label class="dropdown">Géoréférencement des données
-                                <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-question" ></i>
-                                </button>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                    <li role="presentation">Plein de texte explicatif.</li>
-                                </ul>
-                            </label>
-                            
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="" />
-                                    Mise à l'échelle
-                                </label>
-                                <br />
-                                <label>
-                                    <input type="checkbox" value="" />
-                                    Basculement
-                                </label>
-                            </div>
-                            <br />
-                            
-                            <label> Produits à livrer</label>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="" checked />
-                                    Nuage de points 3D
-                                </label>
-                                <br />
-                                <label>
-                                    <input type="checkbox" value="" />
-                                    Points de liaison
-                                </label>
-                                <br />
-                                <label>
-                                    <input type="checkbox" value="" />
-                                    Nuage de points de liaison et position des caméras
-                                </label>
-                                <br />
-                                <label>
-                                    <input type="checkbox" value="" />
-                                    Calibration
-                                </label>
-                                <br />
-                                <label>
-                                    <input type="checkbox" value="" />
-                                    Fichiers d'orientation
-                                </label>
-                                <br />
-                                <label>
-                                    <input type="checkbox" value="" />
-                                    Rapport de mise en place
-                                </label>
+                        <div class="panel-body">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="#param-pills" data-toggle="tab">Paramètres de traitement</a>
+                                </li>
+                                <li class=""><a href="#images-pills" data-toggle="tab">Gestion des images</a>
+                                </li>
+                                <li class=""><a href="#cameras-pills" data-toggle="tab">Gestion des caméras</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade" id="param-pills">
+                                    <br />
+                                    <div class="notice-board">
+                                        <div class="dropdown">
+                                            <label>Mode de restriction de la zone de travail</label>
+                                            <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                                                <i class="fa fa-question" ></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2" role="presentation">
+                                                &nbsp;Plein de texte explicatif.
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option1" checked />
+                                                Deux masques 2D
+                                            </label>
+                                        </div>
+                                        <div class="radio disabled">
+                                            <label>
+                                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="option2" />
+                                                Un masque 3D
+                                            </label>
+                                        </div>
+                                        <br />
+                                        
+                                        <div class="dropdown">
+                                            <label>Nombre de points de liaison</label>
+                                            <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-expanded="true">
+                                                <i class="fa fa-question" ></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenu3" role="presentation">
+                                                &nbsp;Plein de texte explicatif.
+                                            </div>
+                                        </div>
+                                        
+                                        <select class="form-control">
+                                            <option>Faible</option>
+                                            <option selected="selected">Moyen</option>
+                                            <option>Important</option>
+                                            <option>Maximal</option>
+                                        </select>
+                                        <br />
+                                        
+                                        <div class="dropdown">
+                                            <label>Géoréférencement des données</label>
+                                            <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-expanded="true">
+                                                <i class="fa fa-question" ></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenu4" role="presentation">
+                                                &nbsp;Plein de texte explicatif.
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" />
+                                                Mise à l'échelle
+                                            </label>
+                                            <br />
+                                            <label>
+                                                <input type="checkbox" value="" />
+                                                Basculement
+                                            </label>
+                                        </div>
+                                        <br />
+                                        
+                                        <label> Produits à livrer</label>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" value="" checked />
+                                                Nuage de points 3D
+                                            </label>
+                                            <br />
+                                            <label>
+                                                <input type="checkbox" value="" />
+                                                Points de liaison
+                                            </label>
+                                            <br />
+                                            <label>
+                                                <input type="checkbox" value="" />
+                                                Nuage de points de liaison et position des caméras
+                                            </label>
+                                            <br />
+                                            <label>
+                                                <input type="checkbox" value="" />
+                                                Calibration
+                                            </label>
+                                            <br />
+                                            <label>
+                                                <input type="checkbox" value="" />
+                                                Fichiers d'orientation
+                                            </label>
+                                            <br />
+                                            <label>
+                                                <input type="checkbox" value="" />
+                                                Rapport de mise en place
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="images-pills">
+                                    <h4>Profile Tab</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+                                <div class="tab-pane fade" id="cameras-pills">
+                                    <h4>Messages Tab</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
                             </div>
                         </div>
                         
+                        
                         <br />
                         <a href="#" class="btn btn-social btn-other" onclick="javascript:afficher_cacher('on_click4');">
-                            </span>Suivant 
+                            Suivant 
                         </a>
                     </div>
                     
