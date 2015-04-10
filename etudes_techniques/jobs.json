@@ -1,19 +1,12 @@
 jobs
 {
   {
-    id
+    id: 54
     id_chantier: "502",
     container: "http://172.30.30.2:8060",
-    commandes:[
-                "Tapioca All *.JPG ..."
-                ,
-                "Tapas Hippolyte.JPG ..."
-                ,
-                "Nuage2Ply ........"
-              ]
+    commande: "Tapioca All *.JPG ..."
     etat: 0 Non assigné, 1 assigné, 2 finit avec succès, 3 finit avec erreur
-    erreur: 1 erreur premiere commande, 2 erreur deuxième commande, ...
-    
+    erreur: "la mise en place bla bla bla"
   }
 
 
