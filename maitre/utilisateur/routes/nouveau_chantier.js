@@ -1,9 +1,12 @@
 var express = require('express');
-var router = express.Router();
+var router  = express.Router();
+var params 	= require('../../config.json');
 
-// Nécessaire pour notifier le module métier
+ //  Nécessaire pour notifier le module métier
 var messenger = require('messenger');
 
+// Nécessaire pour la notification du module métier
+var module_metier = messenger.createSpeaker(params.metier);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -13,11 +16,11 @@ router.get('/', function(req, res, next) {
   res.render('nouveau_chantier', { title: 'Nouveau Chantier' });
 });
 
-// Notifie le module métier qu'il y a du boulot
-client = messenger.createSpeaker(9205);
-client.request('nouveaux chantiers a traiter', {boulot:"oui"}, function(data){
+
+// Notifie le module métier qu'il y a du boulot : A PLACER A LA DERNIERE VALIDATION DE L'UTILISATEUR
+/*module_metier.request('nouveaux chantiers a traiter', {boulot:"oui"}, function(data){
     console.log(data);
   });
-// Fin notification
+*/
 
 module.exports = router;
