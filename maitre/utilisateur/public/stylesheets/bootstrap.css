@@ -5765,6 +5765,8 @@ button.close {
   opacity: .5;
 }
 .modal-header {
+  color: #fff;
+  background-color: #337ab7;
   min-height: 16.42857143px;
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
