@@ -2,328 +2,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>three.js webgl - PLY</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-<style>
-body {
-font-family: Monospace;
-background-color: #000000;
-margin: 0px;
-overflow: hidden;
-}
+	<title>three.js webgl - PLY</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+	body {
+		font-family: Monospace;
+		background-color: #000000;
+		margin: 0px;
+		overflow: hidden;
+	}
 
-#info {
-color: #fff;
-position: absolute;
-top: 10px;
-width: 100%;
-text-align: center;
-z-index: 100;
-display:block;
+	#info {
+		color: #fff;
+		position: absolute;
+		top: 10px;
+		width: 100%;
+		text-align: center;
+		z-index: 100;
+		display:block;
 
-}
+	}
 
-a { color: skyblue }
-.button { background:#999; color:#eee; padding:0.2em 0.5em; cursor:pointer }
-.highlight { background:orange; color:#fff; }
+	a { color: skyblue }
+	.button { background:#999; color:#eee; padding:0.2em 0.5em; cursor:pointer }
+	.highlight { background:orange; color:#fff; }
 
-span {
-display: inline-block;
-width: 60px;
-float: left;
-text-align: center;
-}
+	span {
+		display: inline-block;
+		width: 60px;
+		float: left;
+		text-align: center;
+	}
 
-</style>
+	</style>
 </head>
 <body>
 	<div style="background:white">
-<h1>Test de l'integration de ply dans webGL</h1>
-</div>
-<div id="info">
-<a href="http://threejs.org" target="_blank">three.js</a> -
-PLY loader test by <a href="https://github.com/menway">Wei Meng</a>. Image from <a href="http://people.sc.fsu.edu/~jburkardt/data/ply/ply.html">John Burkardt</a>
-</div>
-<div id="WebGL" style="width:50%;height:400px; "> </div>
-<div style="float:right; width:45%; background:white">
-<h1>Test de l'integration de ply dans webGL</h1>
-</div>
-<script src="js/three.min.js"></script>
-<script src="js/interieur.js"></script>
-<script src="js/Projector.js"></script>
-<script src="js/PLYLoader.js"></script>
-<script src="js/dat.gui.min.js"></script>
-<script src="js/Detector.js"></script>
-<script src="js/stats.min.js"></script>
-<script src="js/OrbitControls.js"></script>
-<script src="js/CanvasRenderer.js"></script>
-<script>
-
-if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-var mesh;
-var container, stats;
-var objects = [];
-var camera, cameraTarget, scene, renderer;
-var raycaster = new THREE.Raycaster();
-var effectController = {
-				
-				minDistance: 150,
-				limitConnections: false,
-				maxConnections: 20
-				
-			}
-var materialpoint = new THREE.PointCloudMaterial( { color: 0xff00ff,size:0.4} );
-init();
-animate();
-
-function initGUI() {
-
-				var gui = new dat.GUI();
-
-				
-				gui.add( effectController, "minDistance", 10, 300 );
-				gui.add( effectController, "limitConnections" );
-				gui.add( effectController, "maxConnections", 0, 30, 1 );
-				
-
-			}
-
-function init() {
-initGUI();
-interieur();
-container = document.getElementById( 'WebGL' );
-
-document.body.appendChild( container );
-
-camera = new THREE.PerspectiveCamera( 60, document.getElementById("WebGL").offsetWidth / document.getElementById("WebGL").offsetHeight, 1, 1000 );
-				/*camera.position.set( 0, -0.25, 4  );*/
-				camera.position.z = 4;
-				controls = new THREE.OrbitControls( camera , container );
-				controls.damping = 0.2;
-				controls.addEventListener( 'change', render );
-
-
-/*camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15 );
-camera.position.set( 0, -0.25, 4  );
-camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 4000 );
-				camera.position.z = 1750;
-controls = new THREE.OrbitControls( camera, container );*/
-cameraTarget = new THREE.Vector3( 3, 0.15, 3);
-
-scene = new THREE.Scene();
-scene.fog = new THREE.Fog( 0x72645b, 2, 15 );
-
-
-// Ground
-
-/*var plane = new THREE.Mesh(
-new THREE.PlaneBufferGeometry( 40, 40 ),
-new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
-);
-plane.rotation.x = -Math.PI/2;
-plane.position.y = -0.5;
-scene.add( plane );
-
-plane.receiveShadow = true;*/
-
-
-// PLY file
-
-var loader = new THREE.PLYLoader();
-loader.addEventListener( 'load', function ( event ) {
-
-var geometry = event.content;
-console.log(geometry);
-var material = new THREE.PointCloudMaterial( { color: geometry.colors*255 ,size:0.1} );
- mesh = new THREE.PointCloud( geometry, material );
-//---------------- Contient toutes les données du ply---
-
-var toto=mesh.geometry;
-console.log(toto);
-
-//-----------------
-
-/*console.log("x : "+mesh.geometry.vertices[5].x);
-console.log("y : "+mesh.geometry.vertices[5].y);
-console.log("z : "+mesh.geometry.vertices[5].z);*/
-mesh.position.set( 0, - 0.25, 0 );
-mesh.rotation.set( 0, - Math.PI / 2, 0 );
-mesh.scale.set( 0.5, 0.5, 0.5 );
-
-mesh.castShadow = true;
-mesh.receiveShadow = true;
-
-scene.add( mesh );
-
-} );
-loader.load( './AperiCloud_MEP.ply' );
-
-// Lights
-
-scene.add( new THREE.AmbientLight( 0x777777 ) );
-
-addShadowedLight( 1, 1, 1, 0xffffff, 1.35 );
-addShadowedLight( 0.5, 1, -1, 0xffaa00, 1 );
-
-
-
-mouse = new THREE.Vector2();
-// renderer
-
-renderer = new THREE.WebGLRenderer( { antialias: true } );
-renderer.setClearColor( scene.fog.color );
-renderer.setPixelRatio( window.devicePixelRatio );
-renderer.setSize( document.getElementById("WebGL").offsetWidth, document.getElementById("WebGL").offsetHeight );
-
-renderer.gammaInput = true;
-renderer.gammaOutput = true;
-
-renderer.shadowMapEnabled = true;
-renderer.shadowMapCullFace = THREE.CullFaceBack;
-
-container.appendChild( renderer.domElement );
-
-// stats
-
-stats = new Stats();
-stats.domElement.style.position = 'absolute';
-stats.domElement.style.top = '0px';
-container.appendChild( stats.domElement );
-
-
-document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-	document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-// resize
-
-window.addEventListener( 'resize', onWindowResize, false );
-
-}
-
-function addShadowedLight( x, y, z, color, intensity ) {
-
-var directionalLight = new THREE.DirectionalLight( color, intensity );
-directionalLight.position.set( x, y, z )
-scene.add( directionalLight );
-
-directionalLight.castShadow = true;
-// directionalLight.shadowCameraVisible = true;
-
-var d = 1;
-directionalLight.shadowCameraLeft = -d;
-directionalLight.shadowCameraRight = d;
-directionalLight.shadowCameraTop = d;
-directionalLight.shadowCameraBottom = -d;
-
-directionalLight.shadowCameraNear = 1;
-directionalLight.shadowCameraFar = 4;
-
-directionalLight.shadowMapWidth = 1024;
-directionalLight.shadowMapHeight = 1024;
-
-directionalLight.shadowBias = -0.005;
-directionalLight.shadowDarkness = 0.15;
-
-}
-
-function onWindowResize() {
-
-camera.aspect = document.getElementById("WebGL").offsetWidth/ document.getElementById("WebGL").offsetHeight;
-camera.updateProjectionMatrix();
-
-renderer.setSize( document.getElementById("WebGL").offsetWidth, document.getElementById("WebGL").offsetHeight );
-
-}
-
-function animate() {
-
-requestAnimationFrame( animate );
-
-render();
-stats.update();
-controls.update();
-}
-
-function render() {
-
-var timer = Date.now() * 0.0005;
-
-/*camera.position.x = Math.sin( timer ) * 3;
-camera.position.z = Math.cos( timer ) * 3;*/
-
-// camera.lookAt( cameraTarget );
-
-renderer.render( scene, camera );
-
-}
-
-function onDocumentTouchStart( event ) {
-				
-				event.preventDefault();
-				
-				event.clientX = event.touches[0].clientX;
-				event.clientY = event.touches[0].clientY;
-				onDocumentMouseDown( event );
-
-			}	
-
-
-
-function onDocumentMouseDown( event ) {
-console.log(document.getElementById("WebGL").offsetWidth);
-console.log(document.getElementById("WebGL").offsetHeight);
-
-				event.preventDefault();
-				console.log(document.getElementById("WebGL").offsetTop);
-				
-				mouse.x =  ((event.clientX -document.getElementById("WebGL").offsetLeft)/ document.getElementById("WebGL").offsetWidth )* 2 - 1 ;
-				mouse.y =   -((event.clientY -document.getElementById("WebGL").offsetTop)/ document.getElementById("WebGL").offsetHeight ) * 2 + 1;
-				console.log("mouse");
-				console.log(mouse);
-
-				var material = new THREE.LineBasicMaterial({
-					color: 0x0000ff
-				});
-				console.log(camera.getWorldDirection());
-				console.log(camera.position);
-				var direct=camera.getWorldDirection();
-				var geometry = new THREE.Geometry();
-				var myvect=new THREE.Vector3( camera.position.x+camera.getWorldDirection().x*10, camera.position.y+camera.getWorldDirection().y*10, camera.position.z+camera.getWorldDirection().z*10 );
-				
-				console.log(myvect);
-
-				raycaster.setFromCamera( mouse, camera );
-				var mouseclick=new THREE.Vector3(raycaster.ray.origin.x+raycaster.ray.direction.x*10,raycaster.ray.origin.y+raycaster.ray.direction.y*10,raycaster.ray.origin.z+raycaster.ray.direction.z*10);
-
-				geometry.vertices.push(camera.position,myvect,mouseclick,camera.position
-					);
-
-				var line = new THREE.Line( geometry, material );
-				scene.add( line );
-				
-				console.log(raycaster.ray.direction);
-				console.log(raycaster.ray.origin);
-				/*raycaster.setFromCamera( mouse, camera );
-					console.log(raycaster);
-				var intersects = raycaster.intersectObjects( mesh );
-				console.log(intersects);
-				console.log(mesh.geometry.vertices );
-				if ( intersects.length > 0 ) {
-
-					intersects[ 0 ].object.material.color.setHex( Math.random() * 0xffffff );
-
-					var particle = new THREE.Sprite( particleMaterial );
-					particle.position.copy( intersects[ 0 ].point );
-					particle.scale.x = particle.scale.y = 16;
-					scene.add( particle );
-
-				}*/
-
-				
-			}
-
-
-
-</script>
-</body>
-</html>
+		<h1>Test de l'integration de ply dans webGL</h1>
+	</div>
+	<div id="info">
+		<a href="http://threejs.org" target="_blank">three.js</a> -
+		PLY loader test by <a href="https://github.com/menway">Wei Meng</a>. Image from <a href="http://people.sc.fsu.edu/~jburkardt/data/ply/ply.html">John Burkardt</a>
+	</div>
+	<div id="WebGL" style="width:50%;height:400px; "> </div>
+	<div style="float:right; width:45%; background:white">
+		<h1>Test de l'integration de ply dans webGL</h1>
+		<h4>SaisieMasq</h4>
+		<input type="radio" id="saisieMasqButton1" name="saisieMasqButton"  value="1"> Oui<br>
+		<input type="radio" id="saisieMasqButton2"  name="saisieMasqButton"   value="2" checked> Non<br>
+		<button id="submitMasq" >Masque terminé</button>
+	</div>
+	<script src="js/three.min.js"></script>
+	<script src="js/webGL_MicMac.js"></script>
+	<script src="js/Projector.js"></script>
+	<script src="js/PLYLoader.js"></script>
+	<script src="js/Detector.js"></script>
+	<script src="js/OrbitControls.js"></script>
+	<script src="js/CanvasRenderer.js"></script>
+	<script>
+
+	webGL_MicMac();
+		</script>
+	</body>
+	</html>
