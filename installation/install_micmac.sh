@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# il faudra ajouter une variable cheminInstallation pour copier micmac au bon endroit avec OPium
+# du style /opt/opium/micmac
+
 # faire une version autonome avec versions telechargees plutot que apt-get install
 
 sudo apt-get install make
