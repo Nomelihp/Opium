@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 
 
 // Notifie le module métier qu'il y a du boulot : A PLACER A LA DERNIERE VALIDATION DE L'UTILISATEUR
-/*module_metier.request('nouveaux chantiers a traiter', {boulot:"oui"}, function(data){
+/*module_metier.request('notification', {boulot:"oui"}, function(data){
     console.log(data);
   });
 */

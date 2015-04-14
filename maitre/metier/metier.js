@@ -1,11 +1,17 @@
 var messenger = require('messenger');
-var process = require('process');
+var fs = require('fs');
+var json = require('../config.json');
 
-// On prend le port d'écoute en argument d'entrée
-console.log("Listen Port :"+process.argv[2]);
+// Fonction pour récupérer le port d'écoute depuis ../config.json
+var listen_port = json.metier;
+var notif_port = json.MMManager;
 
-var server = messenger.createListener(parseInt(process.argv[0]));
+console.log(listen_port);
+
+var server = messenger.createListener(listen_port);
 
 server.on('notification',function(message, data){
 	
 });
+
+
