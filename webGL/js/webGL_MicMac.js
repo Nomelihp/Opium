@@ -29,12 +29,12 @@ var raycaster = new THREE.Raycaster();
 var saisieMasq = false;
 var listMasque2D= [];
 
+var file
 
-
-webGL_MicMac= function() {
+webGL_MicMac= function(fileParam) {
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-
+file =fileParam;
 init();
 animate();
 }
@@ -45,19 +45,14 @@ function init() {
 
 	container = document.getElementById( 'WebGL' );
 
-
-	
-
-	
 	camera = new THREE.PerspectiveCamera( 60, document.getElementById("WebGL").offsetWidth / document.getElementById("WebGL").offsetHeight, 1, 1000 );
-
 	camera.position.z = 4;
-	controls = new THREE.OrbitControls( camera , container,container );
 
+	controls = new THREE.OrbitControls( camera , container,container );
 	controls.addEventListener( 'change', render );
 
 	scene = new THREE.Scene();
-	scene.fog = new THREE.Fog( 0x72645b, 2, 15 );
+	scene.fog = new THREE.Fog( 0x72645b, 2, 100 );
 
 
 // PLY file
@@ -66,9 +61,9 @@ var loader = new THREE.PLYLoader();
 loader.addEventListener( 'load', function ( event ) {
 
 	var geometry = event.content;
-	
-	var material = new THREE.PointCloudMaterial( { color: geometry.colors*255 ,size:0.1} );
-	mesh = new THREE.PointCloud( geometry, material );
+		
+	var material = new THREE.PointCloudMaterial( { vertexColors: THREE.VertexColors,size:0.1} );
+	mesh = new THREE.PointCloud( geometry,material);
 
 //---------------- Contient toutes les données du ply---
 
@@ -77,9 +72,8 @@ console.log(toto);*/
 
 //-----------------
 
-mesh.position.set( 0, - 0.25, 0 );
+mesh.position.set( geometry.vertices[0].x, geometry.vertices[0].y, geometry.vertices[0].z );
 mesh.rotation.set( 0, - Math.PI / 2, 0 );
-mesh.scale.set( 0.5, 0.5, 0.5 );
 
 mesh.castShadow = true;
 mesh.receiveShadow = true;
@@ -87,7 +81,7 @@ mesh.receiveShadow = true;
 scene.add( mesh );
 
 } );
-loader.load( './AperiCloud_MEP.ply' );
+loader.load( './'+file );
 
 // Lights
 
