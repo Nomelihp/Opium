@@ -127,13 +127,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-6" id="on_click1">
+                      <form method="get">
                         <div class="notice-board">
                             <label>Nom du chantier</label>
-                            <input type="text" class="form-control" placeholder="Text input" />
+                            <input type="text" class="form-control" placeholder="Text input" name="nom" />
                             <br />
 
                             <label>Commentaire</label>
-                            <textarea class="form-control" rows="3" placeholder="Text Area"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="Text Area" name="commentaire"></textarea>
                             <br />
 
                             <div class="dropdown">
@@ -148,14 +149,14 @@
 
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked />
+                                    <input type="radio" name="statue" id="optionsRadios1" value="option1" checked />
                                     Statue
                                 </label>
                             </div>
 
                             <div class="radio disabled">
                                 <label>
-                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" disabled />
+                                    <input type="radio" name="façade" id="optionsRadios2" value="option2" disabled />
                                     Façade
                                 </label>
                             </div>
@@ -165,6 +166,7 @@
                         <a href="#" class="btn btn-social btn-other" onclick="javascript:afficher_cacher('on_click2');">
                             Suivant
                         </a>
+                        <from>
                     </div>
 
                     <div class="col-md-6" id="on_click2" style="display:none;">

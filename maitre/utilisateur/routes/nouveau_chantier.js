@@ -11,7 +11,7 @@ var module_metier = messenger.createSpeaker(params.metier);
 /* GET home page. */
 router.get('/', function(req, res, next) {
   console.log('OK');
-  console.log(req.query.test);	
+  console.log(req.query);	
 
   res.render('nouveau_chantier', { title: 'Nouveau Chantier' });
 });
