@@ -46,7 +46,7 @@ cd ..
 # poru que le cmake passe, il faut changer à la main le fichier 
 tar xzvf culture3d-38eb29ce21ae.tar.gz
 cp HG_defines.h culture3d-38eb29ce21ae/include/general/
-cd culture3d-1dc6ed0163c5/
+cd culture3d-38eb29ce21ae/
 
 mkdir build
 cd build
