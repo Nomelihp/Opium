@@ -1,27 +1,26 @@
-////////////////// A ecrire by Philemon, signé Régis ////////////////////
-function uploadFichiers()
+// Envoie les fichiers choisis par l'utilisateur au serveur depuis l'onglet 2
+function uploadImagesOnglet2()
 {
+
+
+	// Pour chaque image
+	//for...
 	// crée une nouvelle requette XMLHttpRequest
 	var objReq = new XMLHttpRequest();
-	if(!objReq.upload){
-		// la fonction upload n'est pas disponible dans le navigateur.
-		// On ne peut pas envoyer de fichier avec XMLHttpRequest, il faut prévoir une alternative
-		
-	}else if(file.size>document.getElementById("MAX_FILE_SIZE").value){
-		// vérifie le poids du fichier avant de l'envoyer
-		
-	}else if(!(file.type=="image/jpeg" || file.type=="image/png" || file.type=="image/gif")){
-		// le fichier n'est pas du bon type
-		
-	}else{
-		// tout est ok, on peut envoyer le fichier
-		// on commence par créer un objet formData dans lequel
-		// on va ajouter les données que l'on souhaite envoyer
+	
+	if(!(file.type=="image/jpeg" || file.type=="image/png" || file.type=="image/gif")){
+	// le fichier n'est pas du bon type
+	
+	}
+	else
+	{
 		var formData = new FormData();
 		formData.append("img", file);
+		
 		// crée une fonction pour afficher la progression de la requête
 		objReq.upload.onprogress = function(evt){
 		}
+		
 		// onreadystatechange est appelé à chaque changement d'état de la requête
 		objReq.onreadystatechange=function(){
 		}
@@ -30,20 +29,23 @@ function uploadFichiers()
 		// on envoie l'objet formData
 		objReq.send(formData);
 	}
+	
 }
 ////////////////////////////////////////////////////////////////////////
 
-function afficher_cacher(id) {
+// Valide un onglet en envoyant les paramètres du formulaire et en affichant l'onglet suivant
+function valider_onglet(id) {
 
     var affichages = ["on_click1","on_click2","on_click3","on_click4"];
     var boutons = ["cliquable1","cliquable2","cliquable3","cliquable4"]
 
-
+	// change le style des tous les boutons et cache tous les onglets
     for(var i=0; i<4; i++) {
             document.getElementById(affichages[i]).style.display="none";
             chevronRight(boutons[i]);
     }
 
+	// Montre l'onglet courant
     document.getElementById(id).style.display="block";
     chevronDown(id.replace("on_click","cliquable"));
 	
@@ -72,6 +74,7 @@ function afficher_cacher(id) {
     return true;
 }
 
+// Affiche ou cache un div en fonction de sa visibilité précédente
 function afficher(id) {
     console.log("AFFICHER");
 
@@ -84,6 +87,7 @@ function afficher(id) {
     return true;
 }
 
+// Tourne le chevron d'un onglet
 function tournerChevron(id) {
     console.log("TOURNER_CHEVRON");
 
