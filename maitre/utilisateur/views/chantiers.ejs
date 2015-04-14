@@ -141,6 +141,10 @@
 
                         <div class="panel-body" id="zone" style="display:none;">
                             Divers trucs.
+                            <div id="WebGL" style="width:50%;height:400px; "> </div>
+                            <input type="radio" id="saisieMasqButton1" name="saisieMasqButton"  value="1"> Oui<br>
+                            <input type="radio" id="saisieMasqButton2"  name="saisieMasqButton"   value="2" checked> Non<br>
+                            <button id="submitMasq" >Masque terminé</button>
                         </div>
                     </div>
 
@@ -181,5 +185,15 @@
     <script src="/javascripts/jquery-1.11.1.js"></script>
     <!-- BOOTSTRAP SCRIPTS  -->
     <script src="/javascripts/bootstrap.js"></script>
+    <script src="/javascripts/webGL/three.min.js"></script>
+    <script src="/javascripts/webGL/webGL_MicMac.js"></script>
+    <script src="/javascripts/webGL/PLYLoader.js"></script>
+    <script src="/javascripts/webGL/Detector.js"></script>
+    <script src="/javascripts/webGL/OrbitControls.js"></script>
+    <script src="/javascripts/webGL/CanvasRenderer.js"></script>
+    <script>
+
+    webGL_MicMac("AperiCloud_MEP.ply");
+        </script>
 </body>
 </html>
