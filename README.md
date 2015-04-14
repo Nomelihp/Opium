@@ -11,4 +11,8 @@ Micmac Online: a Jaw-dropping Interface for Three-dimension and Orthophotographs
 DEBUG=app:* ./bin/www
 ```
 
-
+Pour Windows:
+```
+set DEBUG=my-application
+node ./bin/www
+```
