@@ -122,24 +122,22 @@
 
                 </div>
             </div>
-
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="col-md-6" id="on_click1">
-                      <form method="get">
+						<form method="get"  >
                         <div class="notice-board">
                             <label>Nom du chantier</label>
-                            <input type="text" class="form-control" placeholder="Text input" name="nom" />
+                            <input type="text" class="form-control" placeholder="Text input" id="chantiername" />
                             <br />
 
                             <label>Commentaire</label>
-                            <textarea class="form-control" rows="3" placeholder="Text Area" name="commentaire"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="Text Area" id="comment" ></textarea>
                             <br />
 
                             <div class="dropdown">
                                 <label>Type de chantier</label>
-                                <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" >
                                     <i class="fa fa-question" ></i>
                                 </button>
                                 <div class="dropdown-menu" role="presentation" aria-labelledby="dropdownMenu1">
@@ -161,14 +159,12 @@
                                 </label>
                             </div>
                         </div>
+                        <br />						
+						
+                        <input href="#" class="btn btn-social btn-other" value="Suivant" onclick="javascript:afficher_cacher('on_click2');">
+						</form>
 
-                        <br />
-                        <a href="#" class="btn btn-social btn-other" onclick="javascript:afficher_cacher('on_click2');">
-                            Suivant
-                        </a>
-                        <from>
                     </div>
-
                     <div class="col-md-6" id="on_click2" style="display:none;">
                         <!--DRAG AND DROP ZONE BELOW -->
                         <div class="container">

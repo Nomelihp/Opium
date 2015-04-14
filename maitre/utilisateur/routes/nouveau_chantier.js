@@ -10,11 +10,22 @@ var module_metier = messenger.createSpeaker(params.metier);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log('OK');
-  console.log(req.query);	
-
+	
+	var chantier = req.query.chantier;
+	console.log(chantier);
+	var commentaire = req.query.commentaire;
+	console.log(commentaire);
+	var optionstatue = req.query.optionstatue;
+	console.log(optionstatue);
+	
+  console.log('OK')	
   res.render('nouveau_chantier', { title: 'Nouveau Chantier' });
 });
+
+//router.post('/', function(req, res, next) {
+//	console.log('POST');
+//	res.render('nouveau_chantier', { title: 'Nouveau Chantier' });
+//}
 
 
 // Notifie le module métier qu'il y a du boulot : A PLACER A LA DERNIERE VALIDATION DE L'UTILISATEUR

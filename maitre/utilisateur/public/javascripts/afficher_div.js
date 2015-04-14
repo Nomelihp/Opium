@@ -46,8 +46,20 @@ function afficher_cacher(id) {
 
     document.getElementById(id).style.display="block";
     chevronDown(id.replace("on_click","cliquable"));
+	
     var req = new XMLHttpRequest();
-    req.open('GET', 'nouveau_chantier', true);
+	
+	if(id=='on_click2'){
+	var chantier = document.getElementById("chantiername").value;
+	var commentaire = document.getElementById("comment").value;
+	var optionstatue = document.getElementById("optionsRadios1").value;
+	req.open('GET', 'nouveau_chantier?chantier=' + chantier + '&commentaire=' + commentaire + '&optionstatue=' + optionstatue, true);
+	}
+	
+	//var imagefile = document.getElementById("js-upload-files").files[0];
+	//alert(user);
+	
+    
     req.onreadystatechange = function (aEvt) {
       if (req.readyState == 4) {
          if(req.status == 200)
@@ -56,7 +68,7 @@ function afficher_cacher(id) {
           dump("Erreur pendant le chargement de la page.\n");
       }
     };
-    req.send(null);
+    req.send();
     return true;
 }
 
