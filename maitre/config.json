@@ -1,0 +1,8 @@
+{
+	"utilisateur":"9204",
+	"metier":"9205",
+	"MMManager":"9206",
+	"mongodb_port":"2752",
+	"mongodb_db_name":"opium",
+	"mongodb_ip":"127.0.0.1"
+}
