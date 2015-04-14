@@ -53,3 +53,8 @@ echo "Nbre de coeurs à la compilation : " $NBRP
 make install -j$NBRP
 cd ..
 cd ..
+
+# ajout du chemin d'installation de MicMac au PATH
+echo "# ajout du chemin d installation de MicMac au PATH" >> ~/.bashrc
+echo PATH='$PATH':$(pwd)/culture3d-38eb29ce21ae/bin/ >> ~/.bashrc
+
