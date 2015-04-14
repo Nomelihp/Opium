@@ -1,3 +1,38 @@
+////////////////// A ecrire by Philemon, signé Régis ////////////////////
+function uploadFichiers()
+{
+	// crée une nouvelle requette XMLHttpRequest
+	var objReq = new XMLHttpRequest();
+	if(!objReq.upload){
+		// la fonction upload n'est pas disponible dans le navigateur.
+		// On ne peut pas envoyer de fichier avec XMLHttpRequest, il faut prévoir une alternative
+		
+	}else if(file.size>document.getElementById("MAX_FILE_SIZE").value){
+		// vérifie le poids du fichier avant de l'envoyer
+		
+	}else if(!(file.type=="image/jpeg" || file.type=="image/png" || file.type=="image/gif")){
+		// le fichier n'est pas du bon type
+		
+	}else{
+		// tout est ok, on peut envoyer le fichier
+		// on commence par créer un objet formData dans lequel
+		// on va ajouter les données que l'on souhaite envoyer
+		var formData = new FormData();
+		formData.append("img", file);
+		// crée une fonction pour afficher la progression de la requête
+		objReq.upload.onprogress = function(evt){
+		}
+		// onreadystatechange est appelé à chaque changement d'état de la requête
+		objReq.onreadystatechange=function(){
+		}
+		// ouvre une requete post, avec l'adresse du formulaire
+		objReq.open("POST", document.getElementById("uploadForm").action, true);
+		// on envoie l'objet formData
+		objReq.send(formData);
+	}
+}
+////////////////////////////////////////////////////////////////////////
+
 function afficher_cacher(id) {
 
     var affichages = ["on_click1","on_click2","on_click3","on_click4"];
