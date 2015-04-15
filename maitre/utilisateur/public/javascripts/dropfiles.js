@@ -1,4 +1,4 @@
-function($) {
+var uploadClassDef = function($) {
     'use strict';
 
     // UPLOAD CLASS DEFINITION
