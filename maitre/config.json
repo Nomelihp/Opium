@@ -4,5 +4,6 @@
 	"MMManager":"9206",
 	"mongodb_port":"27017",
 	"mongodb_db_name":"opium",
-	"mongodb_ip":"127.0.0.1"
+	"mongodb_ip":"127.0.0.1",
+	"repertoire_donnees":""
 }
