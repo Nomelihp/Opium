@@ -336,3 +336,16 @@ footer {
   color: #222;
   border-color: #222;
 }
+
+.horizontal-radio .inline-radio {
+  display: inline;
+  list-style-type: none;
+}
+
+.radio .radio, .radio .checkbox, .checkbox .radio, .checkbox .checkbox, .radio .form-inline {
+  margin-left: 40px;
+}
+
+.inline-input {
+  width: 50px;
+}

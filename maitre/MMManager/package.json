@@ -6,7 +6,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "mongoose": "~4.0.1",
     "messenger": "~0.0.9"
   }
 }
