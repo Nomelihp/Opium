@@ -13,9 +13,9 @@
 	
 	Pour intégrer la saisie d'un masque 3D ajouter les balises suivantes :
 
-		<input type="radio" id="saisieMasqButton1" name="saisieMasqButton"  value="1"> Oui<br>
-		<input type="radio" id="saisieMasqButton2"  name="saisieMasqButton"   value="2" checked> Non<br>
-		<button id="submitMasq" >Masque terminé</button>
+		<input type="radio" id="saisieMasqButton1+le nom de la div contenant le webGL" name="saisieMasqButton"  value="1"> Oui<br>
+		<input type="radio" id="saisieMasqButton2+le nom de la div contenant le webGL"  name="saisieMasqButton"   value="2" checked> Non<br>
+		<button id="submitMasq+le nom de la div contenant le webGL" >Masque terminé</button>
 */
 
 
@@ -28,26 +28,26 @@ var camera, scene, renderer;
 var raycaster = new THREE.Raycaster();
 var saisieMasq = false;
 var listMasque2D= [];
+var file;
+var div;
 
-var file
-
-webGL_MicMac= function(fileParam) {
+webGL_MicMac= function(fileParam,divParam) {
 if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
-
+div=divParam;
 file =fileParam;
 init();
 animate();
 }
 
-
+//--------------- Initialisation------
 
 function init() {
 
-	container = document.getElementById( 'WebGL' );
-
-	camera = new THREE.PerspectiveCamera( 60, document.getElementById("WebGL").offsetWidth / document.getElementById("WebGL").offsetHeight, 1, 1000 );
+	container = document.getElementById( div );
+//--------------- Camera------
+	camera = new THREE.PerspectiveCamera( 60, document.getElementById(div).offsetWidth / document.getElementById(div).offsetHeight, 1, 1000 );
 	camera.position.z = 4;
-
+//--------------- Déplacement dans l'interface 3D------
 	controls = new THREE.OrbitControls( camera , container,container );
 	controls.addEventListener( 'change', render );
 
@@ -55,32 +55,31 @@ function init() {
 	scene.fog = new THREE.Fog( 0x72645b, 2, 100 );
 
 
-// PLY file
+// Lecture du PLY file
 
 var loader = new THREE.PLYLoader();
 loader.addEventListener( 'load', function ( event ) {
 
 	var geometry = event.content;
-		
 	var material = new THREE.PointCloudMaterial( { vertexColors: THREE.VertexColors,size:0.1} );
-	mesh = new THREE.PointCloud( geometry,material);
 
+	mesh = new THREE.PointCloud( geometry,material);
+	mesh.position.set( geometry.vertices[0].x, geometry.vertices[0].y, geometry.vertices[0].z );
+	mesh.rotation.set( 0, - Math.PI / 2, 0 );
+	mesh.castShadow = true;
+	mesh.receiveShadow = true;
+
+	scene.add( mesh );
 //---------------- Contient toutes les données du ply---
 
-/*var toto=mesh.geometry;
-console.log(toto);*/
+/*
+console.log(mesh.geometry);
+*/
 
 //-----------------
-
-mesh.position.set( geometry.vertices[0].x, geometry.vertices[0].y, geometry.vertices[0].z );
-mesh.rotation.set( 0, - Math.PI / 2, 0 );
-
-mesh.castShadow = true;
-mesh.receiveShadow = true;
-
-scene.add( mesh );
-
 } );
+
+
 loader.load( './'+file );
 
 // Lights
@@ -92,13 +91,14 @@ addShadowedLight( 0.5, 1, -1, 0xffaa00, 1 );
 
 
 
-mouse = new THREE.Vector2();
+
+
 // renderer
 
 renderer = new THREE.WebGLRenderer( { antialias: true } );
 renderer.setClearColor( scene.fog.color );
 renderer.setPixelRatio( window.devicePixelRatio );
-renderer.setSize( document.getElementById("WebGL").offsetWidth, document.getElementById("WebGL").offsetHeight );
+renderer.setSize( document.getElementById(div).offsetWidth, document.getElementById(div).offsetHeight );
 
 renderer.gammaInput = true;
 renderer.gammaOutput = true;
@@ -108,7 +108,7 @@ renderer.shadowMapCullFace = THREE.CullFaceBack;
 
 container.appendChild( renderer.domElement );
 
-
+// --- Initialisation du Saisie Masque----
 if(saisieMasq){
 	document.addEventListener( 'click', onDocumentMouseClick, false );
 	document.removeEventListener( 'contextmenu', onDocumentRightClick, false )
@@ -116,10 +116,12 @@ if(saisieMasq){
 }
 
 try{
-	document.getElementById("submitMasq").addEventListener("click", envoyerXML);
-document.getElementById("saisieMasqButton1").addEventListener("click", masqClick);
-document.getElementById("saisieMasqButton2").addEventListener("click", masqClick);
-}catch (e){console.log(' Les boutons pour la saisie du masque ne sont pas disponible');}
+	document.getElementById("submitMasq"+div).addEventListener("click", envoyerJSON);
+	document.getElementById("saisieMasqButton1"+div).addEventListener("click", masqClick);
+	document.getElementById("saisieMasqButton2"+div).addEventListener("click", masqClick);
+}catch (e){
+	console.log(' Les boutons pour la saisie du masque ne sont pas disponible');
+}
 
 
 window.addEventListener( 'resize', onWindowResize, false );
@@ -155,10 +157,10 @@ function addShadowedLight( x, y, z, color, intensity ) {
 
 function onWindowResize() {
 
-	camera.aspect = document.getElementById("WebGL").offsetWidth/ document.getElementById("WebGL").offsetHeight;
+	camera.aspect = document.getElementById(div).offsetWidth/ document.getElementById(div).offsetHeight;
 	camera.updateProjectionMatrix();
 
-	renderer.setSize( document.getElementById("WebGL").offsetWidth, document.getElementById("WebGL").offsetHeight );
+	renderer.setSize( document.getElementById(div).offsetWidth, document.getElementById(div).offsetHeight );
 
 }
 
@@ -180,15 +182,14 @@ function render() {
 }
 
 
-
+//----- Fonction pour supprimer un point du saisie masque avec le click droit
 function onDocumentRightClick( event ) {
 
 	event.preventDefault();
 	var nbChildren=scene.children.length;
-	console.log(scene);
 	if (listMasque2D.length>0){
 		if (listMasque2D.length>1){
-			console.log(nbChildren);
+
 			scene.children.pop();
 
 		} 
@@ -196,86 +197,88 @@ function onDocumentRightClick( event ) {
 		listMasque2D.pop();
 	}
 	
-	
-	
-
 }
 
 
-
+//----- Fonction pour ajouter un point du saisie masque avec le click gauche
 function onDocumentMouseClick( event ) {
 	
-	var rectBox=document.getElementById("WebGL").getBoundingClientRect();
+	var rectBox=document.getElementById(div).getBoundingClientRect();
 	if(event.clientX<rectBox.right 
 		&& event.clientX>rectBox.left 
 		&& event.clientY<rectBox.bottom 
 		&& event.clientY>rectBox.top){
 
-
 		event.preventDefault();
 
-
-	mouse.x =  ((event.clientX -rectBox.left)/ rectBox.width )* 2 - 1 ;
-	mouse.y =   -((event.clientY -rectBox.top)/ rectBox.height ) * 2 + 1;
+		var mouse = new THREE.Vector2();
+		mouse.x =  ((event.clientX -rectBox.left)/ rectBox.width )* 2 - 1 ;
+		mouse.y =   -((event.clientY -rectBox.top)/ rectBox.height ) * 2 + 1;
 	
-
-	var material = new THREE.LineBasicMaterial({
-		color: 0x0000ff
-	});
-
-	var direct=camera.getWorldDirection();
-	var geometry = new THREE.Geometry();
-	
-	
-
-	raycaster.setFromCamera( mouse, camera );
-	var mouseclick=new THREE.Vector3(raycaster.ray.origin.x+raycaster.ray.direction.x*5,raycaster.ray.origin.y+raycaster.ray.direction.y*5,raycaster.ray.origin.z+raycaster.ray.direction.z*5);
+		raycaster.setFromCamera( mouse, camera );
+		var mouseclick=new THREE.Vector3(raycaster.ray.origin.x+raycaster.ray.direction.x*5,raycaster.ray.origin.y+raycaster.ray.direction.y*5,raycaster.ray.origin.z+raycaster.ray.direction.z*5);
 
 	
 
 	
 		if (listMasque2D.length!=0){
-		geometry.vertices.push(scene.children[scene.children.length-1].position,mouseclick);
-		var line = new THREE.Line( geometry, material );
-		scene.add( line );
-	}
-	
+			var geometry = new THREE.Geometry();
+			var material = new THREE.LineBasicMaterial({color: 0x0000ff});
+			geometry.vertices.push(scene.children[scene.children.length-1].position,mouseclick);
+			var line = new THREE.Line( geometry, material );
+			scene.add( line );
+		}
+		
 
-	listMasque2D.push(new THREE.Vector2(event.clientX -rectBox.left,event.clientY -rectBox.top));
-	var sphere = new THREE.Mesh( new THREE.SphereGeometry( 0.1, 26, 18 ), new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.FlatShading, overdraw: true, wireframe:true } ) );
-   sphere.position.set(mouseclick.x,mouseclick.y,mouseclick.z);
-   scene.add( sphere );
+		listMasque2D.push(new THREE.Vector2(event.clientX -rectBox.left,event.clientY -rectBox.top));
+		var sphere = new THREE.Mesh( new THREE.SphereGeometry( 0.1, 26, 18 ), new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.FlatShading, overdraw: true, wireframe:true } ) );
+	    sphere.position.set(mouseclick.x,mouseclick.y,mouseclick.z);
+	    scene.add( sphere );
 
   
 }
 
 }
-function envoyerXML(){    
+function envoyerJSON(){    
 	
-var rectBox=document.getElementById("WebGL").getBoundingClientRect();
-	console.log(listMasque2D);
+	var rectBox=document.getElementById(div).getBoundingClientRect();
+	
 
-	if (listMasque2D.length<3) { alert("Vous devez selectionner un minimum de 3 points")} else{
-		var text = '{ "SelectionInfo" : { "Item" : {ModelViewMatrix: "';
+	if (listMasque2D.length<3) { 
+		alert("Vous devez selectionner un minimum de 3 points")
+	} else{
+		var text = '{ "SelectionInfo" : { "Item" : ';
+
+		text = text+ '{"ModelViewMatrix": [';
 		text= text+camera.matrix.elements[0];
 		for (var i = 1; i < 16; i++) {
-			text= text+' '+camera.matrix.elements[i];
+			text= text+', '+camera.matrix.elements[i];
 		};
-		text= text+'", "ProjMatrix" : "';
+
+		text= text+'], "ProjMatrix" : [';
 		text= text+camera.projectionMatrix.elements[0];
 		for (var i = 1; i < 16; i++) {
-			text= text+" "+camera.projectionMatrix.elements[i];
+			text= text+', '+camera.projectionMatrix.elements[i];
 		};
-		text= text+'", "glViewport" : "';
-		text= text+0+" "+0+" "+rectBox.width+" "+rectBox.height+'", Pt : [';
-		text= text+'"'+listMasque2D[0].x+" "+listMasque2D[0].y+'"';
-		for (var i = 0; i < listMasque2D.length; i++) {
-			text= text+',"'+listMasque2D[i].x+" "+listMasque2D[i].y+'"';
+
+		text= text+'], "glViewport" : [';
+		text= text+0+", "+0+", "+rectBox.width+", "+rectBox.height+'], ';
+
+		text= text + '"Pt" : [';
+		text= text+' ['+listMasque2D[0].x+','+listMasque2D[0].y+']';
+		for (var i = 1; i < listMasque2D.length; i++) {
+			text= text+' ,['+listMasque2D[i].x+','+listMasque2D[i].y+']';
 		};
-		text= text+'],"Mode" : "1"}}';
+		text= text+'],"Mode" : "1"}}}';
 
-
-		console.log(text);
+		
+		
+		try {
+  			var masqjson=JSON.parse(text);  
+			
+		} catch (e) {
+			console.log("erreur");
+		}
 		
 		/*var form = document.createElement("form");
     	var	input = document.createElement("input");
@@ -294,6 +297,8 @@ var rectBox=document.getElementById("WebGL").getBoundingClientRect();
 	}
 };
 
+//----- Activer Désactiver la saisie du Masque
+
 function masqClick(myRadio){
 	
 	if(myRadio.target.value=="1") {saisieMasq=true;
@@ -302,12 +307,13 @@ function masqClick(myRadio){
 		document.addEventListener( 'contextmenu', onDocumentRightClick, false );
 		
 	}
-		if (myRadio.target.value=="2") {saisieMasq=false;
-			controls.enabled = true;
-			document.removeEventListener( 'click', onDocumentMouseClick, false );
-			document.removeEventListener( 'contextmenu', onDocumentRightClick, false );
-			
-		}
+
+	if (myRadio.target.value=="2") {saisieMasq=false;
+		controls.enabled = true;
+		document.removeEventListener( 'click', onDocumentMouseClick, false );
+		document.removeEventListener( 'contextmenu', onDocumentRightClick, false );
+		
+	}
 
 
-		}
+}
