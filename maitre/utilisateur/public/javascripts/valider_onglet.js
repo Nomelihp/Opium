@@ -52,9 +52,11 @@ function valider_onglet(id) {
     var req = new XMLHttpRequest();
 	
 	if(id=='on_click2'){
+	//Récupération des valeurs du formulaire
 	var chantier = document.getElementById("chantiername").value;
 	var commentaire = document.getElementById("comment").value;
 	var optionstatue = document.getElementById("optionsRadios1").value;
+	//Envoi en requête des valeurs du formulaire au serveur
 	req.open('GET', 'nouveau_chantier?chantier=' + chantier + '&commentaire=' + commentaire + '&optionstatue=' + optionstatue, true);
 	}
 	
