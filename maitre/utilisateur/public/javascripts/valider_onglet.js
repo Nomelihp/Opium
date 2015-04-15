@@ -113,7 +113,6 @@ function valider_onglet(id) {
 
 // Affiche ou cache un div en fonction de sa visibilité précédente
 function afficher(id) {
-    console.log("AFFICHER");
 
     if(document.getElementById(id).style.display=="block") {
         document.getElementById(id).style.display="none";
@@ -126,7 +125,6 @@ function afficher(id) {
 
 // Tourne le chevron d'un onglet
 function tournerChevron(id) {
-    console.log("TOURNER_CHEVRON");
 
     //if the chevron is right, set it to down, and if down, set it to right
     if (document.getElementById(id).innerHTML.indexOf("right") > -1)  {
