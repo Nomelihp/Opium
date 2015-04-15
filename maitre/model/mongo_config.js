@@ -13,17 +13,17 @@ mongoose.connect('mongodb://'+mongodb_ip+':'+mongodb_port+'/'+mongodb_db_name+'/
 
 // Créer le la collection besoins
 var besoins_schema = new Schema({},{ strict: false });
-var besoins = mongoose.model('besoins', besoins_schema);
+exports.besoins = mongoose.model('besoins', besoins_schema);
 
 // Créer la collection jobs
 var jobs_schema = new Schema({},{ strict: false });
-var jobs = mongoose.model('jobs',jobs_schema, 'jobs');
+exports.jobs = mongoose.model('jobs',jobs_schema, 'jobs');
 
 // Créer la collection esclaves
 var esclaves_schema = new Schema({},{ strict: false });
-var esclaves = mongoose.model('esclaves',esclaves_schema,'esclaves');
+exports.esclaves = mongoose.model('esclaves',esclaves_schema,'esclaves');
 
 // Export des collections comme module
-module.exports = besoins;
-module.exports = jobs;
-module.exports = esclaves;
+//module.exports = besoins;
+//module.exports = jobs;
+//module.exports = esclaves;

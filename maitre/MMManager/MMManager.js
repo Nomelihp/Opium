@@ -1,6 +1,6 @@
 var port = require('../config.json');
-var mongoose = require('mongoose');
 var messenger = require('messenger')
+var model = require('../model/mongo_config');
 
 var listen_port = parseInt(port.MMManager);
 
