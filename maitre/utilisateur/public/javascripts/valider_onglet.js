@@ -23,7 +23,6 @@ function uploadImagesOnglet2()
 		
 		// onreadystatechange est appelé à chaque changement d'état de la requête
 		objReq.onreadystatechange=function(){
-			
 		}
 		// ouvre une requete post, avec l'adresse du formulaire
 		objReq.open("POST", document.getElementById("uploadForm").action, true);
@@ -52,19 +51,26 @@ function valider_onglet(id) {
 	
     var req = new XMLHttpRequest();
 	
-	<div id="idchantier" name="-1" style="display: none;">
+	//var idchantier = document.getElementById("idchantier").name;
+	//alert(idchantier);
 	
-	var idchantier = document.getElementById(idchantier).name;
+	//On récupère l'idChantier de la page
+	idChantier = document.forms['idchantier'].elements[0].value;
+	if(idChantier==-1){
+		//On donne un idChantier si y en a pas
+		idChantier = 0; //A modifier, à récupérer auprès du serveur
+		document.forms['idchantier'].elements[0].value = idChantier;
+	}
+	//alert(document.forms['idchantier'].elements[0].value);
 	
 	
-	if(id=='on_click2'){
+	
 	//Récupération des valeurs du formulaire
 	var chantier = document.getElementById("chantiername").value;
 	var commentaire = document.getElementById("comment").value;
 	var optionstatue = document.getElementById("optionsRadios1").value;
 	//Envoi en requête des valeurs du formulaire au serveur
-	req.open('GET', 'nouveau_chantier?chantier=' + idchantier + '&commentaire=' + commentaire + '&optionstatue=' + optionstatue, true);
-	}
+	req.open('GET', 'nouveau_chantier?chantier=' + idChantier + '&commentaire=' + commentaire + '&optionstatue=' + optionstatue, true);
 	
 	//var imagefile = document.getElementById("js-upload-files").files[0];
 	//alert(user);
@@ -73,8 +79,7 @@ function valider_onglet(id) {
     req.onreadystatechange = function (aEvt) {
       if (req.readyState == 4) {
          if(req.status == 200)
-          //dump(req.responseText);
-          idChantier=87;
+          ;//dump(req.responseText);
          else
           ;//dump("Erreur pendant le chargement de la page.\n");
       }
