@@ -23,6 +23,7 @@ function uploadImagesOnglet2()
 		
 		// onreadystatechange est appelé à chaque changement d'état de la requête
 		objReq.onreadystatechange=function(){
+			
 		}
 		// ouvre une requete post, avec l'adresse du formulaire
 		objReq.open("POST", document.getElementById("uploadForm").action, true);
@@ -65,7 +66,8 @@ function valider_onglet(id) {
     req.onreadystatechange = function (aEvt) {
       if (req.readyState == 4) {
          if(req.status == 200)
-          ;//dump(req.responseText);
+          //dump(req.responseText);
+          idChantier=87;
          else
           ;//dump("Erreur pendant le chargement de la page.\n");
       }
