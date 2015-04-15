@@ -1,0 +1,12 @@
+{
+  "name": "utilisateur",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "mongoose": "~4.0.1"
+  }
+}
+

@@ -1,1 +1,0 @@
-# Procédure d'intallation Windows
