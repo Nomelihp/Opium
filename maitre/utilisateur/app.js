@@ -14,6 +14,7 @@ var exemples = require('./routes/exemples');
 var credits = require('./routes/credits');
 var presentation = require ('./routes/presentation');
 var tutoriels = require ('./routes/tutoriels');
+var test_nouveau_chantier = require('./routes/test_nouveau_chantier');
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use('/exemples',exemples);
 app.use('/credits',credits);
 app.use('/presentation',presentation);
 app.use('/tutoriels',tutoriels);
+app.use('/test_nouveau_chantier',test_nouveau_chantier);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

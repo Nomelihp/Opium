@@ -1,30 +1,19 @@
 var express = require('express');
 var router  = express.Router();
 var params 	= require('../../config.json');
+var modele  = require('../../model/mongo_config');
 
- //  Nécessaire pour notifier le module métier
+// ------------  Pré-requis pour notification métier   ------------  
 var messenger = require('messenger');
-
-// Nécessaire pour la notification du module métier
 var module_metier = messenger.createSpeaker(params.metier);
-
-// Renvoi de l'interface pour la saisie d'un nouveau chantier
+//  --------------------------------------------------------------- 
+  
+// ------------  Renvoi de l'interface pour la saisie d'un nouveau chantier   ------------  
 router.get('/', function(req, res, next) {
 
-	//On récupère les informations envoyées dans le fromulaire par valider_onglet.js
-	/*var chantier = req.query.chantier;
-	console.log(chantier);
-	var commentaire = req.query.commentaire;
-	console.log(commentaire);
-	var optionstatue = req.query.optionstatue;
-	console.log(optionstatue);
-	*/
-	
-
-  // vue nouveau chantier
   res.render('nouveau_chantier', { title: 'Nouveau Chantier' });
 })
-// Réception des éléments du formulaire
+// ------------  Réception des éléments du formulaire    ------------  
 .post('/',function(req, res, next) {
 
 	// parametres envoyés par le client sous forme de JSON
@@ -33,23 +22,31 @@ router.get('/', function(req, res, next) {
 	// chantier existant : on met à jour le document correspondant
 	if (params.idChantier)
 	{
-		console.log(params.idChantier);
+
+		modele.besoins.findByIdAndUpdate(params.idChantier, params, function(err, besoin) {
+		if (err) throw err;
+		  // LOGS  A INSERER
+		});
+		// A changer
+		res.send("verifier ce quil faut envoyer");
 	}
 	// Nouveau chantier
 	else
 	{
+		var besoin = new modele.besoins(params);
+		besoin.save(function(err, doc, num){
+			// LOGS  A INSERER
+		});
+		console.log(besoin.id);
 		
 		// on renvoie le numéro assigné au chantier
-		res.send({idChantier:0});
+		res.send({idChantier:besoin.id});
 	}
 	//next();
-	// parser req.body pour tester idChantier dans les parametres ou pas
-	
-	
 	
 	//next(new Error('not implemented'));
 })
-
+//  --------------------------------------------------------------- 
 
 // Notifie le module métier qu'il y a du boulot : A PLACER A LA DERNIERE VALIDATION DE L'UTILISATEUR
 /*module_metier.request('notification', {boulot:"oui"}, function(data){
