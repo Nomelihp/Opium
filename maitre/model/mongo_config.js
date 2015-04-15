@@ -12,15 +12,15 @@ var mongodb_ip = config_json.mongodb_ip;
 mongoose.connect('mongodb://'+mongodb_ip+':'+mongodb_port+'/'+mongodb_db_name+'/');
 
 // Créer le la collection besoins
-var besoins_schema = new Schema({});
+var besoins_schema = new Schema({},{ strict: false });
 var besoins = mongoose.model('besoins', besoins_schema);
 
 // Créer la collection jobs
-var jobs_schema = new Schema({});
+var jobs_schema = new Schema({},{ strict: false });
 var jobs = mongoose.model('jobs',jobs_schema, 'jobs');
 
 // Créer la collection esclaves
-var esclaves_schema = new Schema({});
+var esclaves_schema = new Schema({},{ strict: false });
 var esclaves = mongoose.model('esclaves',esclaves_schema,'esclaves');
 
 // Export des collections comme module
