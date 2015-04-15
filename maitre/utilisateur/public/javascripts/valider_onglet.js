@@ -49,8 +49,6 @@ function valider_onglet(id) {
     document.getElementById(id).style.display="block";
     chevronDown(id.replace("on_click","cliquable"));
 	
-    var req = new XMLHttpRequest();
-	
 	//On récupère l'idChantier de la page
 	idChantier = document.forms['idchantier'].elements[0].value;
 	if(idChantier==-1){
@@ -58,47 +56,36 @@ function valider_onglet(id) {
 		idChantier = 0; //A modifier, à récupérer auprès du serveur
 		document.forms['idchantier'].elements[0].value = idChantier;
 	}
-	//alert(document.forms['idchantier'].elements[0].value);
 	
-	var getinfo = ["chantiername", "comment", "optionsRadios1"]
-	// on ajoute "1" à l'Id pour qu'il corresponde à l'id du formulaire
+	var getinfo = ["nom", "commentaire", "type"]
+	
+	//Création d'un objet JSON
+	var formjson = {};
+	//Ajout de l'id du chantier
+	formjson._id = idChantier;
+	
+	// on ajoute "a" à l'Id pour qu'il corresponde à l'id du formulaire
 	var idform = id+"a";
 	// Récupération du formulaire
 	var Form = document.forms[idform];
 	// Boucle tous les éléments du formulaire i
 	var el = Form.elements; 
-//	for (var l = 0; l < el.length; l++)
-//		{
-//		var idelement = el[l].id;
-//		for (var i =0; 
-//		alert(idelement);
-//		}
+	for (var l = 0; l < el.length; l++)
+		{
+		var idelement = el[l].id;
+			for (var i =0; i < getinfo.length; i++){
+				//Si l'id est dans la liste des input à récupérer, on l'ajoute à l'objet JSON
+				if( idelement==getinfo[i] ){
+				formjson[idelement] = el[l].value;
+				break;
+				}
+			}
+		}
 	
+	//Pour l'envoi en POST des informations au serveur
+	var req = new XMLHttpRequest();	
+	req.open('POST','/nouveau_chantier',true);
 	
-	
-	
-	//var form = document.forms('Form');
-	
-	//var formData = JSON.stringify($(Form).serializeArray());
-	
-    //var el = Form.elements;         
-    //for(I = 0; I < el.length; I++) {
-	//		var Value = el[I].value;
-	//		}
-    //}
-	
-	
-	//Récupération des valeurs du formulaire
-	var chantier = document.getElementById("chantiername").value;
-	var commentaire = document.getElementById("comment").value;
-	var optionstatue = document.getElementById("optionsRadios1").value;
-	//Envoi en requête des valeurs du formulaire au serveur
-	req.open('GET', 'nouveau_chantier?chantier=' + idChantier + '&commentaire=' + commentaire + '&optionstatue=' + optionstatue, true);
-	
-	//var imagefile = document.getElementById("js-upload-files").files[0];
-	//alert(user);
-	
-    
     req.onreadystatechange = function (aEvt) {
       if (req.readyState == 4) {
          if(req.status == 200)
@@ -107,7 +94,10 @@ function valider_onglet(id) {
           ;//dump("Erreur pendant le chargement de la page.\n");
       }
     };
-    req.send();
+
+	//On précise que l'information qu'on envoie est du JSON
+	req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    req.send(JSON.stringify(formjson));
     return true;
 }
 
