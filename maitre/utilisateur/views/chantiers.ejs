@@ -37,75 +37,18 @@
                 </div>
 
                 <div class="panel-body">
-                    <div class="form-group dropdown panel panel-success">
-                        <div class="panel-heading">
-                            <h4>
-                                <button class="btn btn-success btn-sm" id="config-button" type="button" aria-expanded="true" onclick="javascript:afficher('config');javascript:plusMoins('config-button');">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                                Configuration
-                            </h4>
-                        </div>
+                    
+                    <% include chantiers/onglet_configuration %> 
 
-                        <div class="panel-body" id="config" style="display:none;">
-                            Divers trucs.
-                        </div>
-                    </div>
+                    <% include chantiers/onglet_miseEnPlace %> 
 
-                    <div class="form-group dropdown panel panel-success">
-                        <div class="panel-heading">
-                            <h4>
-                                <button class="btn btn-success btn-sm" id="mise-button" type="button" aria-expanded="true" onclick="javascript:afficher('mise');javascript:plusMoins('mise-button');">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                                Mise en place
-                            </h4>
-                        </div>
-
-                        <div class="panel-body" id="mise" style="display:none;">
-                            Divers trucs.
-                        </div>
-                    </div>
-
-                    <div class="form-group dropdown panel panel-success">
-                        <div class="panel-heading">
-                            <h4>
-                                <button class="btn btn-success btn-sm" id="zone-button" type="button" aria-expanded="true" onclick="javascript:afficher('zone');javascript:plusMoins('zone-button');">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                                Restriction de la zone d'intérêt
-                            </h4>
-                        </div>
-
-                        <div class="panel-body" id="zone" style="display:none;">
-                            Divers trucs.
-                            <div id="Restriction" style="width:50%;height:400px; "> </div>
-                            <input type="radio" id="saisieMasqButton1Restriction" name="saisieMasqButton"  value="1"> Oui<br>
-                            <input type="radio" id="saisieMasqButton2Restriction"  name="saisieMasqButton"   value="2" checked> Non<br>
-                            <button id="submitMasqRestriction" >Masque terminé</button>
-                        </div>
-                    </div>
-
-                    <div class="form-group dropdown panel panel-success">
-                        <div class="panel-heading">
-                            <h4>
-                                <button class="btn btn-success btn-sm" id="produits-button" type="button" aria-expanded="true" onclick="javascript:afficher('produits');javascript:plusMoins('produits-button');">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                                Produits
-                            </h4>
-                        </div>
-
-                        <div class="panel-body" id="produits" style="display:none;">
-                            <div id="produit" style="width:80%;height:600px; "> </div>
-                            Divers trucs.
-                        </div>
-                    </div>
+                    <% include chantiers/onglet_zone %> 
+                    
+                    <% include chantiers/onglet_produits %> 
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- CONTENT-WRAPPER SECTION END-->
     <% include head_foot/footer %>
