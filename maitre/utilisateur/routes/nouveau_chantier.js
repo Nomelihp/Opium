@@ -19,6 +19,11 @@ router.get('/', function(req, res, next) {
 	// parametres envoyés par le client sous forme de JSON
 	var params =req.body;
 	
+	// Réception des images
+	if (params.envoiFichier)
+	{
+		console.log("Réception des images");
+	}
 	// chantier existant : on met à jour le document correspondant
 	if (params.idChantier)
 	{
