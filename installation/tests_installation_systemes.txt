@@ -1,6 +1,7 @@
 #!/bin/bash
 ########################## test sur machine camembert sous Docker: debian 8 ############################
 cd ..
+
 docker pull debian:jessie
 docker run -ti -v $(pwd)/installation:/installation debian:jessie /bin/bash
 

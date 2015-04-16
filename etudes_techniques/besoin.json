@@ -18,6 +18,7 @@ chantier
                       dimensions: [15,199],
                     }
             images_liaison:0:Non, 1:Oui,
+            liste_images:["ok.JPG","blabl.tiff",""]
           }
 
           ,
