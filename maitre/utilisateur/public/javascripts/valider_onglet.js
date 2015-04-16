@@ -60,16 +60,19 @@ function valider_onglet(id) {
 	}
 	//alert(document.forms['idchantier'].elements[0].value);
 	
+	var getinfo = ["chantiername", "comment", "optionsRadios1"]
 	// on ajoute "1" à l'Id pour qu'il corresponde à l'id du formulaire
-	var idform = id+"1";
+	var idform = id+"a";
 	// Récupération du formulaire
-	var form = document.forms[idform];
+	var Form = document.forms[idform];
 	// Boucle tous les éléments du formulaire i
-	for (var l = 0; l < form.elements.length; l++)
-		{
-		// Affiche le nom ou la propriété name de l’élément l
-		alert(form.elements[l].value);
-		}
+	var el = Form.elements; 
+//	for (var l = 0; l < el.length; l++)
+//		{
+//		var idelement = el[l].id;
+//		for (var i =0; 
+//		alert(idelement);
+//		}
 	
 	
 	
