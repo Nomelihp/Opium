@@ -1,0 +1,53 @@
+<div class="col-md-6" id="on_click2" style="display:none;">
+    <!--DRAG AND DROP ZONE BELOW -->
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Import des images</strong></div>
+                <div class="panel-body">
+
+                <!-- Standard Form -->
+                <h4>Selectionnez des images depuis votre ordinateur</h4>
+          
+                <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="file" name="files[]" id="js-upload-files" multiple>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Importer</button>
+                    </div>
+                </form>
+
+                <!-- Drop Zone -->
+                <h4>Ou faites-les glisser en-dessous</h4>
+                <div class="upload-drop-zone" id="drop-zone">
+                    Faites glisser vos images ici
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                        <span class="sr-only">60%</span>
+                    </div>
+                </div>
+
+                <!-- Upload Finished -->
+                <div class="js-upload-finished">
+                    <h3>Fichiers importés</h3>
+                    <div id="listeImageImporteesDiv" class="list-group">
+                        <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">OK</span>image-01.jpg</a>
+                        <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">OK</span>image-02.jpg</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /container -->
+<!--END OF DRAG AND DROP-->
+
+    <br />
+    <a href="#" class="btn btn-social btn-google" onclick="javascript:valider_onglet('on_click3');">
+        Configuration avancée
+    </a>
+    <a href="#" class="btn btn-social btn-other" onclick="javascript:valider_onglet('on_click4');">
+        Terminer & lancer le calcul
+    </a>
+</div>
