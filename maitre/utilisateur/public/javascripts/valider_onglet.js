@@ -51,9 +51,6 @@ function valider_onglet(id) {
 	
     var req = new XMLHttpRequest();
 	
-	//var idchantier = document.getElementById("idchantier").name;
-	//alert(idchantier);
-	
 	//On récupère l'idChantier de la page
 	idChantier = document.forms['idchantier'].elements[0].value;
 	if(idChantier==-1){
@@ -63,6 +60,32 @@ function valider_onglet(id) {
 	}
 	//alert(document.forms['idchantier'].elements[0].value);
 	
+	var getinfo = ["chantiername", "comment", "optionsRadios1"]
+	// on ajoute "1" à l'Id pour qu'il corresponde à l'id du formulaire
+	var idform = id+"a";
+	// Récupération du formulaire
+	var Form = document.forms[idform];
+	// Boucle tous les éléments du formulaire i
+	var el = Form.elements; 
+//	for (var l = 0; l < el.length; l++)
+//		{
+//		var idelement = el[l].id;
+//		for (var i =0; 
+//		alert(idelement);
+//		}
+	
+	
+	
+	
+	//var form = document.forms('Form');
+	
+	//var formData = JSON.stringify($(Form).serializeArray());
+	
+    //var el = Form.elements;         
+    //for(I = 0; I < el.length; I++) {
+	//		var Value = el[I].value;
+	//		}
+    //}
 	
 	
 	//Récupération des valeurs du formulaire
