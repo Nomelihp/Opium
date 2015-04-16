@@ -2,11 +2,11 @@
 
 <!-----------------------------Champ caché idChantier -------------------------->
 	
-	<input id="idChantier" type="hidden" value="-1" >
+    <input id="idChantier" type="hidden" value="-1" >
 	
 <!-----------------------------Champ caché onglet courrant -------------------------->
 	
-	<input id="ongletCourrant" type="hidden" value="on_click1" >
+    <input id="ongletCourrant" type="hidden" value="on_click1" >
 	
     <section class="menu-section">
         <div class="container">
@@ -72,13 +72,22 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
+                    
+<!---------------------------- ONGLET CREATION ------------------------------------->
                     <% include nouveau_chantier/onglet_creation/main %>
-                                        
+<!---------------------------- FIN ONGLET CREATION --------------------------------->
+                                    
+<!---------------------------- ONGLET IMPORT IMAGES -------------------------------->
                     <% include nouveau_chantier/onglet_import_images/main %>
+<!---------------------------- FIN ONGLET IMPORT IMAGES ---------------------------->
 
+<!---------------------------- ONGLET PARAMETRAGE ---------------------------------->
                     <% include nouveau_chantier/onglet_parametrage/main %>
+<!---------------------------- FIN ONGLET PARAMETRAGE------------------------------->
 
+<!---------------------------- ONGLET VALIDATION--- -------------------------------->
                     <% include nouveau_chantier/onglet_validation/main %>
+<!---------------------------- FIN ONGLET VALIDATION-------------------------------->
                 </div>
             </div>
         </div>
