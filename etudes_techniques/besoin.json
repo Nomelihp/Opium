@@ -18,6 +18,7 @@ chantier
                       dimensions: [15,199],
                     }
             images_liaison:0:Non, 1:Oui,
+	    liste_images: ["blabla,jpg","ok.tiff","bla.JPG"]
           }
 
           ,
@@ -39,5 +40,6 @@ chantier
             rapport_mise_place:0:Non, 1:Oui,
 
             }
-  masque: "masque.xml"
+  masque: "masque.xml",
+  flag_PrisenCompte: 0
 }
