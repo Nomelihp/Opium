@@ -22,8 +22,3 @@ exports.jobs = mongoose.model('jobs',jobs_schema, 'jobs');
 // Créer la collection esclaves
 var esclaves_schema = new Schema({},{ strict: false });
 exports.esclaves = mongoose.model('esclaves',esclaves_schema,'esclaves');
-
-// Export des collections comme module
-//module.exports = besoins;
-//module.exports = jobs;
-//module.exports = esclaves;
