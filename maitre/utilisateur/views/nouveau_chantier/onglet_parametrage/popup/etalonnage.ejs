@@ -2,11 +2,11 @@
     Modifier l'étalonnage
 </button>
 
-<div class="modal fade" id="myEtalon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="myEtalon" tabindex="-1" role="dialog" aria-labelledby="myEtalonLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Définition de l'étalonnage</h4>
+                <h4 class="modal-title" id="myEtalonLabel">Définition de l'étalonnage</h4>
             </div>
             <form method="get">
                 <div class="modal-body">
@@ -76,8 +76,8 @@
                             </label>
 
                             <div class="form-inline">
-                                <!-- EXTENSION TEMPORAIRE. À CHANGER -->
-                                <input type="file" name="files[]" id="js-upload-files" accept=".xml" disabled  />
+                                <!-- VERIFIER LE MIME, PLUTOT -->
+                                <input type="file" name="files[]" id="js-upload-calib-files" accept=".xml" disabled  />
                             </div>
                         </div>
                     </div>
