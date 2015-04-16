@@ -7,6 +7,12 @@ var modele  = require('../../model/mongo_config');
 var messenger = require('messenger');
 var module_metier = messenger.createSpeaker(params.metier);
 //  --------------------------------------------------------------- 
+
+
+// ------------  Réception d'un fichier  -----------------
+var receptionFichier = function(requete){
+	
+}
   
 // ------------  Renvoi de l'interface pour la saisie d'un nouveau chantier   ------------  
 router.get('/', function(req, res, next) {
@@ -18,17 +24,18 @@ router.get('/', function(req, res, next) {
 
 	// parametres envoyés par le client sous forme de JSON
 	var params =req.body;
-	
+	console.log(params);
 	// Réception des images
 	if (params.envoiFichier)
 	{
 		console.log("Réception des images");
+		receptionFichier(req);
 	}
 	// chantier existant : on met à jour le document correspondant
-	if (params.idChantier)
+	if (params._id)
 	{
 
-		modele.besoins.findByIdAndUpdate(params.idChantier, params, function(err, besoin) {
+		modele.besoins.findByIdAndUpdate(params._id, params, function(err, besoin) {
 		if (err) throw err;
 		  // LOGS  A INSERER
 		});
@@ -45,7 +52,7 @@ router.get('/', function(req, res, next) {
 		console.log(besoin.id);
 		
 		// on renvoie le numéro assigné au chantier
-		res.send({idChantier:besoin.id});
+		res.send({_id:besoin.id});
 	}
 	//next();
 	
