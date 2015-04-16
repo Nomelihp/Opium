@@ -1,0 +1,11 @@
+{
+	"utilisateur":"9204",
+	"metier":"9205",
+	"MMManager":"9206",
+	"mongodb_port":"27017",
+	"mongodb_db_name":"opium",
+	"mongodb_ip":"127.0.0.1",
+	"repertoire_donnees":"",
+	"repertoire_micmac":"",
+	"repertoire_mongodb":""
+}
