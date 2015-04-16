@@ -5,5 +5,7 @@
 	"mongodb_port":"27017",
 	"mongodb_db_name":"opium",
 	"mongodb_ip":"127.0.0.1",
-	"repertoire_donnees":""
+	"repertoire_donnees":"",
+	"repertoire_micmac":"",
+	"repertoire_mongodb":""
 }
