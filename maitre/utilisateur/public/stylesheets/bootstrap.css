@@ -4960,6 +4960,17 @@ a.thumbnail.active {
   background-color: #fcf8e3;
   border-color: #faebcc;
 }
+.alert-en-cours{
+  color: #FFA500;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.alert-big-warning{
+  color: #FF0000;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
 .alert-warning hr {
   border-top-color: #f7e1b5;
 }

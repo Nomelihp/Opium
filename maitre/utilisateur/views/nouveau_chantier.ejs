@@ -169,6 +169,9 @@
 						</form>
 
                     </div>
+                    
+<!----------------------------------------------------  Onglet import des images -------------------------------------------------> 
+                    
                     <div class="col-md-6" id="on_click2" style="display:none;">
                         <!--DRAG AND DROP ZONE BELOW -->
                         <div class="container">
@@ -178,6 +181,7 @@
 
                               <!-- Standar Form -->
                               <h4>Selectionnez des images depuis votre ordinateur</h4>
+                              
                               <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
                                 <div class="form-inline">
                                   <div class="form-group">
@@ -203,7 +207,7 @@
                               <!-- Upload Finished -->
                               <div class="js-upload-finished">
                                 <h3>Fichiers importés</h3>
-                                <div class="list-group">
+                                <div id="listeImageImporteesDiv" class="list-group">
                                   <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">OK</span>image-01.jpg</a>
                                   <a href="#" class="list-group-item list-group-item-success"><span class="badge alert-success pull-right">OK</span>image-02.jpg</a>
                                 </div>
@@ -214,10 +218,15 @@
                         <!--END OF DRAG AND DROP-->
 
                         <br />
-                        <a href="#" class="btn btn-social btn-other" onclick="javascript:valider_onglet('on_click3');">
-                            Suivant
+                        <a href="#" class="btn btn-social btn-google" onclick="javascript:valider_onglet('on_click3');">
+                            Configuration avancée
+                        </a>
+                        <a href="#" class="btn btn-social btn-other" onclick="javascript:valider_onglet('on_click4');">
+                            Terminer & lancer le calcul
                         </a>
                     </div>
+
+<!-------------------------------------------------- Fin Onglet import des images -----------------------------------------------------> 
 
                     <div class="col-md-6" id="on_click3" style="display:none;">
                         <div class="panel-body">
@@ -338,11 +347,14 @@
                                     <h4>Profile Tab</h4>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                                 </div>
+                                
                                 <div class="tab-pane fade" id="cameras-pills">
                                     <div class="panel-body">
                                         <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myExif">
                                           Visualiser les données exif
                                         </button>
+                                        
+                                        <!-- POP UP POUR VISUALISER LES DONNEES EXIF -->
                                         <div class="modal fade" id="myExif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -354,17 +366,88 @@
                                                         <div class="radio horizontal-radio">
                                                             <div class="inline-radio">
                                                                 <label>
-                                                                    <input type="radio" name="radioexif" id="image" value="option2" checked />
+                                                                    <input type="radio" name="radioexif" id="boutonImage" value="option2" onclick="javascript: afficher('parImage');afficher('parBaliseExif');" checked />
                                                                     Par image&nbsp;
                                                                 </label>
                                                             </div>
                                                             <div class="inline-radio">
                                                                 <label>
-                                                                    <input type="radio" name="radioexif" id="balise" value="option2" />
+                                                                    <input type="radio" name="radioexif" id="boutonExif" value="option2" onclick="javascript: afficher('parImage');afficher('parBaliseExif');" />
                                                                     Par balise exif
                                                                 </label>
                                                             </div>
                                                         </div>
+                                                        
+                                                        <div id="parBaliseExif" style="display: none">
+                                                            <label>Choix de la balise&nbsp;</label>
+                                                            <select class="form-control">
+                                                                <option>Nom de la balise</option>
+                                                            </select>
+                                                            <br/>
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-body">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-striped">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>IMG01.jpg</td>
+                                                                                    <td>50mm</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>IMG02.jpg</td>
+                                                                                    <td>50mm</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>IMG03.jpg</td>
+                                                                                    <td>50mm</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td>IMG77.jpg</td>
+                                                                                    <td>100mm</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        
+                                                        <div id="parImage" style="display: block">
+                                                            <label>Choix de l'image&nbsp;</label>
+                                                            <select class="form-control">
+                                                                <option>Nom de l'image</option>
+                                                            </select>
+                                                            <br/>
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-body">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-striped">
+                                                                            <tbody>
+                                                                                <tr id="Appareil">
+                                                                                    <td>Appareil</td>
+                                                                                    <td>Canon EOS 5D</td>
+                                                                                </tr>
+                                                                                <tr id="Date">
+                                                                                    <td>Date</td>
+                                                                                    <td>24/04/1993</td>
+                                                                                </tr>
+                                                                                <tr id="Focale">
+                                                                                    <td>Focale</td>
+                                                                                    <td>50mm</td>
+                                                                                </tr>
+                                                                                <tr id="ISO">
+                                                                                    <td>ISO</td>
+                                                                                    <td>200</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                         
+                                                         </div>
+                                                        
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -373,10 +456,13 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <!-- FIN DE LA POP-UP -->
+                                                                                
                                         <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myEtalon">
                                           Modifier l'étalonnage
                                         </button>
+                                        
+                                        <!-- POP UP POUR LA DEFINITION D'UN NOUVEL ETALONNAGE -->
                                         <div class="modal fade" id="myEtalon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -390,9 +476,9 @@
                                                                 <label>Nom de la calibration</label>
                                                                 <input type="text" class="form-control" placeholder="Text input" id="calibrationname" />
                                                                                               
-                                                                <div class="radio">
+                                                                <div class="radio" id="auto">
                                                                     <label>
-                                                                        <input type="radio" name="optionsRadios" id="auto" value="option1" checked />
+                                                                        <input type="radio" class="root1" name="optionsRadios" value="option1" onclick="javascript:grise('fromFile', null, 'root1');degrise('auto', null, 'root2');" checked />
                                                                         Auto-Étalonnage
                                                                     </label>
                                                                     
@@ -420,43 +506,43 @@
                                                                         <p>Solution technique à trouver</p>
                                                                     </div>
                                                                     
-                                                                    <div class="checkbox">
+                                                                    <div class="checkbox" id="infoCapteur">
                                                                         <label>
-                                                                            <input type="checkbox" value="" />
+                                                                            <input type="checkbox" class="root3" value="" id="infoCapteurCb" onchange='informationCapteur("infoCapteurCb");'/>
                                                                             Informations sur le capteur
                                                                         </label>
                                                                         
-                                                                        <div class="checkbox">
+                                                                        <div class="checkbox root2">
                                                                             <label>
-                                                                                <input type="checkbox" value="" />
+                                                                                <input type="checkbox" value="" disabled />
                                                                                 Focale réelle
-                                                                                <input type="number" class="inline-input" id="focalereelle" min="0" /> mm
+                                                                                <input type="number" class="inline-input" id="focalereelle" min="0" disabled /> mm
                                                                             </label>
                                                                         </div>
-                                                                        <div class="checkbox">
+                                                                        <div class="checkbox root2">
                                                                             <label>
-                                                                                <input type="checkbox" value="" />
+                                                                                <input type="checkbox" value="" disabled />
                                                                                 Dimensions
-                                                                                <input type="number" class="inline-input" id="dim_1" min="0" />
-                                                                                x
-                                                                                <input type="number" class="inline-input" id="dim_2" min="0" /> mm
+                                                                                <input type="number" class="inline-input" id="dim_1" min="0" disabled />
+                                                                                ×
+                                                                                <input type="number" class="inline-input" id="dim_2" min="0" disabled /> mm
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 
-                                                                <div class="radio">
+                                                                <div class="radio" id="fromFile">
                                                                     <label>
-                                                                        <input type="radio" name="optionsRadios" id="fromFile" value="option2" />
+                                                                        <input type="radio" class="root1" name="optionsRadios" value="option2" onclick="javascript:grise('auto', null, 'root1');degrise('fromFile', null, 'NO_CLASS_NAME', true);" />
                                                                         Fichier de calibration
                                                                     </label>
 
-                                                                    <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                                                                    <form action="" method="post" enctype="multipart/form-data" id="js-upload-form" >
                                                                         <div class="form-inline">
                                                                             <div class="form-group">
-                                                                                <input type="file" name="files[]" id="js-upload-files">
+                                                                                <input type="file" name="files[]" id="js-upload-files" disabled  />
                                                                             </div>
-                                                                            <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Importer</button>
+                                                                            <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit" disabled >Importer</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -471,11 +557,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- FIN DE LA POP-UP -->
                                     </div>
                                 </div>
                             </div>
                         </div>
-
 
                         <br />
                         <a href="#" class="btn btn-social btn-other" onclick="javascript:valider_onglet('on_click4');">
@@ -512,6 +598,7 @@
     <script src="/javascripts/jquery-1.11.1.js"></script>
     <!-- BOOTSTRAP SCRIPTS  -->
     <script src="/javascripts/bootstrap.js"></script>
+    <script type="text/javascript" src="/javascripts/pop-up.js"></script>
     <script type="text/javascript" src="/javascripts/valider_onglet.js"></script>
     <script type="text/javascript" src="/javascripts/dropfiles.js"></script>
 </body>
