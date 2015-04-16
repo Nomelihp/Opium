@@ -1,7 +1,3 @@
-// Fonction pour récupérer le document de "jobs" qui correspond au nom d'un chantier donnné
-function getJobsDocument( nom_chantier ){
-  return  model.besoins.find({ nom: nom_chantier });
-}
 
 // Fonction pour traduire les champs de jobs en JSON
 function toJSON(id_chantier, commande, etat, erreur){
