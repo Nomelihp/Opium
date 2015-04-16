@@ -30,19 +30,21 @@ var importeFichier = function(fichier) {
 		nomsFichierInseres.push(fichier.name);
 		
 		var fd = new FormData();
-		fd.append("envoiFichier", "true");// flag d'envoi de fichier
-		fd.append("idChantier", document.forms['idchantier'].elements[0].value);
 		
+		fd.append("envoiFichier", "true");// flag d'envoi de fichier
+		fd.append("_id", document.forms['idchantier'].elements[0].value);// identifiant du chantier
 		fd.append("fichier", fichier);
+		
 		var xhr = new XMLHttpRequest();
 		xhr.open('POST', '/nouveau_chantier', true);
 		
 		xhr.upload.onprogress = function(e) {
 			if (e.lengthComputable) {
-			var percentComplete = (e.loaded / e.total) * 100;
-			console.log(percentComplete + '% uploaded');
+				var percentComplete = (e.loaded / e.total) * 100;
+				console.log(percentComplete + '% uploaded');
 			}
 		};
+		
 		xhr.onload = function() {
 			if (this.status == 200) {
 				/*var resp = JSON.parse(this.response);
@@ -53,6 +55,7 @@ var importeFichier = function(fichier) {
 				*/
 			};
 		};
+		
 		xhr.send(fd); 
 	}
 }

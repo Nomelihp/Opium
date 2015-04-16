@@ -151,14 +151,14 @@
 
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="statue" id="optionsRadios1" value="option1" checked />
+                                    <input type="radio" name="statue" id="optionsRadios1" value="statue" checked />
                                     Statue
                                 </label>
                             </div>
 
                             <div class="radio disabled">
                                 <label>
-                                    <input type="radio" name="façade" id="optionsRadios2" value="option2" disabled />
+                                    <input type="radio" name="façade" id="optionsRadios2" value="facade" disabled />
                                     Façade
                                 </label>
                             </div>
@@ -255,13 +255,13 @@
 
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option1" checked />
+                                                <input type="radio" name="optionsRadios" id="optionsRadios3" value="2D" checked />
                                                 Deux masques 2D
                                             </label>
                                         </div>
                                         <div class="radio disabled">
                                             <label>
-                                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="option2" />
+                                                <input type="radio" name="optionsRadios" id="optionsRadios4" value="3D" />
                                                 Un masque 3D
                                             </label>
                                         </div>
@@ -297,12 +297,12 @@
 
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" value="" />
+                                                <input type="checkbox" value="echelle" />
                                                 Mise à l'échelle
                                             </label>
                                             <br />
                                             <label>
-                                                <input type="checkbox" value="" />
+                                                <input type="checkbox" value="basculement" />
                                                 Basculement
                                             </label>
                                         </div>
@@ -311,32 +311,32 @@
                                         <label> Produits à livrer</label>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" value="" checked />
+                                                <input type="checkbox" value="nuage3D" checked />
                                                 Nuage de points 3D
                                             </label>
                                             <br />
                                             <label>
-                                                <input type="checkbox" value="" />
+                                                <input type="checkbox" value="pointsLiaison" />
                                                 Points de liaison
                                             </label>
                                             <br />
                                             <label>
-                                                <input type="checkbox" value="" />
+                                                <input type="checkbox" value="nuagePoints" />
                                                 Nuage de points de liaison et position des caméras
                                             </label>
                                             <br />
                                             <label>
-                                                <input type="checkbox" value="" />
+                                                <input type="checkbox" value="Calibration" />
                                                 Calibration
                                             </label>
                                             <br />
                                             <label>
-                                                <input type="checkbox" value="" />
+                                                <input type="checkbox" value="FichierOrientation" />
                                                 Fichiers d'orientation
                                             </label>
                                             <br />
                                             <label>
-                                                <input type="checkbox" value="" />
+                                                <input type="checkbox" value="Rapport" />
                                                 Rapport de mise en place
                                             </label>
                                         </div>
@@ -366,13 +366,13 @@
                                                         <div class="radio horizontal-radio">
                                                             <div class="inline-radio">
                                                                 <label>
-                                                                    <input type="radio" name="radioexif" id="boutonImage" value="option2" onclick="javascript: afficher('parImage');afficher('parBaliseExif');" checked />
+                                                                    <input type="radio" name="radioexif" id="boutonImage" value="parImage" onclick="javascript: afficher('parImage');afficher('parBaliseExif');" checked />
                                                                     Par image&nbsp;
                                                                 </label>
                                                             </div>
                                                             <div class="inline-radio">
                                                                 <label>
-                                                                    <input type="radio" name="radioexif" id="boutonExif" value="option2" onclick="javascript: afficher('parImage');afficher('parBaliseExif');" />
+                                                                    <input type="radio" name="radioexif" id="boutonExif" value="parExif" onclick="javascript: afficher('parImage');afficher('parBaliseExif');" />
                                                                     Par balise exif
                                                                 </label>
                                                             </div>
@@ -467,31 +467,30 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                                         <h4 class="modal-title" id="myModalLabel">Définition de l'étalonnage</h4>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <form method="get"  >
+                                                    <form method="get">
+                                                        <div class="modal-body">
                                                             <div class="notice-board">
                                                                 <label>Nom de la calibration</label>
                                                                 <input type="text" class="form-control" placeholder="Text input" id="calibrationname" />
                                                                                               
                                                                 <div class="radio" id="auto">
                                                                     <label>
-                                                                        <input type="radio" class="root1" name="optionsRadios" value="option1" onclick="javascript:grise('fromFile', null, 'root1');degrise('auto', null, 'root2');" checked />
+                                                                        <input type="radio" class="root1" name="optionsRadios" value="auto" onclick="javascript:grise('fromFile', null, 'root1');degrise('auto', null, 'root2');" checked />
                                                                         Auto-Étalonnage
                                                                     </label>
                                                                     
                                                                     <div class="radio horizontal-radio">
                                                                         <div class="inline-radio">
                                                                             <label>
-                                                                                <input type="radio" name="options" id="standard" value="option2" checked />
+                                                                                <input type="radio" name="options" id="standard" value="standard" checked />
                                                                                 Standard&nbsp;
                                                                             </label>
                                                                         </div>
                                                                         <div class="inline-radio">
                                                                             <label>
-                                                                                <input type="radio" name="options" id="fisheye" value="option2" />
+                                                                                <input type="radio" name="options" id="fisheye" value="fisheye" />
                                                                                 Fish-Eye
                                                                             </label>
                                                                         </div>
@@ -499,7 +498,7 @@
                                                                     
                                                                     <div class="checkbox">
                                                                         <label>
-                                                                            <input type="checkbox" value="" />
+                                                                            <input type="checkbox" value="ImagesCalibration" />
                                                                             Images spécifiques pour la calibration
                                                                         </label>
                                                                         
@@ -508,20 +507,20 @@
                                                                     
                                                                     <div class="checkbox" id="infoCapteur">
                                                                         <label>
-                                                                            <input type="checkbox" class="root3" value="" id="infoCapteurCb" onchange='informationCapteur("infoCapteurCb");'/>
+                                                                            <input type="checkbox" class="root3" value="infoCapteur" id="infoCapteurCb" onchange='informationCapteur("infoCapteurCb");'/>
                                                                             Informations sur le capteur
                                                                         </label>
                                                                         
                                                                         <div class="checkbox root2">
                                                                             <label>
-                                                                                <input type="checkbox" value="" disabled />
+                                                                                <input type="checkbox" value="focaleReelle" disabled />
                                                                                 Focale réelle
                                                                                 <input type="number" class="inline-input" id="focalereelle" min="0" disabled /> mm
                                                                             </label>
                                                                         </div>
                                                                         <div class="checkbox root2">
                                                                             <label>
-                                                                                <input type="checkbox" value="" disabled />
+                                                                                <input type="checkbox" value="dimensions" disabled />
                                                                                 Dimensions
                                                                                 <input type="number" class="inline-input" id="dim_1" min="0" disabled />
                                                                                 ×
@@ -533,7 +532,7 @@
                                                                 
                                                                 <div class="radio" id="fromFile">
                                                                     <label>
-                                                                        <input type="radio" class="root1" name="optionsRadios" value="option2" onclick="javascript:grise('auto', null, 'root1');degrise('fromFile', null, 'NO_CLASS_NAME', true);" />
+                                                                        <input type="radio" class="root1" name="optionsRadios" value="fichier" onclick="javascript:grise('auto', null, 'root1');degrise('fromFile', null, 'NO_CLASS_NAME', true);" />
                                                                         Fichier de calibration
                                                                     </label>
 
@@ -547,13 +546,14 @@
                                                                     </form>
                                                                 </div>
                                                             </div>
-                                                            <br />						
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                                    </div>
+                                                            <br />	
+                                                        </div>					
+                                                                                                            
+                                                        <div class="modal-footer">
+                                                            <button type="reset" class="btn btn-default">Retour aux valeurs par défaut</button>
+                                                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Sauvegarder & quitter</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
