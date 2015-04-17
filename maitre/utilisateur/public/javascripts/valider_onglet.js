@@ -51,11 +51,12 @@ function valider_onglet(id) {
 	
 	//On récupère l'idChantier de la page
 	idChantier = document.forms['idchantier'].elements[0].value;
-	if(idChantier==-1){
+	console.log(document.forms['idchantier'].elements[0].value);
+	//if(idChantier==-1){
 		//On donne un idChantier si y en a pas
-		idChantier = 0; //A modifier, à récupérer auprès du serveur
-		document.forms['idchantier'].elements[0].value = idChantier;
-	}
+	//	idChantier = 0; //A modifier, à récupérer auprès du serveur
+	//	document.forms['idchantier'].elements[0].value = idChantier;
+	//:}
 	
 	var getinfo = ["nom", "commentaire", "type"]
 	
@@ -89,9 +90,13 @@ function valider_onglet(id) {
     req.onreadystatechange = function (aEvt) {
       if (req.readyState == 4) {
          if(req.status == 200){
-          var pouet = JSON.parse(req.responseText);
-          idChantier = pouet._id;
+		 //Récupération du nouvel id du chantier
+          var jsonrecu = JSON.parse(req.responseText);
+          idChantier = jsonrecu._id;
 		  console.log(idChantier);
+		  //On met l'id chantier dans la page
+		  document.forms['idchantier'].elements[0].value = idChantier;
+		  console.log(document.forms['idchantier'].elements[0].value);
 		  }
          else
           ;//dump("Erreur pendant le chargement de la page.\n");
