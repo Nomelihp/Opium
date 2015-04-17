@@ -1,10 +1,13 @@
 <% include head_foot/header %>
 
-<!-----------------------------Champ caché idChantier -------------------------->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - Champ caché idChantier - - - - - - - - - - - - - - - - - - -->
 	
-	<input id="idChantier" type="hidden" value="-1" >
+    <input id="idChantier" type="hidden" value="-1" >
 	
-
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - Champ caché onglet courant - - - - - - - - - - - - - - - - -->
+	
+    <input id="ongletCourant" type="hidden" value="on_click1" >
+	
     <section class="menu-section">
         <div class="container">
             <div class="row">
@@ -69,20 +72,29 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <% include nouveau_chantier/onglet_creation/main %>
-                                        
-                    <% include nouveau_chantier/onglet_import_images/main %>
+                    
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - ONGLET CREATION - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<% include nouveau_chantier/onglet_creation/main %>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN ONGLET CREATION - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+                                    
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - ONGLET IMPORT IMAGES - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<% include nouveau_chantier/onglet_import_images/main %>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN ONGLET IMPORT IMAGES - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-                    <% include nouveau_chantier/onglet_parametrage/main %>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - ONGLET PARAMETRAGE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<% include nouveau_chantier/onglet_parametrage/main %>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN ONGLET PARAMETRAGE- - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-                    <% include nouveau_chantier/onglet_validation/main %>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - ONGLET VALIDATION- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<% include nouveau_chantier/onglet_validation/main %>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN ONGLET VALIDATION- - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
                 </div>
             </div>
         </div>
     </div>
 
     <!-- CONTENT-WRAPPER SECTION END-->
-    <% include head_foot/footer %>
+<% include head_foot/footer %>
     <!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
     <!-- CORE JQUERY SCRIPTS -->
     <script src="/javascripts/jquery-1.11.1.js"></script>

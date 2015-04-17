@@ -35,7 +35,7 @@ function uploadImagesOnglet2()
 
 // Valide un onglet en envoyant les paramètres du formulaire et en affichant l'onglet suivant
 function valider_onglet(id) {
-
+	
     var affichages = ["on_click1","on_click2","on_click3","on_click4"];
     var boutons = ["cliquable1","cliquable2","cliquable3","cliquable4"]
 
@@ -49,12 +49,19 @@ function valider_onglet(id) {
     document.getElementById(id).style.display="block";
     chevronDown(id.replace("on_click","cliquable"));
 	
-	//On récupère l'idChantier de la page
+	//Onglet courrant(celui à valider), initialisé au premier onglet au premier appel
+	var ongletCourant = $("#ongletCourant").val();
 	
+	//On récupère l'idChantier de la page
 	var idChantier = $("#idChantier").val();
-
+	console.log(idChantier);
 	
 	var getinfo = ["nom", "commentaire", "type"]
+	//Tableau associatif "onglet courrant" : "id du formulaire à valider"
+	var tabass = {"on_click1" : "on_click1a", "on_click2" : "js-upload-form", "on_click3" : "on_click3a", "on_click4" : ""}
+	
+	//Pas de formulaire à valider dans l'onglet 4: on passe toutes les étapes
+	if(ongletCourant != "on_click4"){
 	
 	//Création d'un objet JSON
 	var formjson = {};
@@ -64,7 +71,8 @@ function valider_onglet(id) {
 	}
 	
 	// on ajoute "a" à l'Id pour qu'il corresponde à l'id du formulaire
-	var idform = id+"a";
+	var idform = tabass[ongletCourant];
+	console.log(idform);
 	// Récupération du formulaire
 	var Form = document.forms[idform];
 	// Boucle tous les éléments du formulaire i
@@ -103,6 +111,10 @@ function valider_onglet(id) {
 	//On précise que l'information qu'on envoie est du JSON
 	req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     req.send(JSON.stringify(formjson));
+	}
+	
+	//Changement d'onglet
+	$("#ongletCourant").val(id);
     return true;
 }
 
