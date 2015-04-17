@@ -63,7 +63,9 @@ function valider_onglet(id) {
 	//Création d'un objet JSON
 	var formjson = {};
 	//Ajout de l'id du chantier
+	if(idChantier!="-1"){
 	formjson._id = idChantier;
+	}
 	
 	// on ajoute "a" à l'Id pour qu'il corresponde à l'id du formulaire
 	var idform = id+"a";
