@@ -26,7 +26,8 @@ router.get('/', function(req, res, next) {
 	if (params._id)
 	{
 
-		modele.besoins.findByIdAndUpdate("ObjectId(\""+params._id+"\")", params, function(err, besoin) {
+		//modele.besoins.findByIdAndUpdate("ObjectId(\""+params._id+"\")", params, function(err, besoin) {
+		modele.besoins.findByIdAndUpdate(params._id, params, function(err, besoin) {
 		if (err) throw err;
 		  // LOGS  A INSERER
 		});

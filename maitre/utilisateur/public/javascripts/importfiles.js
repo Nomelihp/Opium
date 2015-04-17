@@ -17,16 +17,16 @@ var importeFichier = function(fichier) {
 	
 	if (tabExtensions.indexOf(extension) == -1)// Mauvaise extension
 	{
-		$("#listeImageImporteesDiv").append("<a id=\"fichier_"+numFichier+"\" href=\"#\" class=\"list-group-item list-group-item-warning\"><span class=\" alert-big-warning pull-right\">extension non gérée</span>"+fichier.name+"</a>");
+		$("#listeImageImporteesDiv").append("<a id=\"fichier_"+numFichier+"\" href=\"#\" class=\"list-group-item list-group-item-warning\"><span class=\"badge alert-big-warning pull-right\">extension non gérée</span>"+fichier.name+"</a>");
 	}
 	else if (nomsFichierInseres.indexOf(fichier.name) != -1)// Nom de fichier deja pris
 	{
-		$("#listeImageImporteesDiv").append("<a id=\"fichier_"+numFichier+"\" href=\"#\" class=\"list-group-item list-group-item-warning\"><span class=\" alert-big-warning pull-right\">nom de fichier existant</span>"+fichier.name+"</a>");
+		$("#listeImageImporteesDiv").append("<a id=\"fichier_"+numFichier+"\" href=\"#\" class=\"list-group-item list-group-item-warning\"><span class=\"badge alert-big-warning pull-right\">nom de fichier existant</span>"+fichier.name+"</a>");
 	}
 	// Tout est ok on importe vraiment
 	else
 	{
-		$("#listeImageImporteesDiv").append("<a id=\"fichier_"+numFichier+"\" href=\"#\" class=\"list-group-item list-group-item-warning\"><span id=\"etatFichier_"+numFichier+"\" class=\" alert-en-cours pull-right\">import en cours</span>"+fichier.name+"</a>");
+		$("#listeImageImporteesDiv").append("<a id=\"fichier_"+numFichier+"\" href=\"#\" class=\"list-group-item list-group-item-warning\"><span id=\"etatFichier_"+numFichier+"\" class=\"badge alert-en-cours pull-right\">import en cours</span>"+fichier.name+"</a>");
 		nomsFichierInseres.push(fichier.name);
 		
 		var fd = new FormData();
@@ -42,20 +42,17 @@ var importeFichier = function(fichier) {
 			if (e.lengthComputable) {
 				var percentComplete = (e.loaded / e.total) * 100;
 				$("#etatFichier_"+numFichier).html(percentComplete+" %");
+				if (percentComplete == 100)
+				{
+					$("#fichier_"+numFichier).removeClass("list-group-item-warning");
+					$("#fichier_"+numFichier).addClass("list-group-item-success");
+					$("#etatFichier_"+numFichier).removeClass("alert-en-cours");
+					$("#etatFichier_"+numFichier).addClass("alert-success");
+					$("#etatFichier_"+numFichier).html("OK");
+				}
 			}
 		};
-		
-		xhr.onload = function() {
-			if (this.status == 200) {
-				/*var resp = JSON.parse(this.response);
-				console.log('Server got:', resp);
-				var image = document.createElement('img');
-				image.src = resp.dataUrl;
-				document.body.appendChild(image);
-				*/
-			};
-		};
-		
+
 		xhr.send(fd); 
 	}
 }
