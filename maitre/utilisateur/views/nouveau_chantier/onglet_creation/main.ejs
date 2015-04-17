@@ -1,0 +1,40 @@
+<div class="col-md-6" id="on_click1">
+    <form method="get"  name="on_click2a" >
+    <div class="notice-board">
+        <label>Nom du chantier</label>
+        <input type="text" class="form-control" placeholder="Text input" id="nom" />
+        <br />
+
+        <label>Commentaire</label>
+        <textarea class="form-control" rows="3" placeholder="Text Area" id="commentaire" ></textarea>
+        <br />
+
+        <div class="dropdown">
+            <label>Type de chantier</label>
+            <button class="btn btn-success dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" >
+                <i class="fa fa-question" ></i>
+            </button>
+            <div class="dropdown-menu" role="presentation" aria-labelledby="dropdownMenu1">
+                &nbsp;Plein de texte explicatif.
+            </div>
+        </div>
+
+        <div class="radio">
+            <label>
+                <input type="radio" name="statue" id="type" value="statue" checked />
+                Statue
+            </label>
+        </div>
+
+        <div class="radio disabled">
+            <label>
+                <input type="radio" name="façade" id="optionsRadios2" value="facade" disabled />
+                Façade
+            </label>
+        </div>
+    </div>
+    <br />						
+    
+    <input href="#" class="btn btn-social btn-other" value="Suivant" onclick="javascript:valider_onglet('on_click2');">
+    </form>
+</div>
