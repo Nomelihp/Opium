@@ -50,13 +50,9 @@ function valider_onglet(id) {
     chevronDown(id.replace("on_click","cliquable"));
 	
 	//On récupère l'idChantier de la page
-	idChantier = document.forms['idchantier'].elements[0].value;
-	console.log(document.forms['idchantier'].elements[0].value);
-	//if(idChantier==-1){
-		//On donne un idChantier si y en a pas
-	//	idChantier = 0; //A modifier, à récupérer auprès du serveur
-	//	document.forms['idchantier'].elements[0].value = idChantier;
-	//:}
+	
+	var idChantier = $("#idChantier").val();
+
 	
 	var getinfo = ["nom", "commentaire", "type"]
 	
@@ -64,7 +60,7 @@ function valider_onglet(id) {
 	var formjson = {};
 	//Ajout de l'id du chantier
 	if(idChantier!="-1"){
-	formjson._id = idChantier;
+		formjson._id = idChantier;
 	}
 	
 	// on ajoute "a" à l'Id pour qu'il corresponde à l'id du formulaire
@@ -97,8 +93,7 @@ function valider_onglet(id) {
           idChantier = jsonrecu._id;
 		  console.log(idChantier);
 		  //On met l'id chantier dans la page
-		  document.forms['idchantier'].elements[0].value = idChantier;
-		  console.log(document.forms['idchantier'].elements[0].value);
+		  $("#idChantier").val(idChantier);
 		  }
          else
           ;//dump("Erreur pendant le chargement de la page.\n");

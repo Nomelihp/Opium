@@ -4,7 +4,7 @@
 
 
 // Tableau des extensions possibles (filtrage par type mime pas vraiment possible avec raw files)
-var tabExtensions =  ["JPG","JPEG","cr2","CR2","arw","ARW","TIF","TIFF","tif","tiff"];
+var tabExtensions =  ["JPG","JPEG","jpg","jpeg","cr2","CR2","arw","ARW","TIF","TIFF","tif","tiff"];
 var nomsFichierInseres = [];
 // Nombre de fichiers importés
 var nbFichiers= 0;

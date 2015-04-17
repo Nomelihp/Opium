@@ -19,6 +19,7 @@ router.get('/', function(req, res, next) {
 	console.log(req);
 	// parametres envoyés par le client sous forme de JSON
 	var params =req.body;
+	console.log(params);
 	// chantier existant : on met à jour le document correspondant
 	if (params._id)
 	{
@@ -28,7 +29,7 @@ router.get('/', function(req, res, next) {
 		  // LOGS  A INSERER
 		});
 		// A changer
-		res.send("verifier ce quil faut envoyer");
+		res.send("{}");
 	}
 	// Nouveau chantier
 	else
