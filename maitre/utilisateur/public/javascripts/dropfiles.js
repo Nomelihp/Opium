@@ -32,7 +32,7 @@ var importeFichier = function(fichier) {
 		var fd = new FormData();
 		
 		fd.append("envoiFichier", "true");// flag d'envoi de fichier
-		fd.append("_id", document.forms['idchantier'].elements[0].value);// identifiant du chantier
+		fd.append("_id", $("#idChantier").val());// identifiant du chantier
 		fd.append("fichier", fichier);
 		
 		var xhr = new XMLHttpRequest();
