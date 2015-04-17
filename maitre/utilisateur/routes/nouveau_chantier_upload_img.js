@@ -1,5 +1,8 @@
 // Route permettant l'upload des images
-
+// A faire : 
+// maj bd
+// maj cote client
+// envoi exif
 var express = require('express');
 var router  = express.Router();
 var params 	= require('../../config.json');
