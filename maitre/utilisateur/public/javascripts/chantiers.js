@@ -31,7 +31,7 @@ function ungrey(id) {
     return true;
 }
 
-//change la couleur du panel "id" pour le passer à orange
+//change la couleur du panel "id" pour le passer à rouge
 function toDanger(id) {
     var element = document.getElementById(id);
     var button = element.children[0].children[0].children[0];
@@ -42,7 +42,7 @@ function toDanger(id) {
     return true;
 }
 
-//change la couleur du panel "id" pour le passer à rouge
+//change la couleur du panel "id" pour le passer à orange
 function toWarning(id) {
     var element = document.getElementById(id);
     var button = element.children[0].children[0].children[0];
@@ -52,12 +52,3 @@ function toWarning(id) {
     
     return true;
 }
-
-
-/*
- * var model = require('../../../model/mongo_config');
-
-var bar = function onPageOpen() {
-    document.getElementById("id01").innerHTML = besoins.id01;
-}
-*/
