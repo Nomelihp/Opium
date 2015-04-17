@@ -57,8 +57,8 @@ function valider_onglet(id) {
 	console.log(idChantier);
 	
 	var getinfo = ["nom", "commentaire", "type"]
-	//Tableau associatif "onglet courrant" : "id du formulaire à valider"
-	var tabass = {"on_click1" : "on_click1a", "on_click2" : "js-upload-form", "on_click3" : "on_click3a", "on_click4" : ""}
+	//Tableau associatif "onglet courrant" : ["id des formulaires à valider"]
+	var tabass = {"on_click1" : ["on_click1a"], "on_click2" : ["js-upload-form"], "on_click3" : ["etalonnageForm", "parametresForm"], "on_click4" : []}
 	
 	//Pas de formulaire à valider dans l'onglet 4: on passe toutes les étapes
 	if(ongletCourant != "on_click4"){
@@ -70,8 +70,9 @@ function valider_onglet(id) {
 		formjson._id = idChantier;
 	}
 	
-	// on ajoute "a" à l'Id pour qu'il corresponde à l'id du formulaire
-	var idform = tabass[ongletCourant];
+	// on parcourt les formulaires présents dans l'onglet courant, en regardant la table d'association tabass
+	for (var j = 0; j < tabass[ongletCourant].length; j++){
+	var idform = (tabass[ongletCourant])[j];
 	console.log(idform);
 	// Récupération du formulaire
 	var Form = document.forms[idform];
@@ -88,6 +89,7 @@ function valider_onglet(id) {
 				}
 			}
 		}
+	}
 	
 	//Pour l'envoi en POST des informations au serveur
 	var req = new XMLHttpRequest();	
