@@ -1,0 +1,94 @@
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myEtalon">
+    Modifier l'étalonnage
+</button>
+
+<div class="modal fade" id="myEtalon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Définition de l'étalonnage</h4>
+            </div>
+            <form method="get">
+                <div class="modal-body">
+                    <div class="notice-board">
+                        <label>Nom de la calibration</label>
+                        <input type="text" class="form-control" placeholder="Text input" id="calibrationname" />
+                                                      
+                        <div class="radio" id="auto">
+                            <label>
+                                <input type="radio" class="root1" name="optionsRadios" value="auto" onclick="javascript:grise('fromFile', null, 'root1');degrise('auto', null, 'root2');" checked />
+                                Auto-Étalonnage
+                            </label>
+                            
+                            <div class="radio horizontal-radio">
+                                <div class="inline-radio">
+                                    <label>
+                                        <input type="radio" name="options" id="standard" value="standard" checked />
+                                        Standard&nbsp;
+                                    </label>
+                                </div>
+                                <div class="inline-radio">
+                                    <label>
+                                        <input type="radio" name="options" id="fisheye" value="fisheye" />
+                                        Fish-Eye
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="ImagesCalibration" />
+                                    Images spécifiques pour la calibration
+                                </label>
+                                
+                                <p>Solution technique à trouver</p>
+                            </div>
+                            
+                            <div class="checkbox" id="infoCapteur">
+                                <label>
+                                    <input type="checkbox" class="root3" value="infoCapteur" id="infoCapteurCb" onchange='informationCapteur("infoCapteurCb");'/>
+                                    Informations sur le capteur
+                                </label>
+                                
+                                <div class="checkbox root2">
+                                    <label>
+                                        <input type="checkbox" value="focaleReelle" disabled />
+                                        Focale réelle
+                                        <input type="number" class="inline-input" id="focalereelle" min="0" disabled /> mm
+                                    </label>
+                                </div>
+                                <div class="checkbox root2">
+                                    <label>
+                                        <input type="checkbox" value="dimensions" disabled />
+                                        Dimensions
+                                        <input type="number" class="inline-input" id="dim_1" min="0" disabled />
+                                        ×
+                                        <input type="number" class="inline-input" id="dim_2" min="0" disabled /> mm
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="radio" id="fromFile">
+                            <label>
+                                <input type="radio" class="root1" name="optionsRadios" value="fichier" onclick="javascript:grise('auto', null, 'root1');degrise('fromFile', null, 'NO_CLASS_NAME', true);" />
+                                Fichier de calibration
+                            </label>
+
+                            <div class="form-inline">
+                                <!-- EXTENSION TEMPORAIRE. À CHANGER -->
+                                <input type="file" name="files[]" id="js-upload-files" accept=".xml" disabled  />
+                            </div>
+                        </div>
+                    </div>
+                    <br />	
+                </div>					
+                                                                    
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-default">Retour aux valeurs par défaut</button>
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Sauvegarder & quitter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
