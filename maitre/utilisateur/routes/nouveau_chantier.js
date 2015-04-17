@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
 	}
 	// Nouveau chantier
 	else
-	{
+	{console.log("NOUVEAU CHANTIER!!!!!");
 		var besoin = new modele.besoins(params);
 		besoin.save(function(err, doc, num){
 			// LOGS  A INSERER
