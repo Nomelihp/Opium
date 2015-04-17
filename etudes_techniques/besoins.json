@@ -6,36 +6,29 @@ chantier
   date: "455656"
   etat: 1:En attente de l'utilisateur, 2:Calcul en cours, 3:Non exécuté, 4:Calcul terminé avec succès, 5:Echec,
   commentaires: "lablablabla"
-  type: 1: Statue, 2: façade,
-  blocs:[
+  type: "statue" OU "façade",
+  liste_images: ["rien.JPG","nimportekoi.RAW"]
+  masque: "22D" OU "3D"
+  quantite_points_liaison: 1: Faible, 2:Moyen, 3:Important, 4:Maximale,
+  mise_a_echelle: 0:Non, 1:Oui,
+  basculement: 0:Non, 1:Oui
+  
+  etalonnage:[
           {
             id: "1",
+            nom= "",
             auto_etalonage: 0: Non, 1: Oui,
-            type_auto_etalonage: "standard", "fisheye",
+            type_auto_etalonage: "standard", "fisheye", "fraserbasic",
+            liste_images: ["rien.JPG","nimportekoi.RAW"]
             capteur:{
-                      focale_reel: 33,
+                      focale_reelle: 33,
                       dimensions: [15,199],
                     }
-            images_liaison:0:Non, 1:Oui,
           }
           ,
-
           {
             //Un autre bloc semblable à celui d'en haut
           }
 
         ]
-  quantite_points_liaison: 1: Faible, 2:Moyen, 3:Important, 4:Maximale,
-  mise_a_echelle: 0:Non, 1:Oui,
-  basculement: 0:Non, 1:Oui
-  produits:{
-            nuage_points: 0:Non, 1:Oui,
-            points_liaison:  0:Non, 1:Oui,
-            nuage_liaison: 0:Non, 1:Oui,
-            calibration: 0:Non, 1:Oui,
-            fichiers_orientation: 0:Non, 1:Oui,
-            rapport_mise_place:0:Non, 1:Oui,
-
-            }
-  masque: "masque.xml",
 }
