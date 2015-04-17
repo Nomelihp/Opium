@@ -23,7 +23,7 @@ function plusMoins(nomPanel) {
 // enlève l'attribut disabled du bouton "id", et greyed-out de la div parente
 function ungrey(id) {
 	var element = document.getElementById(id);
-	var parentDiv = element.parentNode.parentNode;
+	var parentDiv = element.parentNode.parentNode.parentNode;
 
 	element.disabled = "";
 	parentDiv.className = parentDiv.className.replace(" greyed-out","");
@@ -52,6 +52,7 @@ function toWarning(id) {
     
     return true;
 }
+
 
 /*
  * var model = require('../../../model/mongo_config');
