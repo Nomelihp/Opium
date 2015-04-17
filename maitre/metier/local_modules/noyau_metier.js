@@ -26,6 +26,16 @@ exports.besoin2jobs = function(jsonBesoin){
   // Génération de la commande des points de liaison
   var commande = config.repertoire_micmac+"/mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.blocs[0].liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp";
 
+  // Auto-etalonnage
+  var type_auto_etalonage;
+  if(jsonBesoin.auto_etalonage == "1"){
+    commande = config.repertoire_micmac+"/mm3d Tapas "+jsonBesoin.type_auto_etalonage+" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.blocs[0].liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=MEP "+"@ExitOnBrkp";
+  }
+  // Fichier de calibration
+  /** ATTENTION ICI IL FAUT UN DOSSIER QUI SOIT CREER DANS UTILISATEUR **/
+  else{
+    commande = config.repertoire_micmac+"/mm3d Tapas "+jsonBesoin.type_auto_etalonage+" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.blocs[0].liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" InCal=Calib "+"@ExitOnBrkp";
+  }
   // Persister dans la BD
   model.jobs.save(dbOperations.toJSON(jsonBesoin._id, commande, 0, ''),function(err, job){
     if(err) throw err;
