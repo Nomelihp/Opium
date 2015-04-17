@@ -50,7 +50,7 @@ function valider_onglet(id) {
     chevronDown(id.replace("on_click","cliquable"));
 	
 	//Onglet courrant(celui à valider), initialisé au premier onglet au premier appel
-	var ongletCourrant = $("#ongletCourrant").val();
+	var ongletCourant = $("#ongletCourant").val();
 	
 	//On récupère l'idChantier de la page
 	var idChantier = $("#idChantier").val();
@@ -61,7 +61,7 @@ function valider_onglet(id) {
 	var tabass = {"on_click1" : "on_click1a", "on_click2" : "js-upload-form", "on_click3" : "on_click3a", "on_click4" : ""}
 	
 	//Pas de formulaire à valider dans l'onglet 4: on passe toutes les étapes
-	if(ongletCourrant != "on_click4"){
+	if(ongletCourant != "on_click4"){
 	
 	//Création d'un objet JSON
 	var formjson = {};
@@ -71,7 +71,7 @@ function valider_onglet(id) {
 	}
 	
 	// on ajoute "a" à l'Id pour qu'il corresponde à l'id du formulaire
-	var idform = tabass[ongletCourrant];
+	var idform = tabass[ongletCourant];
 	console.log(idform);
 	// Récupération du formulaire
 	var Form = document.forms[idform];
@@ -114,7 +114,7 @@ function valider_onglet(id) {
 	}
 	
 	//Changement d'onglet
-	$("#ongletCourrant").val(id);
+	$("#ongletCourant").val(id);
     return true;
 }
 
