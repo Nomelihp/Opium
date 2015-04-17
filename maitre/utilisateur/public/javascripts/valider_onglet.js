@@ -90,31 +90,33 @@ function valider_onglet(id) {
 			}
 		}
 	}
-	
-	//Pour l'envoi en POST des informations au serveur
-	var req = new XMLHttpRequest();	
-	req.open('POST','/nouveau_chantier',true);
-	
-    req.onreadystatechange = function (aEvt) {
-      if (req.readyState == 4) {
-         if(req.status == 200){
-		 //Récupération du nouvel id du chantier
-          var jsonrecu = JSON.parse(req.responseText);
-          idChantier = jsonrecu._id;
-		  console.log(idChantier);
-		  //On met l'id chantier dans la page
-		  $("#idChantier").val(idChantier);
+	// N'envoie pas de requete si il y a juste l'id dans le tableau
+	if (Object.keys(formjson).length > 1)
+	{
+		//Pour l'envoi en POST des informations au serveur
+		var req = new XMLHttpRequest();	
+		req.open('POST','/nouveau_chantier',true);
+		
+		req.onreadystatechange = function (aEvt) {
+		  if (req.readyState == 4) {
+			 if(req.status == 200){
+			 //Récupération du nouvel id du chantier
+			  var jsonrecu = JSON.parse(req.responseText);
+			  idChantier = jsonrecu._id;
+			  console.log(idChantier);
+			  //On met l'id chantier dans la page
+			  $("#idChantier").val(idChantier);
+			  }
+			 else
+			  ;//dump("Erreur pendant le chargement de la page.\n");
 		  }
-         else
-          ;//dump("Erreur pendant le chargement de la page.\n");
-      }
-    };
+		};
 
-	//On précise que l'information qu'on envoie est du JSON
-	req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    req.send(JSON.stringify(formjson));
+		//On précise que l'information qu'on envoie est du JSON
+		req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		req.send(JSON.stringify(formjson));
+		}
 	}
-	
 	//Changement d'onglet
 	$("#ongletCourant").val(id);
     return true;
