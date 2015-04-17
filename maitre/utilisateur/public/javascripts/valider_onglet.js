@@ -88,8 +88,11 @@ function valider_onglet(id) {
 	
     req.onreadystatechange = function (aEvt) {
       if (req.readyState == 4) {
-         if(req.status == 200)
-          ;//dump(req.responseText);
+         if(req.status == 200){
+          var pouet = JSON.parse(req.responseText);
+          idChantier = pouet._id;
+		  console.log(idChantier);
+		  }
          else
           ;//dump("Erreur pendant le chargement de la page.\n");
       }
