@@ -26,7 +26,7 @@ var importeFichier = function(fichier) {
 	// Tout est ok on importe vraiment
 	else
 	{
-		$("#listeImageImporteesDiv").append("<a id=\"fichier_"+numFichier+"\" href=\"#\" class=\"list-group-item list-group-item-warning\"><span class=\" alert-en-cours pull-right\">import en cours</span>"+fichier.name+"</a>");
+		$("#listeImageImporteesDiv").append("<a id=\"fichier_"+numFichier+"\" href=\"#\" class=\"list-group-item list-group-item-warning\"><span id=\"etatFichier_"+numFichier+"\" class=\" alert-en-cours pull-right\">import en cours</span>"+fichier.name+"</a>");
 		nomsFichierInseres.push(fichier.name);
 		
 		var fd = new FormData();
@@ -41,7 +41,7 @@ var importeFichier = function(fichier) {
 		xhr.upload.onprogress = function(e) {
 			if (e.lengthComputable) {
 				var percentComplete = (e.loaded / e.total) * 100;
-				console.log(percentComplete + '% uploaded');
+				$("#etatFichier_"+numFichier).html(percentComplete+" %");
 			}
 		};
 		

@@ -34,9 +34,11 @@ router.use(multer({ dest: params.repertoire_donnees+"tmp/",
 			var dir1 = params.repertoire_donnees+bes.login+"/"
 			var dir2 = dir1+req.body._id+"/";
 			
-			// Creation du repertoire correspondant au chantier si il n'existe pas
+			// Creation des repertoires correspondant au chantier si ils n'existent pas
 			if (!fs.existsSync(dir1)){
 				fs.mkdirSync(dir1);
+			}
+			if (!fs.existsSync(dir2)){
 				fs.mkdirSync(dir2);
 			}
 			// Copie du fichier
