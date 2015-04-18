@@ -86,7 +86,7 @@ exports.besoin2jobs = function(jsonBesoin){
     }
 
     // Commande pour le calcul d'un nuage de points
-    commande = config.repertoire_micmac+"mm3d AperiCloud "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" MEP";
+    commandes.push(config.repertoire_micmac+"mm3d AperiCloud "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" MEP");
 
 
   }
@@ -102,39 +102,5 @@ exports.besoin2jobs = function(jsonBesoin){
 exports.appariement = function(jsonBesoin){
 
 
-}
 
-chantier
-{
-  _id: "1",
-  login: "blabla",
-  nom: "bla",
-  date: "455656"
-  etat: 1:En attente de l'utilisateur, 2:Calcul en cours, 3:Non exécuté, 4:Calcul terminé avec succès, 5:Echec,
-  commentaires: "lablablabla"
-  type: "statue" OU "façade",
-  liste_images: ["rien.JPG","nimportekoi.RAW"]
-  masque: "22D" OU "3D"
-  quantite_points_liaison: 1: Faible, 2:Moyen, 3:Important, 4:Maximale,
-  mise_a_echelle: 0:Non, 1:Oui,
-  basculement: 0:Non, 1:Oui
-
-  etalonnage:[
-          {
-            id: "1",
-            nom= "",
-            auto_etalonage: 0: Non, 1: Oui,
-            type_auto_etalonnage: "standard", "fisheye", "fraserbasic",
-            liste_images: ["rien.JPG","nimportekoi.RAW"]
-            capteur:{
-                      focale_reelle: 33,
-                      dimensions: [15,199],
-                    }
-          }
-          ,
-          {
-            //Un autre bloc semblable à celui d'en haut
-          }
-
-        ]
 }

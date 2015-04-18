@@ -5,6 +5,12 @@ function toJSON(id_chantier, commande, etat, erreur){
   return JSON.parse(jsonString);
 }
 
+// Verifier si un élément existe dans un tableau
+function inArray(element, array){
+  
+
+}
+
 // Fonction pour enregistrer le job dans la BD et changer le flag du besoin à 1
 function setJobDocument(jsonJob){
   var job = new model.jobs(jsonJob);
