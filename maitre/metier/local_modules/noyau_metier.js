@@ -22,80 +22,81 @@ exports.besoin2jobs = function(jsonBesoin){
   }else{
     quantite_points_liaison = 2000;
   }
-
-  // Génération de la commande des points de liaison
-  var commande = config.repertoire_micmac+"/mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp";
-
   // Auto-etalonnage
   var type_auto_etalonage;
+  // Tableau des commandes
+  var commandes=[];
+
   for(var i = 0; i < jsonBesoin.etalonnage.legnth ;i++){
     if(jsonBesoin.etalonnage[i].auto_etalonnage == "1"){
       if(jsonBesoin.etalonnage[i].type_auto_etalonnage == "standard"){
         if(jsonBesoin.etalonnage[i].liste_images.length == 0){
 
-          commande = config.repertoire_micmac+"/mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp";
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
-          commande = config.repertoire_micmac+"/mm3d Tapas RadialStd "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=MEP "+"@ExitOnBrkp";
+          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=MEP "+"@ExitOnBrkp");
         }else{
 
-          commande = config.repertoire_micmac+"/mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp";
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
-          commande = config.repertoire_micmac+"/mm3d Tapas RadialStd "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.etalonnage[i].liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=Calib "+"@ExitOnBrkp";
+          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.etalonnage[i].liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=Calib "+"@ExitOnBrkp");
 
-          commande = config.repertoire_micmac+"/mm3d Tapas RadialStd "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" InCal=Calib "+"@ExitOnBrkp";
+          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" InCal=Calib Out=MEP "+"@ExitOnBrkp");
 
         }
 
 
       }else if(jsonBesoin.etalonnage[i].type_auto_etalonnage == "fisheye"){
+        if(jsonBesoin.etalonnage[i].liste_images.length == 0){
 
-        commande = config.repertoire_micmac+"/mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp";
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
-        commande = config.repertoire_micmac+"/mm3d Tapas Fish-Eye "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=MEP "+"@ExitOnBrkp";
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FihEyeBasic "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=MEP "+"@ExitOnBrkp");
+        }else{
 
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FihEyeBasic "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.etalonnage[i].liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=Calib "+"@ExitOnBrkp");
+
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FihEyeBasic "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" InCal=Calib Out=MEP "+"@ExitOnBrkp");
+
+        }
       }else if(jsonBesoin.etalonnage[i].type_auto_etalonnage == "fraserbasic"){
+        if(jsonBesoin.etalonnage[i].liste_images.length == 0){
 
-        commande = config.repertoire_micmac+"/mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp";
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
-        commande = config.repertoire_micmac+"/mm3d Tapas FraserBasic "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=MEP "+"@ExitOnBrkp";
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=MEP "+"@ExitOnBrkp");
+        }else{
 
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.etalonnage[i].liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=Calib "+"@ExitOnBrkp");
+
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" InCal=Calib Out=MEP "+"@ExitOnBrkp");
+
+        }
       }
     }
     // Fichier de calibration
     /** ATTENTION ICI IL FAUT QU'UN DOSSIER SOIT CREER DANS UTILISATEUR **/
     else{
-      commande = config.repertoire_micmac+"/mm3d Tapas "+jsonBesoin.type_auto_etalonage+" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" InCal=Calib "+"@ExitOnBrkp";
+      commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+      commandes.push(config.repertoire_micmac+"mm3d Tapas "+jsonBesoin.type_auto_etalonage+" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" InCal=Calib Out=MEP "+"@ExitOnBrkp");
     }
 
+    // Commande pour le calcul d'un nuage de points
+    commande = config.repertoire_micmac+"mm3d AperiCloud "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" MEP";
 
 
   }
   // Persister dans la BD
-  model.jobs.save(dbOperations.toJSON(jsonBesoin._id, commande, 0, ''),function(err, job){
-    if(err) throw err;
+  for(var i=0 ; i<commandes.length; i++){
+    model.jobs.save(dbOperations.toJSON(jsonBesoin._id, commandes[i], 0, ''),function(err, job){
+      if(err) throw err;
 
-
-  });
-
-  // Commande mise en place
-  commande = config.repertoire_micmac+"/mm3d Tapas FraserBasic "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=MEP "+"@ExitOnBrkp";
-
-  // Persister la mise en place dans la BD
-  model.jobs.save(dbOperations.toJSON(jsonBesoin._id,commande,0,''),function(err,job){
-    if(err) throw err;
-
-  });
-
-  // Commande pour le calcul d'un nuage de points
-  commande = config.repertoire_micmac+"/mm3d AperiCloud "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin._id+"/"+jsonBesoin.liste_images.join(" "+config.repertoire_donnees+"/"+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" MEP";
-
-  // Persister dans la BD
-  model.jobs.save(dbOperations.toJSON(jsonBesoin._id,commande,0,''),function(err,job){
-    if(err) throw err;
-
-  });
-
-
+    });
+  }
 }
 
 exports.appariement = function(jsonBesoin){
