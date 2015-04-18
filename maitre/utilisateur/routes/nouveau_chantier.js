@@ -3,9 +3,12 @@ var router  = express.Router();
 var params 	= require('../../config.json');
 var modele  = require('../../model/mongo_config');
 
+
 // ------------  Pré-requis pour notification métier   ------------  
 var messenger = require('messenger');
 var module_metier = messenger.createSpeaker(params.metier);
+
+
 //  --------------------------------------------------------------- 
 
 
@@ -16,24 +19,24 @@ router.get('/', function(req, res, next) {
 })
 // ------------  Réception des éléments du formulaire    ------------  
 .post('/',function(req, res, next) {
-	console.log(req);
 	// parametres envoyés par le client sous forme de JSON
-	var params =req.body;
-	console.log(params);
+	var params   = req.body;
+	params.login = "localuser";
 	// chantier existant : on met à jour le document correspondant
 	if (params._id)
 	{
 
+		//modele.besoins.findByIdAndUpdate("ObjectId(\""+params._id+"\")", params, function(err, besoin) {
 		modele.besoins.findByIdAndUpdate(params._id, params, function(err, besoin) {
 		if (err) throw err;
 		  // LOGS  A INSERER
 		});
-		// A changer
+
 		res.send("{}");
 	}
 	// Nouveau chantier
 	else
-	{console.log("NOUVEAU CHANTIER!!!!!");
+	{
 		var besoin = new modele.besoins(params);
 		besoin.save(function(err, doc, num){
 			// LOGS  A INSERER

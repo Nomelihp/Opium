@@ -1,12 +1,12 @@
 <% include head_foot/header %>
 
-<!-----------------------------Champ caché idChantier -------------------------->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - Champ caché idChantier - - - - - - - - - - - - - - - - - - -->
 	
     <input id="idChantier" type="hidden" value="-1" >
 	
-<!-----------------------------Champ caché onglet courrant -------------------------->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - Champ caché onglet courant - - - - - - - - - - - - - - - - -->
 	
-    <input id="ongletCourrant" type="hidden" value="on_click1" >
+    <input id="ongletCourant" type="hidden" value="on_click1" >
 	
     <section class="menu-section">
         <div class="container">
@@ -73,35 +73,36 @@
             <div class="row">
                 <div class="col-md-12">
                     
-<!---------------------------- ONGLET CREATION ------------------------------------->
-                    <% include nouveau_chantier/onglet_creation/main %>
-<!---------------------------- FIN ONGLET CREATION --------------------------------->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - ONGLET CREATION - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<% include nouveau_chantier/onglet_creation/main %>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN ONGLET CREATION - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
                                     
-<!---------------------------- ONGLET IMPORT IMAGES -------------------------------->
-                    <% include nouveau_chantier/onglet_import_images/main %>
-<!---------------------------- FIN ONGLET IMPORT IMAGES ---------------------------->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - ONGLET IMPORT IMAGES - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<% include nouveau_chantier/onglet_import_images/main %>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN ONGLET IMPORT IMAGES - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-<!---------------------------- ONGLET PARAMETRAGE ---------------------------------->
-                    <% include nouveau_chantier/onglet_parametrage/main %>
-<!---------------------------- FIN ONGLET PARAMETRAGE------------------------------->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - ONGLET PARAMETRAGE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<% include nouveau_chantier/onglet_parametrage/main %>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN ONGLET PARAMETRAGE- - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-<!---------------------------- ONGLET VALIDATION--- -------------------------------->
-                    <% include nouveau_chantier/onglet_validation/main %>
-<!---------------------------- FIN ONGLET VALIDATION-------------------------------->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - ONGLET VALIDATION- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<% include nouveau_chantier/onglet_validation/main %>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN ONGLET VALIDATION- - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
                 </div>
             </div>
         </div>
     </div>
 
     <!-- CONTENT-WRAPPER SECTION END-->
-    <% include head_foot/footer %>
+<% include head_foot/footer %>
     <!-- JAVASCRIPT AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
+    <script type="text/javascript" src="/javascripts/valider_onglet.js"></script>
     <!-- CORE JQUERY SCRIPTS -->
     <script src="/javascripts/jquery-1.11.1.js"></script>
     <!-- BOOTSTRAP SCRIPTS  -->
     <script src="/javascripts/bootstrap.js"></script>
     <script type="text/javascript" src="/javascripts/pop-up.js"></script>
     <script type="text/javascript" src="/javascripts/valider_onglet.js"></script>
-    <script type="text/javascript" src="/javascripts/dropfiles.js"></script>
+    <script type="text/javascript" src="/javascripts/importfiles.js"></script>
 </body>
 </html>

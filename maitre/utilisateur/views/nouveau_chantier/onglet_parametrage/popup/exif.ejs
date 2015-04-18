@@ -1,106 +1,106 @@
-                    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myExif">
-                        Visualiser les données exif
-                    </button>
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myExif">
+    Visualiser les données exif
+</button>
 
-                    <div class="modal fade" id="myExif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h4 class="modal-title" id="myModalLabel">Visualisation des données exif</h4>
-                                </div>
-                                <form method="get">
-                                    <div class="modal-body">
-                                        <div class="radio horizontal-radio">
-                                            <div class="inline-radio">
-                                                <label>
-                                                    <input type="radio" name="radioexif" id="boutonImage" value="parImage" onclick="javascript: afficher('parImage');afficher('parBaliseExif');" checked />
-                                                    Par image&nbsp;
-                                                </label>
-                                            </div>
-                                            <div class="inline-radio">
-                                                <label>
-                                                    <input type="radio" name="radioexif" id="boutonExif" value="parExif" onclick="javascript: afficher('parImage');afficher('parBaliseExif');" />
-                                                    Par balise exif
-                                                </label>
-                                            </div>
-                                        </div>
-                                        
-                                        <div id="parBaliseExif" style="display: none">
-                                            <label>Choix de la balise&nbsp;</label>
-                                            <select class="form-control">
-                                                <option>Nom de la balise</option>
-                                            </select>
-                                            <br/>
-                                            <div class="panel panel-default">
-                                                <div class="panel-body">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>IMG01.jpg</td>
-                                                                    <td>50mm</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>IMG02.jpg</td>
-                                                                    <td>50mm</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>IMG03.jpg</td>
-                                                                    <td>50mm</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>IMG77.jpg</td>
-                                                                    <td>100mm</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-                                        
-                                        <div id="parImage" style="display: block">
-                                            <label>Choix de l'image&nbsp;</label>
-                                            <select class="form-control">
-                                                <option>Nom de l'image</option>
-                                            </select>
-                                            <br/>
-                                            <div class="panel panel-default">
-                                                <div class="panel-body">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-striped">
-                                                            <tbody>
-                                                                <tr id="Appareil">
-                                                                    <td>Appareil</td>
-                                                                    <td>Canon EOS 5D</td>
-                                                                </tr>
-                                                                <tr id="Date">
-                                                                    <td>Date</td>
-                                                                    <td>24/04/1993</td>
-                                                                </tr>
-                                                                <tr id="Focale">
-                                                                    <td>Focale</td>
-                                                                    <td>50mm</td>
-                                                                </tr>
-                                                                <tr id="ISO">
-                                                                    <td>ISO</td>
-                                                                    <td>200</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                         </div>
-                                        
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Quitter</button>
-                                    </div>
-                                </form>
-                            </div>
+<div class="modal fade" id="myExif" tabindex="-1" role="dialog" aria-labelledby="myExifLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myExifLabel">Visualisation des données exif</h4>
+            </div>
+            <form method="get">
+                <div class="modal-body">
+                    <div class="radio horizontal-radio">
+                        <div class="inline-radio">
+                            <label>
+                                <input type="radio" name="radioexif" id="boutonImage" value="parImage" onclick="javascript: afficher('parImage');afficher('parBaliseExif');" checked />
+                                Par image&nbsp;
+                            </label>
+                        </div>
+                        <div class="inline-radio">
+                            <label>
+                                <input type="radio" name="radioexif" id="boutonExif" value="parExif" onclick="javascript: afficher('parImage');afficher('parBaliseExif');" />
+                                Par balise exif
+                            </label>
                         </div>
                     </div>
+                    
+                    <div id="parBaliseExif" style="display: none">
+                        <label>Choix de la balise&nbsp;</label>
+                        <select class="form-control">
+                            <option>Nom de la balise</option>
+                        </select>
+                        <br/>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            <tr>
+                                                <td>IMG01.jpg</td>
+                                                <td>50mm</td>
+                                            </tr>
+                                            <tr>
+                                                <td>IMG02.jpg</td>
+                                                <td>50mm</td>
+                                            </tr>
+                                            <tr>
+                                                <td>IMG03.jpg</td>
+                                                <td>50mm</td>
+                                            </tr>
+                                            <tr>
+                                                <td>IMG77.jpg</td>
+                                                <td>100mm</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div id="parImage" style="display: block">
+                        <label>Choix de l'image&nbsp;</label>
+                        <select class="form-control">
+                            <option>Nom de l'image</option>
+                        </select>
+                        <br/>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            <tr id="Appareil">
+                                                <td>Appareil</td>
+                                                <td>Canon EOS 5D</td>
+                                            </tr>
+                                            <tr id="Date">
+                                                <td>Date</td>
+                                                <td>24/04/1993</td>
+                                            </tr>
+                                            <tr id="Focale">
+                                                <td>Focale</td>
+                                                <td>50mm</td>
+                                            </tr>
+                                            <tr id="ISO">
+                                                <td>ISO</td>
+                                                <td>200</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                     </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Quitter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

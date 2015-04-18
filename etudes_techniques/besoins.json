@@ -6,7 +6,7 @@ chantier
   date: "455656"
   etat: 1:En attente de l'utilisateur, 2:Calcul en cours, 3:Non exécuté, 4:Calcul terminé avec succès, 5:Echec,
   commentaires: "lablablabla"
-  type: "statue" OU "façade",
+  type: "statue" OU "facade",
   liste_images: ["rien.JPG","nimportekoi.RAW"]
   masque: "22D" OU "3D"
   quantite_points_liaison: 1: Faible, 2:Moyen, 3:Important, 4:Maximale,
