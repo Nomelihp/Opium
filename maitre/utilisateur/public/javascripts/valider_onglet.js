@@ -56,7 +56,8 @@ function valider_onglet(id) {
 	var idChantier = $("#idChantier").val();
 	console.log(idChantier);
 	
-	var getinfo = ["nom", "commentaire", "type"]
+	var getinfo = ["nom", "commentaire"]
+	var getinfochecked = ["mask2D", "mask3D", "typestatus", "typefacade"]
 	//Tableau associatif "onglet courrant" : ["id des formulaires à valider"]
 	var tabass = {"on_click1" : ["on_click1a"], "on_click2" : ["js-upload-form"], "on_click3" : ["etalonnageForm", "parametresForm"], "on_click4" : []}
 	
@@ -77,7 +78,42 @@ function valider_onglet(id) {
 	// Récupération du formulaire
 	var Form = document.forms[idform];
 	// Boucle tous les éléments du formulaire i
-	var el = Form.elements; 
+	var el = Form.elements;
+	//Formulaire special pour l'etalonnage
+	if(idform=="etalonnageForm"){
+		var etaljson = {};
+		etaljson.id = "1" //A VOIR CE QU'IL FAUT METTRE
+		for (var l = 0; l < el.length; l++){
+			console.log("boucle");
+			var idelement = el[l].id;
+			//Nouveau JSON pour cet etalonnage
+			if(idelement=="calibrationname"){etaljson.nom = el[l].value;}
+			if(idelement=="auto_etalonnage"){
+				if(el[l].checked){
+					etaljson.auto_etalonnage="1";
+				}
+				else{
+					etaljson.auto_etalonnage="0";
+					//ALLER CHERCHER LE NOM DU FICHIER DE CALIBRATION
+					break;
+				}
+			}
+			if(idelement=="standard" && el[l].checked){etaljson.type_auto_etalonnage="standard"}
+			if(idelement=="fisheye" && el[l].checked){etaljson.type_auto_etalonnage="fisheye"}
+			if(idelement=="fraserbasic" && el[l].checked){etaljson.type_auto_etalonnage="fraserbasic"}
+			//VOIR POUR LA LISTE D'IMAGES
+			if(idelement=="infoCapteurCb" && el[l].checked){
+				var capteurjson={};
+				capteurjson.focale_reelle = document.getElementById(focale_reelle).value;// BUG
+				var dim1 = document.getElementById("dim1").value;
+				var dim2 = document.getElementById("dim2").value;
+				capteurjson.dimensions = "[" + dim1 +","+ dim2 +"]";
+				etaljson.capteur = capteurjson;
+			}
+		}
+	formjson.etalonnage = etaljson;
+	}
+	else{
 	for (var l = 0; l < el.length; l++)
 		{
 		var idelement = el[l].id;
@@ -88,7 +124,24 @@ function valider_onglet(id) {
 				break;
 				}
 			}
+			//Pour les checkbox
+			for (var i =0; i < getinfochecked.length; i++){
+				//Si l'id est dans la liste des input à récupérer, on l'ajoute à l'objet JSON
+				if( idelement==getinfochecked[i] ){
+					if (el[l].checked){
+						formjson[idelement] = el[l].value;}
+				break;
+				}
+			}
+			if ( idelement=="mise_a_echelle" || idelement=="basculement" ){
+				if( el[l].checked){formjson[idelement] = "1"}
+				else{formjson[idelement] = "0"}
+			}
+			if ( idelement=="quantite_points_liaison" ){
+				formjson[idelement] = el[l].options[el[l].selectedIndex].value;
+			}
 		}
+	}
 	}
 	// N'envoie pas de requete si il y a juste l'id dans le tableau
 	if (Object.keys(formjson).length > 1)
