@@ -14,13 +14,13 @@
 
         <div class="radio">
             <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios3" value="2D" disabled />
+                <input type="radio" name="optionsRadios" id="mask2D" value="22D" disabled />
                 Deux masques 2D
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios4" value="3D" checked />
+                <input type="radio" name="optionsRadios" id="mask3D" value="3D" checked />
                 Un masque 3D
             </label>
         </div>
@@ -35,12 +35,11 @@
                 &nbsp;Plein de texte explicatif.
             </div>
         </div>
-
-        <select class="form-control">
-            <option>Faible</option>
-            <option selected="selected">Moyen</option>
-            <option>Important</option>
-            <option>Maximal</option>
+        <select class="form-control" id="quantite_points_liaison">
+            <option value="1">Faible</option>
+            <option selected="selected" value="2">Moyen</option>
+            <option value="3">Important</option>
+            <option value="4">Maximal</option>
         </select>
         <br />
 
@@ -56,12 +55,12 @@
 
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="echelle" />
+                <input type="checkbox" id="mise_a_echelle" value="echelle" />
                 Mise à l'échelle
             </label>
             <br />
             <label>
-                <input type="checkbox" value="basculement" disabled />
+                <input type="checkbox" id="basculement" value="basculement" disabled />
                 Basculement
             </label>
         </div>
