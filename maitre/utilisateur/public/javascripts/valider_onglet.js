@@ -125,10 +125,12 @@ function valider_onglet(id) {
 // Affiche ou cache un div en fonction de sa visibilité précédente
 function afficher(id) {
 
-    if(document.getElementById(id).style.display=="block") {
-        document.getElementById(id).style.display="none";
+	var element = document.getElementById(id);
+
+    if(element.style.display=="block") {
+        element.style.display="none";
     } else {
-        document.getElementById(id).style.display="block";
+        element.style.display="block";
     }
 
     return true;
@@ -148,23 +150,15 @@ function tournerChevron(id) {
 }
 
 function chevronRight(id) {
-    document.getElementById(id).innerHTML = document.getElementById(id).innerHTML.replace("down","right");
+	var element = document.getElementById(id);
+	
+    element.innerHTML = element.innerHTML.replace("down","right");
     return true;
 }
 
 function chevronDown(id) {
-    document.getElementById(id).innerHTML = document.getElementById(id).innerHTML.replace("right","down");
-    return true;
-}
-
-function plusMoins(id) {
-
-    //if icon is +, set it to -, and if -, set it to +
-    if (document.getElementById(id).innerHTML.indexOf("plus") > -1)  {
-        document.getElementById(id).innerHTML = document.getElementById(id).innerHTML.replace("plus","minus");
-    } else {
-        document.getElementById(id).innerHTML = document.getElementById(id).innerHTML.replace("minus","plus");
-    }
-
+	var element = document.getElementById(id);
+	
+    element.innerHTML = element.innerHTML.replace("right","down");
     return true;
 }

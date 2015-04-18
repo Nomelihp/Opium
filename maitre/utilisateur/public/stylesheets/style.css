@@ -349,3 +349,26 @@ footer {
 .inline-input {
   width: 50px;
 }
+
+.dropdown .greyed-out {
+  color: #575757 !important;
+  background-color: #dddddd !important;
+}
+
+.dropdown .greyed-out .btn {
+  background-color: #bbbbbb;
+  border-color: #a6a6a6;
+  color: #dddddd;
+  cursor: default;
+}
+
+.dropdown .greyed-out .btn:hover,
+.dropdown .greyed-out .btn:focus,
+.dropdown .greyed-out .btn.focus,
+.dropdown .greyed-out .btn:active,
+.dropdown .greyed-out .btn.active
+{
+  background-color: #bbbbbb !important;
+  border-color: #a6a6a6 !important;
+  color: #dddddd !important;
+}
