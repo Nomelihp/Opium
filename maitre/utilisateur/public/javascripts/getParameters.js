@@ -89,107 +89,107 @@ var whatever = function onPageOpen() {
             break;
     }
 
-	//ajout mise à l'échelle. Non par défaut.
+    //ajout mise à l'échelle. Non par défaut.
     if(besoins.mise_a_echelle) {
         myTable.ajout("Mise à l'échelle","oui");
     } else {
         myTable.ajout("Mise à l'échelle","non");
     }
 
-	//ajout basculement. Non par défaut.
+    //ajout basculement. Non par défaut.
     if(besoins.basculement) {
         myTable.ajout("Basculement","oui");
     } else {
         myTable.ajout("Basculement","non");
     }
 
-	document.getElementById('resumeParam').innerHTML = myTable;
-	
-	var etalonnage = besoins.etalonnage;
-	if(etalonnage) { //if exists
-		etalonnage = JSON.parse(etalonnage);
-		if(etalonnage.length > 1) {
+    document.getElementById('resumeParam').innerHTML = myTable;
+    
+    var etalonnage = besoins.etalonnage;
+    if(etalonnage) { //if exists
+        etalonnage = JSON.parse(etalonnage);
+        if(etalonnage.length > 1) {
 
-		} else {
-			// SI UN SEUL ÉTALONNAGE POUR TOUTES LES IMAGES
-			myEtalon +=
-			"<table class='table table-striped table-bordered table-hover'>\n"+
-				"\t<thead>\n"+
-					"\t\t<tr>\n"+
-						"\t\t\t<th>Paramètre</th>\n"+
-						"\t\t\t<th>Valeur</th>\n"+
-					"\t\t</tr>\n"+
-				"\t</thead>\n"+
-				"\t<tbody>\n" +
+        } else {
+            // SI UN SEUL ÉTALONNAGE POUR TOUTES LES IMAGES
+            myEtalon +=
+            "<table class='table table-striped table-bordered table-hover'>\n"+
+                "\t<thead>\n"+
+                    "\t\t<tr>\n"+
+                        "\t\t\t<th>Paramètre</th>\n"+
+                        "\t\t\t<th>Valeur</th>\n"+
+                    "\t\t</tr>\n"+
+                "\t</thead>\n"+
+                "\t<tbody>\n" +
 
-			if(etalonnage.auto_etalonnage) {
-				myEtalon +=
-				"\t\t<tr>\n"
-					"\t\t\t<td>Auto-étalonnage</td>\n"
+            if(etalonnage.auto_etalonnage) {
+                myEtalon +=
+                "\t\t<tr>\n"
+                    "\t\t\t<td>Auto-étalonnage</td>\n"
 
-				var type_etalon = etalonnage.type_auto_etalonnage;
-				switch(type_etalon) {
-					case "fisheye":
-						myEtalon += "\t\t\t<td>Fish-Eye</td>\n"
-						break;
-					case "fraserbasic":
-						myEtalon += "\t\t\t<td>Fraser Basic</td>\n"
-						break;
-					case "standard":
-					case default:
-						myEtalon += "\t\t\t<td>Standard</td>\n"
-						break;
-				}
+                var type_etalon = etalonnage.type_auto_etalonnage;
+                switch(type_etalon) {
+                    case "fisheye":
+                        myEtalon += "\t\t\t<td>Fish-Eye</td>\n"
+                        break;
+                    case "fraserbasic":
+                        myEtalon += "\t\t\t<td>Fraser Basic</td>\n"
+                        break;
+                    case "standard":
+                    case default:
+                        myEtalon += "\t\t\t<td>Standard</td>\n"
+                        break;
+                }
 
-				myEtalon +=
-				"\t\t</tr>\n"+
-				"\t\t<tr>\n"+
-					"\t\t\t<td>Images</td>\n"+
-					"\t\t\t<td>Toutes</td>\n"+
-				"\t\t</tr>\n"+
+                myEtalon +=
+                "\t\t</tr>\n"+
+                "\t\t<tr>\n"+
+                    "\t\t\t<td>Images</td>\n"+
+                    "\t\t\t<td>Toutes</td>\n"+
+                "\t\t</tr>\n"+
 
-				//AJOUT INFO CAPTEUR
-			    
-					
-			} else {
-				//FETCH FILE
-			}	
-					"\t\t</tr>\n"+ 
+                //AJOUT INFO CAPTEUR
+                
+                    
+            } else {
+                //FETCH FILE
+            }    
+                    "\t\t</tr>\n"+ 
 
 
-			myEtalon +=
-					"\t\t<tr>\n"+
-						"\t\t\t<td>Images</td>\n"+
-						"\t\t\t<td>Toutes</td>\n"+
-					"\t\t</tr>\n"+ 
-				"\t</tbody>\n"+
-			"</table>"
-		}
-	} else {
-		myEtalon +=
-		"<table class='table table-striped table-bordered table-hover'>\n"+
-			"\t<thead>\n"+
-				"\t\t<tr>\n"+
-					"\t\t\t<th>Paramètre</th>\n"+
-					"\t\t\t<th>Valeur</th>\n"+
-				"\t\t</tr>\n"+
-			"\t</thead>\n"+
-			"\t<tbody>\n" +
-				"\t\t<tr>\n"+
-					"\t\t\t<td>Auto-étalonnage</td>\n"+
-					"\t\t\t<td>Standard</td>\n"+
-				"\t\t</tr>\n"+ 
-				"\t\t<tr>\n"+
-					"\t\t\t<td>Images</td>\n"+
-					"\t\t\t<td>Toutes</td>\n"+
-				"\t\t</tr>\n"+ 
-			"\t</tbody>\n"+
-		"</table>"
-	}
+            myEtalon +=
+                    "\t\t<tr>\n"+
+                        "\t\t\t<td>Images</td>\n"+
+                        "\t\t\t<td>Toutes</td>\n"+
+                    "\t\t</tr>\n"+ 
+                "\t</tbody>\n"+
+            "</table>"
+        }
+    } else {
+        myEtalon +=
+        "<table class='table table-striped table-bordered table-hover'>\n"+
+            "\t<thead>\n"+
+                "\t\t<tr>\n"+
+                    "\t\t\t<th>Paramètre</th>\n"+
+                    "\t\t\t<th>Valeur</th>\n"+
+                "\t\t</tr>\n"+
+            "\t</thead>\n"+
+            "\t<tbody>\n" +
+                "\t\t<tr>\n"+
+                    "\t\t\t<td>Auto-étalonnage</td>\n"+
+                    "\t\t\t<td>Standard</td>\n"+
+                "\t\t</tr>\n"+ 
+                "\t\t<tr>\n"+
+                    "\t\t\t<td>Images</td>\n"+
+                    "\t\t\t<td>Toutes</td>\n"+
+                "\t\t</tr>\n"+ 
+            "\t</tbody>\n"+
+        "</table>"
+    }
 
-	document.getElementById('resumeEtalonnage').innerHTML = myEtalon;
+    document.getElementById('resumeEtalonnage').innerHTML = myEtalon;
 
-	return true;
+    return true;
 }
 
 function ajout(parametre, valeur, couleur) {

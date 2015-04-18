@@ -1,12 +1,12 @@
 function plusMoins(nomPanel) {
 
-	var myElement = document.getElementById(nomPanel+"-button"); //trouve le bouton
-	var myParentDiv = myElement.parentNode.parentNode;
+    var myElement = document.getElementById(nomPanel+"-button"); //trouve le bouton
+    var myParentDiv = myElement.parentNode.parentNode;
 
-	//if div is greyed out, pushing the button has no effect
-	if(myParentDiv.className.indexOf("greyed-out") != -1) {
-		return true;
-	}
+    //if div is greyed out, pushing the button has no effect
+    if(myParentDiv.className.indexOf("greyed-out") != -1) {
+        return true;
+    }
 
     //if icon is +, set it to -, and if -, set it to +
     if (myElement.innerHTML.indexOf("plus") > -1)  {
@@ -15,18 +15,18 @@ function plusMoins(nomPanel) {
         myElement.innerHTML = myElement.innerHTML.replace("minus","plus");
     }
 
-	afficher(nomPanel+"-body"); //trouve le contenu de la fenêtre
+    afficher(nomPanel+"-body"); //trouve le contenu de la fenêtre
 
     return true;
 }
 
 // enlève l'attribut disabled du bouton "id", et greyed-out de la div parente
 function ungrey(id) {
-	var element = document.getElementById(id);
-	var parentDiv = element.parentNode.parentNode.parentNode;
+    var element = document.getElementById(id);
+    var parentDiv = element.parentNode.parentNode.parentNode;
 
-	element.disabled = "";
-	parentDiv.className = parentDiv.className.replace(" greyed-out","");
+    element.disabled = "";
+    parentDiv.className = parentDiv.className.replace(" greyed-out","");
     
     return true;
 }
