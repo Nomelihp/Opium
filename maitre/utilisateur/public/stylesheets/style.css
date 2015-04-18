@@ -362,17 +362,6 @@ footer {
   cursor: default;
 }
 
-.dropdown .greyed-out .btn:hover,
-.dropdown .greyed-out .btn:focus,
-.dropdown .greyed-out .btn.focus,
-.dropdown .greyed-out .btn:active,
-.dropdown .greyed-out .btn.active
-{
-  background-color: #bbbbbb !important;
-  border-color: #a6a6a6 !important;
-  color: #dddddd !important;
-}
-
 .dropdown .greyed-out:before {
   content: url("/images/please-wait.gif");
   float: right;

@@ -20,6 +20,15 @@ function plusMoins(id) {
     return true;
 }
 
+// enlève l'attribut disabled de l'élément, et greyed-out de la div parente
+function ungrey(id) {
+	var element = document.getElementById(id);
+	var parentDiv = element.parentNode.parentNode;
+
+	element.disabled = "";
+	parentDiv.className = parentDiv.className.replace(" greyed-out","");
+}
+
 /*
  * var model = require('../../../model/mongo_config');
 
