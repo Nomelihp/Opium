@@ -17,7 +17,7 @@ chantier
           {
             id: "1",
             nom= "",
-            auto_etalonage: 0: Non, 1: Oui,
+            auto_etalonnage: 0: Non, 1: Oui,
             type_auto_etalonnage: "standard", "fisheye", "fraserbasic",
             liste_images: ["rien.JPG","nimportekoi.RAW"],
             capteur:{
