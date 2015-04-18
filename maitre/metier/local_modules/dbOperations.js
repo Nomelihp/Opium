@@ -7,8 +7,13 @@ function toJSON(id_chantier, commande, etat, erreur){
 
 // Verifier si un élément existe dans un tableau
 function inArray(element, array){
-  
-
+  for (var i=0 ; i<array.length; i++){
+    if (element == array[i]){
+      break;
+      return true
+    }
+  }
+  return false;
 }
 
 // Fonction pour enregistrer le job dans la BD et changer le flag du besoin à 1
