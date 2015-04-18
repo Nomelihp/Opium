@@ -1,8 +1,5 @@
 // Route permettant l'upload des images
-// A faire : 
-// maj bd
-// creation du tableau image quand pas encore dimage
-// renvoi exif
+// optimisation possible  moyen d'éviter une copie en utilisant changeDest de multer
 
 var express = require('express');
 var router  = express.Router();
@@ -16,7 +13,6 @@ var fs 		= require('fs');
 
 // Extraction des métadonnées exif
 var exif 	= require('exif2');	
-
 
 var apresUpload = function (file,req,res) {
   // On déplace le fichier dans le répertoire de l'utilisateur et du chantier correspondants
@@ -37,7 +33,7 @@ var apresUpload = function (file,req,res) {
 		if (!fs.existsSync(dir2)){
 			fs.mkdirSync(dir2);
 		}
-		// Copie du fichier
+		// Copie du fichier vers son chemin définitif
 		fs.rename(params.repertoire_donnees+"tmp/"+file.name, cheminFinalImg, function (err) {
 			if (err) throw err;
 			// Récupération des métadonnées exif de l'image
@@ -49,18 +45,22 @@ var apresUpload = function (file,req,res) {
 				{
 					listeImg = bes.liste_images;
 				}
-				listeImg.push({"nom":file.originalname,"exif":donneesExif});
+				var jsonImg = {"nom":file.originalname,"exif":donneesExif};
+				listeImg.push(jsonImg);
 				
 				Besoins.findByIdAndUpdate(req.body._id, { liste_images: listeImg }, function(err, b) {
 					if (err) throw err;
+
 				});
+				
 			})
 		});
 	});
-  done=true;
+  
+  
 }
 
-// Paramétrage de l'upload via multer
+// Paramétrage de l'upload via le middleware multer
 router.use(multer({ dest: params.repertoire_donnees+"tmp/",
 	// on renomme le fichier
 	rename:function(fieldname, filename, req, res){
@@ -75,10 +75,9 @@ router.get('/', function(req, res){
 })
 
 .post('/', function(req, res){
-	
-    res.status(204).end()
+	// on ne renvoie rien (lien difficile avec multer pour détecter l'upload vraiment fini à ce niveau)
+	res.status(204).end()
 });
-
 
 
 module.exports = router;

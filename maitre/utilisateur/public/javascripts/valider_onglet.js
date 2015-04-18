@@ -1,37 +1,25 @@
-// Envoie les fichiers choisis par l'utilisateur au serveur depuis l'onglet 2
-function uploadImagesOnglet2()
+// Contient les informations exif des images importées
+var infosExif = null;
+
+// Récupère les informations exif des images du chantier auprès du serveur
+function recupereExif()
 {
-
-
-	// Pour chaque image
-	//for...
-	// crée une nouvelle requette XMLHttpRequest
-	var objReq = new XMLHttpRequest();
-	
-	if(!(file.type=="image/jpeg" || file.type=="image/png" || file.type=="image/gif")){
-	// le fichier n'est pas du bon type
-	
-	}
-	else
-	{
-		var formData = new FormData();
-		formData.append("img", file);
+		var req = new XMLHttpRequest();	
+		req.open('POST','/nouveau_chantier',true);
 		
-		// crée une fonction pour afficher la progression de la requête
-		objReq.upload.onprogress = function(evt){
-		}
-		
-		// onreadystatechange est appelé à chaque changement d'état de la requête
-		objReq.onreadystatechange=function(){
-		}
-		// ouvre une requete post, avec l'adresse du formulaire
-		objReq.open("POST", document.getElementById("uploadForm").action, true);
-		// on envoie l'objet formData
-		objReq.send(formData);
-	}
-	
+		req.onreadystatechange = function (aEvt) {
+		  if (req.readyState == 4) {
+			 if(req.status == 200)
+			 {
+				  infosExif = req.responseText;
+				  console.log(infosExif);
+			 }
+		  }
+		};
+		// On envoie l'id chantier et la demande d'exif
+		req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		req.send(JSON.stringify({"_id":$("#idChantier").val(),"demandeExif":"oui"}));
 }
-////////////////////////////////////////////////////////////////////////
 
 // Valide un onglet en envoyant les paramètres du formulaire et en affichant l'onglet suivant
 function valider_onglet(id) {
@@ -52,122 +40,128 @@ function valider_onglet(id) {
 	//Onglet courrant(celui à valider), initialisé au premier onglet au premier appel
 	var ongletCourant = $("#ongletCourant").val();
 	
-	//On récupère l'idChantier de la page
-	var idChantier = $("#idChantier").val();
-	console.log(idChantier);
-	
-	var getinfo = ["nom", "commentaire"]
-	var getinfochecked = ["mask2D", "mask3D", "typestatus", "typefacade"]
-	//Tableau associatif "onglet courrant" : ["id des formulaires à valider"]
-	var tabass = {"on_click1" : ["on_click1a"], "on_click2" : ["js-upload-form"], "on_click3" : ["etalonnageForm", "parametresForm"], "on_click4" : []}
-	
-	//Pas de formulaire à valider dans l'onglet 4: on passe toutes les étapes
-	if(ongletCourant != "on_click4"){
-	
-	//Création d'un objet JSON
-	var formjson = {};
-	//Ajout de l'id du chantier
-	if(idChantier!="-1"){
-		formjson._id = idChantier;
-	}
-	
-	// on parcourt les formulaires présents dans l'onglet courant, en regardant la table d'association tabass
-	for (var j = 0; j < tabass[ongletCourant].length; j++){
-	var idform = (tabass[ongletCourant])[j];
-	console.log(idform);
-	// Récupération du formulaire
-	var Form = document.forms[idform];
-	// Boucle tous les éléments du formulaire i
-	var el = Form.elements;
-	//Formulaire special pour l'etalonnage
-	if(idform=="etalonnageForm"){
-		var etaljson = {};
-		etaljson.id = "1" //A VOIR CE QU'IL FAUT METTRE
-		for (var l = 0; l < el.length; l++){
-			console.log("boucle");
-			var idelement = el[l].id;
-			//Nouveau JSON pour cet etalonnage
-			if(idelement=="calibrationname"){etaljson.nom = el[l].value;}
-			if(idelement=="auto_etalonnage"){
-				if(el[l].checked){
-					etaljson.auto_etalonnage="1";
-				}
-				else{
-					etaljson.auto_etalonnage="0";
-					//ALLER CHERCHER LE NOM DU FICHIER DE CALIBRATION
-					break;
-				}
-			}
-			if(idelement=="standard" && el[l].checked){etaljson.type_auto_etalonnage="standard"}
-			if(idelement=="fisheye" && el[l].checked){etaljson.type_auto_etalonnage="fisheye"}
-			if(idelement=="fraserbasic" && el[l].checked){etaljson.type_auto_etalonnage="fraserbasic"}
-			//VOIR POUR LA LISTE D'IMAGES
-			if(idelement=="infoCapteurCb" && el[l].checked){
-				var capteurjson={};
-				capteurjson.focale_reelle = document.getElementById(focale_reelle).value;// BUG
-				var dim1 = document.getElementById("dim1").value;
-				var dim2 = document.getElementById("dim2").value;
-				capteurjson.dimensions = "[" + dim1 +","+ dim2 +"]";
-				etaljson.capteur = capteurjson;
-			}
-		}
-	formjson.etalonnage = etaljson;
-	}
-	else{
-	for (var l = 0; l < el.length; l++)
-		{
-		var idelement = el[l].id;
-			for (var i =0; i < getinfo.length; i++){
-				//Si l'id est dans la liste des input à récupérer, on l'ajoute à l'objet JSON
-				if( idelement==getinfo[i] ){
-				formjson[idelement] = el[l].value;
-				break;
-				}
-			}
-			//Pour les checkbox
-			for (var i =0; i < getinfochecked.length; i++){
-				//Si l'id est dans la liste des input à récupérer, on l'ajoute à l'objet JSON
-				if( idelement==getinfochecked[i] ){
-					if (el[l].checked){
-						formjson[idelement] = el[l].value;}
-				break;
-				}
-			}
-			if ( idelement=="mise_a_echelle" || idelement=="basculement" ){
-				if( el[l].checked){formjson[idelement] = "1"}
-				else{formjson[idelement] = "0"}
-			}
-			if ( idelement=="quantite_points_liaison" ){
-				formjson[idelement] = el[l].options[el[l].selectedIndex].value;
-			}
-		}
-	}
-	}
-	// N'envoie pas de requete si il y a juste l'id dans le tableau
-	if (Object.keys(formjson).length > 1)
+	// Si on valide l'onglet 2, on récupère les métadonnées des images importées
+	if (ongletCourant == "on_click2")recupereExif();
+	else
 	{
-		//Pour l'envoi en POST des informations au serveur
-		var req = new XMLHttpRequest();	
-		req.open('POST','/nouveau_chantier',true);
+	
+		//On récupère l'idChantier de la page
+		var idChantier = $("#idChantier").val();
+		console.log(idChantier);
 		
-		req.onreadystatechange = function (aEvt) {
-		  if (req.readyState == 4) {
-			 if(req.status == 200){
-			 //Récupération du nouvel id du chantier
-			  var jsonrecu = JSON.parse(req.responseText);
-			  idChantier = jsonrecu._id;
-			  console.log(idChantier);
-			  //On met l'id chantier dans la page
-			  $("#idChantier").val(idChantier);
+		var getinfo = ["nom", "commentaire"]
+		var getinfochecked = ["mask2D", "mask3D", "typestatus", "typefacade"]
+		//Tableau associatif "onglet courrant" : ["id des formulaires à valider"]
+		var tabass = {"on_click1" : ["on_click1a"], "on_click2" : ["js-upload-form"], "on_click3" : ["etalonnageForm", "parametresForm"], "on_click4" : []}
+		
+		//Pas de formulaire à valider dans l'onglet 4: on passe toutes les étapes
+		if(ongletCourant != "on_click4"){
+		
+		//Création d'un objet JSON
+		var formjson = {};
+		//Ajout de l'id du chantier
+		if(idChantier!="-1"){
+			formjson._id = idChantier;
+		}
+		
+		// on parcourt les formulaires présents dans l'onglet courant, en regardant la table d'association tabass
+		for (var j = 0; j < tabass[ongletCourant].length; j++){
+		var idform = (tabass[ongletCourant])[j];
+		console.log(idform);
+		// Récupération du formulaire
+		var Form = document.forms[idform];
+		// Boucle tous les éléments du formulaire i
+		var el = Form.elements;
+		//Formulaire special pour l'etalonnage
+		if(idform=="etalonnageForm"){
+			var etaljson = {};
+			etaljson.id = "1" //A VOIR CE QU'IL FAUT METTRE
+			for (var l = 0; l < el.length; l++){
+				console.log("boucle");
+				var idelement = el[l].id;
+				//Nouveau JSON pour cet etalonnage
+				if(idelement=="calibrationname"){etaljson.nom = el[l].value;}
+				if(idelement=="auto_etalonnage"){
+					if(el[l].checked){
+						etaljson.auto_etalonnage="1";
+					}
+					else{
+						etaljson.auto_etalonnage="0";
+						//ALLER CHERCHER LE NOM DU FICHIER DE CALIBRATION
+						break;
+					}
+				}
+				if(idelement=="standard" && el[l].checked){etaljson.type_auto_etalonnage="standard"}
+				if(idelement=="fisheye" && el[l].checked){etaljson.type_auto_etalonnage="fisheye"}
+				if(idelement=="fraserbasic" && el[l].checked){etaljson.type_auto_etalonnage="fraserbasic"}
+				//VOIR POUR LA LISTE D'IMAGES
+				if(idelement=="infoCapteurCb" && el[l].checked){
+					var capteurjson={};
+					capteurjson.focale_reelle = document.getElementById(focale_reelle).value;// BUG
+					var dim1 = document.getElementById("dim1").value;
+					var dim2 = document.getElementById("dim2").value;
+					capteurjson.dimensions = "[" + dim1 +","+ dim2 +"]";
+					etaljson.capteur = capteurjson;
+				}
+			}
+		formjson.etalonnage = etaljson;
+		}
+		else{
+		for (var l = 0; l < el.length; l++)
+			{
+			var idelement = el[l].id;
+				for (var i =0; i < getinfo.length; i++){
+					//Si l'id est dans la liste des input à récupérer, on l'ajoute à l'objet JSON
+					if( idelement==getinfo[i] ){
+					formjson[idelement] = el[l].value;
+					break;
+					}
+				}
+				//Pour les checkbox
+				for (var i =0; i < getinfochecked.length; i++){
+					//Si l'id est dans la liste des input à récupérer, on l'ajoute à l'objet JSON
+					if( idelement==getinfochecked[i] ){
+						if (el[l].checked){
+							formjson[idelement] = el[l].value;}
+					break;
+					}
+				}
+				if ( idelement=="mise_a_echelle" || idelement=="basculement" ){
+					if( el[l].checked){formjson[idelement] = "1"}
+					else{formjson[idelement] = "0"}
+				}
+				if ( idelement=="quantite_points_liaison" ){
+					formjson[idelement] = el[l].options[el[l].selectedIndex].value;
+				}
+			}
+		}
+		}
+		// N'envoie pas de requete si il y a juste l'id dans le tableau
+		if (Object.keys(formjson).length > 1)
+		{
+			//Pour l'envoi en POST des informations au serveur
+			var req = new XMLHttpRequest();	
+			req.open('POST','/nouveau_chantier',true);
+			
+			req.onreadystatechange = function (aEvt) {
+			  if (req.readyState == 4) {
+				 if(req.status == 200){
+				 //Récupération du nouvel id du chantier
+				  var jsonrecu = JSON.parse(req.responseText);
+				  idChantier = jsonrecu._id;
+				  console.log(idChantier);
+				  //On met l'id chantier dans la page
+				  if($("#idChantier").val() == "-1")$("#idChantier").val(idChantier);
+				  }
+				 else
+				  ;//dump("Erreur pendant le chargement de la page.\n");
 			  }
-			 else
-			  ;//dump("Erreur pendant le chargement de la page.\n");
-		  }
-		};
+			};
 
-		//On précise que l'information qu'on envoie est du JSON
-		req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-		req.send(JSON.stringify(formjson));
+			//On précise que l'information qu'on envoie est du JSON
+			req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			req.send(JSON.stringify(formjson));
+			}
 		}
 	}
 	//Changement d'onglet

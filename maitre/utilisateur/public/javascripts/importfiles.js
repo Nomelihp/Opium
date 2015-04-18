@@ -52,6 +52,14 @@ var importeFichier = function(fichier) {
 				}
 			}
 		};
+		xhr.onreadystatechange = function (aEvt) {
+			if (xhr.readyState == 4) {
+			 if(xhr.status == 200)
+			  dump(xhr.responseText);
+			 else
+			  dump("Erreur pendant le chargement de la page.\n");
+		  }
+		};
 
 		xhr.send(fd); 
 	}
