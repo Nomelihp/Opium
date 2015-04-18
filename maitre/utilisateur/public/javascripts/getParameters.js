@@ -55,7 +55,7 @@ var whatever = function onPageOpen() {
     if(liste_images != null) {
         menuDeroulant += "<select size='3'>\n";
         //transformation du string en array
-        liste_images = liste_images.replace("[","").replace("]","").split(",");
+        liste_images = JSON.parse(liste_images);
 
         for(var i=0; i<liste_images.length; i++) {
             menuDeroulant += "<option>"+liste_images[i]+"</option>\n";
@@ -90,18 +90,31 @@ var whatever = function onPageOpen() {
             break;
     }
 
-    if(besoins.mise_a_echelle == 1) {
+	//ajout mise à l'échelle. Non par défaut.
+    if(besoins.mise_a_echelle) {
         myTable.ajout("Mise à l'échelle","oui");
     } else {
         myTable.ajout("Mise à l'échelle","non");
     }
 
-    if(besoins.basculement == 1) {
+	//ajout basculement. Non par défaut.
+    if(besoins.basculement) {
         myTable.ajout("Basculement","oui");
     } else {
         myTable.ajout("Basculement","non");
     }
 
+	document.getElementById('resumeParam').innerHTML = myTable;
+	
+	var etalonnage = besoins.etalonnage;
+	if(etalonnage) { //if exists
+		etalonnage = JSON.parse(etalonnage);
+	} else {
+		e
+	} */
+
+	
+	
 }
 
 function ajout(parametre, valeur, couleur) {
