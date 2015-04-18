@@ -18,7 +18,7 @@ chantier
             id: "1",
             nom= "",
             auto_etalonage: 0: Non, 1: Oui,
-            type_auto_etalonage: "standard", "fisheye", "fraserbasic",
+            type_auto_etalonnage: "standard", "fisheye", "fraserbasic",
             liste_images: ["rien.JPG","nimportekoi.RAW"]
             capteur:{
                       focale_reelle: 33,
