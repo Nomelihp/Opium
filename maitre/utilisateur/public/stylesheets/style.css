@@ -372,3 +372,9 @@ footer {
   border-color: #a6a6a6 !important;
   color: #dddddd !important;
 }
+
+.dropdown .greyed-out .h4:before {
+  content: url("/images/please-wait.gif");
+  float: right;
+  margin: 0 5px 0 0;
+}
