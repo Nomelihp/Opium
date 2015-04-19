@@ -1,9 +1,15 @@
-var myExif = JSON.parse(besoins.liste_images); //PAS LE BON PATH VERS EXIFS.
+
 //liste des infos à extraire du exif
 var myExifKeys = ["create date","file size","image size","camera model name","focal length","f number","iso","shutter speed","aperture","exposure time","sharpness","saturation","contrast","white balance","color space","orientation"];
 
+function launchAll() {
+    var myExif = JSON.parse(besoins.liste_images); //PAS LE BON PATH VERS EXIFS.
+    
+    nomsImages(myExif);
+    nomsBalises(myExif);    
+}
 
-var menuImages = function nomsImages() {
+function nomsImages(myExif) {
     
     var myListe = "";
     for(var i=0; i<myExif.length; i++){
@@ -11,9 +17,11 @@ var menuImages = function nomsImages() {
     }
     
     document.getElementById("nomsImages").innerHTML = myListe;
+    document.getElementById("menuDeroulantImages").innerHTML = myListe;
+    
 }
 
-var menuBalises = function nomsBalises() {
+function nomsBalises(myExif) {
     var myListe = "";
     for(var i=0; i<myExifKeys.length; i++){
         myListe += "<option value='"+myExifKeys[i]+"'>"+myExifKeys[i]+"</option>";
@@ -23,6 +31,8 @@ var menuBalises = function nomsBalises() {
 }
 
 function infosImage(imagePosition) {
+    
+    var myExif = JSON.parse(besoins.liste_images); //PAS LE BON PATH VERS EXIFS.
     var myImage = myExif[i]["exif"];
     
     for(var i=0; i<myExifKeys.length; i++){
@@ -33,6 +43,8 @@ function infosImage(imagePosition) {
 }
 
 function infosBalise(baliseName) {
+    
+    var myExif = JSON.parse(besoins.liste_images); //PAS LE BON PATH VERS EXIFS.
     
     for(var i=0; i<myExif.length; i++){
         myListe += "<tr><td>"+myExif[i]["name"]+"</td><td>"+myExif[i]["exif"][baliseName]+"</td></tr>";

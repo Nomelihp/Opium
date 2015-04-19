@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="cameras-pills">
+<div class="tab-pane fade" id="cameras-pills" onclick="javascript: launchAll()">
     <div class="panel-body">
 
 <!--  Liste des images à choisir pour drag and drop -->
@@ -10,19 +10,19 @@
 <% include exif %>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN POP-UP EXIF - - - - - - - - - - - - - - - - - - - - - - - - -->    
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - POP-UP ETALONNAGE - - - - - - - - - - - - - - - - - - - - - - - -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myEtalon">
-    Modifier l'étalonnage
-</button>
-
-<div class="modal" id="myEtalon" tabindex="-1" role="dialog" aria-labelledby="myEtalonLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myEtalonLabel">Définition de l'étalonnage</h4>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - ETALONNAGE - - - - - - - - - - - - - - - - - - - - - - - -->
+        <div class="panel panel-info" id="myEtalon">
+            
+            <div class="panel-heading">
+                Définition de l'étalonnage
+                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myExif" style="float: right;">
+                    Visualiser les données exif
+                </button>
             </div>
+            
             <form method="get" id="etalonnageForm">
-                <div class="modal-body">
+                
+                <div class="panel-body">
                     <div class="notice-board">
                         <label>Nom de la calibration</label>
                         <input type="text" class="form-control" placeholder="Text input" id="calibrationname" />
@@ -56,11 +56,32 @@
                             
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value="ImagesCalibration" />
+                                    <input type="checkbox" value="imagesCalibration" />
                                     Images spécifiques pour la calibration
                                 </label>
                                 
-                                <p>Solution technique à trouver</p>
+                                <div class="tab">
+                                    
+                                    <!-- Importer de nouvelles images -->
+                                    <div class="inline-radio">
+                                        <label>
+                                            <input type="radio" name="imgSpec" id="upload" value="upload" onclick="document.getElementById('js-upload-calib-images').disabled=false" />
+                                            Importer de nouvelles images
+                                            <div class="form-inline form-group">
+                                                <input type="file" name="files[]" id="js-upload-calib-images" accept="image/*" multiple disabled  />
+                                                <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Importer</button>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="inline-radio">
+                                        <label>
+                                            <input type="radio" name="imgSpec" id="choix" value="choix" />
+                                            <select class="form-control" id="menuDeroulantImages" size="3">
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div class="checkbox" id="infoCapteur">
@@ -69,7 +90,7 @@
                                     Informations sur le capteur
                                 </label>
                                 
-                                <div class="checkbox">
+                                <div class="tab">
                                     <label>
                                         Focale réelle
                                         <input type="number" class="inline-input" id="focale_reelle" min="0" disabled /> mm
@@ -90,7 +111,7 @@
                                 <input type="radio" class="root1" name="optionsRadios" value="fichier" onclick="javascript:grise('auto', null, 'root1');degrise('fromFile', null, 'NO_CLASS_NAME', true);" />
                                 Fichier de calibration
                             </label>
-
+            
                             <div class="form-inline">
                                 <!-- VERIFIER LE MIME, PLUTOT -->
                                 <input type="file" name="files[]" id="js-upload-calib-files" accept="text/xml" disabled  />
@@ -100,16 +121,15 @@
                     <br />    
                 </div>                    
                                                                     
-                <div class="modal-footer">
+                <div class="panel-footer">
                     <button type="reset" class="btn btn-default">Retour aux valeurs par défaut</button>
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Sauvegarder & quitter</button>
+                    <button type="submit" class="btn btn-primary">Suivant</button>
                 </div>
+                
             </form>
         </div>
-    </div>
-</div>
 
-<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN POP-UP ETALONNAGE - - - - - - - - - - - - - - - - - - - - - -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN ETALONNAGE - - - - - - - - - - - - - - - - - - - - - -->
 
     </div>
 </div>
