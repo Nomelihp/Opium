@@ -1,7 +1,7 @@
 
 // Fonction pour traduire les champs de jobs en JSON
 exports.toJSON=function(id_chantier, commande, etat, erreur){
-  var jsonString = "{'id_chantier':"+id_chantier+",'commande':"+commande+",'etat':"+etat+",'erreur':"+erreur+"}";
+  var jsonString = "{\"id_chantier\":\""+id_chantier+"\",\"commande\":\""+commande+"\",\"etat\":\""+etat+"\",\"erreur\":\""+erreur+"\"}";
   return JSON.parse(jsonString);
 }
 

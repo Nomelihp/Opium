@@ -10,18 +10,18 @@
   "masque":"3D",
   "quantite_points_liaison": "4",
   "mise_a_echelle": "0",
-  "basculement":"0"
+  "basculement":"0",
 
   "etalonnage":[
           {
             "nom": "OKETAL",
             "auto_etalonage": "1",
             "type_auto_etalonnage": "standard",
-            "liste_images": ["rien.JPG","nimportekoi.RAW"]
+            "liste_images": ["rien.JPG","nimportekoi.RAW"],
             "capteur":{
                       "focale_reelle": 33,
-                      "dimensions": [15,199],
-                    }
+                      "dimensions": [15,199]
+                      }
           }
 
         ]

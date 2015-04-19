@@ -9,7 +9,7 @@ exports.besoin2jobs = function(jsonBesoin){
   // veut récupéré
 
   // Dans tous les cas le calcul des images de liaison est obligatoire
-  var id_chantier = json.Besoin.id_chantier;
+  var id_chantier = jsonBesoin.id_chantier;
 
   // Quantité des points de liaison
   var quantite_points_liaison;
@@ -27,7 +27,9 @@ exports.besoin2jobs = function(jsonBesoin){
   // Tableau des commandes
   var commandes=[];
 
-  for(var i = 0; i < jsonBesoin.etalonnage.legnth ;i++){
+  console.log(jsonBesoin.etalonnage.length);
+
+  for(var i = 0; i < jsonBesoin.etalonnage.length ;i++){
     if(jsonBesoin.etalonnage[i].auto_etalonnage == "1"){
       if(jsonBesoin.etalonnage[i].type_auto_etalonnage == "standard"){
         if(jsonBesoin.etalonnage[i].liste_images.length == 0){
@@ -111,8 +113,10 @@ exports.besoin2jobs = function(jsonBesoin){
 
   }
   // Persister dans la BD
+  var job;
   for(var i=0 ; i<commandes.length; i++){
-    model.jobs.save(dbOperations.toJSON(jsonBesoin._id, commandes[i], 0, ''),function(err, job){
+    job = new model.jobs(dbOperations.toJSON(jsonBesoin._id, commandes[i], 0, ''));
+    job.save(function(err, job){
       if(err) throw err;
 
     });
