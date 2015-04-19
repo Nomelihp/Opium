@@ -105,13 +105,37 @@ var whatever = function onPageOpen() {
 
     document.getElementById('resumeParam').innerHTML = myTable;
     
-    var etalonnage = besoins.etalonnage;
-    if(etalonnage) { //if exists
-        etalonnage = JSON.parse(etalonnage);
-        if(etalonnage.length > 1) {
+    var etalonnages = besoins.etalonnage;
+    if(etalonnages) { //if exists
+        var etalonnages = JSON.parse(etalonnage);
 
-        } else {
-            // SI UN SEUL ÉTALONNAGE POUR TOUTES LES IMAGES
+		for(var k=0; k<etalonnages.length; k++) {
+			var etalonnage = etalonnages[k];
+			
+			if(etalonnages.length > 1) {
+				var current = "etalon"+k;
+				myEtalon +=
+				'<div class="dropdown panel panel-info greyed-out" id="'+current+'">\n'+
+					'\t<div class="panel-heading">\n'+
+						'\t\t<h4>\n'+
+							'\t\t\t<button class="btn btn-info btn-sm" id="'+current+'-button" type="button" aria-expanded="true" onclick="javascript:plusMoins(\"'+current+'\");">\n'+
+								'\t\t\t\t<i class="fa fa-plus"></i>\n'+
+							'\t\t\t</button>\n';
+
+				var nom = etalonnage.nom;
+				if(nom) {
+					myEtalon += '\t\t\t'+nom+'\n';
+				} else {
+					myEtalon += '\t\t\tÉtalonnage '+k+'\n';
+				}
+
+				myEtalon +=
+						'\t\t</h4>\n'+
+					'\t</div>\n'+
+					'\n'+
+					'\t<div class="panel-body" id="'+current+'-body" style="display:none;">\n';	
+			}
+        
             myEtalon +=
             "<table class='table table-striped table-bordered table-hover'>\n"+
                 "\t<thead>\n"+
@@ -120,53 +144,93 @@ var whatever = function onPageOpen() {
                         "\t\t\t<th>Valeur</th>\n"+
                     "\t\t</tr>\n"+
                 "\t</thead>\n"+
-                "\t<tbody>\n" +
+                "\t<tbody>\n";
 
+			// SI AUTO-ETALONNAGE
             if(etalonnage.auto_etalonnage) {
                 myEtalon +=
                 "\t\t<tr>\n"
-                    "\t\t\t<td>Auto-étalonnage</td>\n"
+                    "\t\t\t<td>Auto-étalonnage</td>\n";
 
                 var type_etalon = etalonnage.type_auto_etalonnage;
                 switch(type_etalon) {
                     case "fisheye":
-                        myEtalon += "\t\t\t<td>Fish-Eye</td>\n"
+                        myEtalon += "\t\t\t<td>Fish-Eye</td>\n";
                         break;
                     case "fraserbasic":
-                        myEtalon += "\t\t\t<td>Fraser Basic</td>\n"
+                        myEtalon += "\t\t\t<td>Fraser Basic</td>\n";
                         break;
                     case "standard":
-                    case default:
-                        myEtalon += "\t\t\t<td>Standard</td>\n"
+                    default:
+                        myEtalon += "\t\t\t<td>Standard</td>\n";
                         break;
                 }
-
                 myEtalon +=
                 "\t\t</tr>\n"+
                 "\t\t<tr>\n"+
-                    "\t\t\t<td>Images</td>\n"+
-                    "\t\t\t<td>Toutes</td>\n"+
-                "\t\t</tr>\n"+
+					"\t\t\t<td>Images</td>\n";
+
+                if(!etalonnage.liste_images || etalonnage.length < 2) {
+					myEtalon +=
+						"\t\t\t<td>Toutes</td>\n";
+				} else {
+					menuDeroulant = "<select size='3'>\n"; //variable où stocker le menu en attendant de le mettre dans myTable
+					//transformation du string en array
+					liste_images = JSON.parse(etalonnage.liste_images);
+					for(var i=0; i<liste_images.length; i++) {
+						menuDeroulant += "<option>"+liste_images[i]+"</option>\n";
+					}
+					menuDeroulant += "</select>";
+
+					myEtalon += "\t\t\t<td>"+menuDeroulant+"</td>\n";
+				}
+				myEtalon += "\t\t</tr>\n";
 
                 //AJOUT INFO CAPTEUR
+                var capteur = etalonnage.capteur;
+
+                var focale = etalonnage.capteur.focale_reelle;
+                myEtalon +=
+                "\t\t<tr>\n"+
+                    "\t\t\t<td>Focale capteur</td>\n";                
                 
-                    
+				if(focale) {
+					myEtalon += "\t\t\t<td>"+focale+"</td>\n"	
+				} else {
+					myEtalon += "\t\t\t<td>Auto</td>\n"	
+				}
+				myEtalon += "\t\t</tr>\n";
+
+				var dimensions = JSON.parse(etalonnage.capteur.dimensions);
+				myEtalon +=
+                "\t\t<tr>\n"+
+                    "\t\t\t<td>Dimensions capteur</td>\n";                
+                
+				if(focale) {
+					myEtalon += "\t\t\t<td>"+dimensions[0]+"×"+dimensions[1]+"</td>\n"	
+				} else {
+					myEtalon += "\t\t\t<td>Auto</td>\n"	
+				}
+				myEtalon += "\t\t</tr>\n";
+						
+
+            // SI FICHIER D'ETALONNAGE    
             } else {
                 //FETCH FILE
-            }    
-                    "\t\t</tr>\n"+ 
-
-
+            }
             myEtalon +=
-                    "\t\t<tr>\n"+
-                        "\t\t\t<td>Images</td>\n"+
-                        "\t\t\t<td>Toutes</td>\n"+
-                    "\t\t</tr>\n"+ 
                 "\t</tbody>\n"+
-            "</table>"
+            "</table>";
+
+            if(etalonnages.length > 1) {
+				myEtalon += "</div></div>";
+			}
         }
+
+    // VALEUR PAR DÉFAUT
     } else {
         myEtalon +=
+        "<h4>Étalonnage par défaut<h4>"
         "<table class='table table-striped table-bordered table-hover'>\n"+
             "\t<thead>\n"+
                 "\t\t<tr>\n"+
@@ -182,6 +246,14 @@ var whatever = function onPageOpen() {
                 "\t\t<tr>\n"+
                     "\t\t\t<td>Images</td>\n"+
                     "\t\t\t<td>Toutes</td>\n"+
+                "\t\t</tr>\n"+
+                "\t\t<tr>\n"+
+                    "\t\t\t<td>Focale capteur</td>\n"+
+                    "\t\t\t<td>Auto</td>\n"+
+                "\t\t</tr>\n"+
+                "\t\t<tr>\n"+
+                    "\t\t\t<td>Dimensions capteur</td>\n"+
+                    "\t\t\t<td>Auto</td>\n"+
                 "\t\t</tr>\n"+ 
             "\t</tbody>\n"+
         "</table>"
