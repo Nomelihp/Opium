@@ -203,14 +203,20 @@ function lancer_calcul() {
 		console.log(infosExif.length);
 			if(infosExif.length < 2){alert("Importez au moins deux images");}
 			else{
-				alert("Validation(à faire)");
+				//création d'un JSON
+				var formjson = {};
+				//Recherche de l'idChantier
+				var idChantier = $("#idChantier").val();
+				formjson._id = idChantier;
 				//On change de page et on change d'état
-/* 				var req = new XMLHttpRequest();    
+				formjson.etat = "2";
+				//Envoi de la requête au serveur
+				var req = new XMLHttpRequest();
 				req.open('POST','/nouveau_chantier',true);
 				//On précise que l'information qu'on envoie est du JSON
 				req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 				req.send(JSON.stringify(formjson));
-				} */
+				document.location.href="chantiers";
 				}
 			}
 		else{alert("Importez au moins deux images");}
