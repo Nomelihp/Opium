@@ -1,32 +1,27 @@
 {
-  '_id': "1",
-  'login': 'blabla',
-  'nom': 'bla',
-  'date': "455656"
-  'etat': '1'
-  'commentaires': 'lablablabla'
-  'type': 'statue',
-  liste_images: ["rien.JPG","nimportekoi.RAW"]
-  masque: "22D" OU "3D"
-  quantite_points_liaison: 1: Faible, 2:Moyen, 3:Important, 4:Maximale,
-  mise_a_echelle: 0:Non, 1:Oui,
-  'basculement':'0'
-  
-  etalonnage:[
+  "_id": "1",
+  "login": "blabla",
+  "nom": "bla",
+  "date": "455656",
+  "etat": "1",
+  "commentaires": "lablablabla",
+  "type": "statue",
+  "liste_images": ["rien.JPG","nimportekoi.RAW"],
+  "masque":"3D",
+  "quantite_points_liaison": "4",
+  "mise_a_echelle": "0",
+  "basculement":"0"
+
+  "etalonnage":[
           {
-            id: "1",
-            nom= "",
-            auto_etalonage: 0: Non, 1: Oui,
-            type_auto_etalonnage: "standard", "fisheye", "fraserbasic",
-            liste_images: ["rien.JPG","nimportekoi.RAW"]
-            capteur:{
-                      focale_reelle: 33,
-                      dimensions: [15,199],
+            "nom": "OKETAL",
+            "auto_etalonage": "1",
+            "type_auto_etalonnage": "standard",
+            "liste_images": ["rien.JPG","nimportekoi.RAW"]
+            "capteur":{
+                      "focale_reelle": 33,
+                      "dimensions": [15,199],
                     }
-          }
-          ,
-          {
-            //Un autre bloc semblable à celui d'en haut
           }
 
         ]
