@@ -65,7 +65,7 @@ J'essaie de voir quelles **infos importantes** à extraire pour les montrer à l
 		*"file modification date time"* : "2015:04:18 20:01:02+02:00",  
 		**"file size"** : "1156 kB",  
 		*"directory"* : "./img_micmac/localuser/55329bcfd148fe56126e741d", `Surtout pas !`  
-		**"file name"** : "DSC05958.JPG",  
+		*"file name"* : "DSC05958.JPG",  `Redondant`
 		*"exiftool version number"* : "9.82"  
 	\},  
 	**"nom" : "DSC05958.JPG"**  

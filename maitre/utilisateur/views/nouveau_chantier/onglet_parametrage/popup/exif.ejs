@@ -28,31 +28,16 @@
                     
                     <div id="parBaliseExif" style="display: none">
                         <label>Choix de la balise&nbsp;</label>
-                        <select class="form-control">
-                            <option>Nom de la balise</option>
+                        <!-- LA LISTE DES NOMS DES BALISES -->
+                        <select class="form-control" id="nomsBalises" onchange="javascript: infosBalise(this.value)">
                         </select>
+                        <!-- FIN DE LA LISTE -->
                         <br/>
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped">
-                                        <tbody>
-                                            <tr>
-                                                <td>IMG01.jpg</td>
-                                                <td>50mm</td>
-                                            </tr>
-                                            <tr>
-                                                <td>IMG02.jpg</td>
-                                                <td>50mm</td>
-                                            </tr>
-                                            <tr>
-                                                <td>IMG03.jpg</td>
-                                                <td>50mm</td>
-                                            </tr>
-                                            <tr>
-                                                <td>IMG77.jpg</td>
-                                                <td>100mm</td>
-                                            </tr>
+                                        <tbody id="infosBalise">
                                         </tbody>
                                     </table>
                                 </div>
@@ -63,31 +48,16 @@
                     
                     <div id="parImage" style="display: block">
                         <label>Choix de l'image&nbsp;</label>
-                        <select class="form-control">
-                            <option>Nom de l'image</option>
+                        <!-- LA LISTE DES NOMS DES IMAGES -->
+                        <select class="form-control" id="nomsImages" onchange="javascript: infosImage(this.value)">
                         </select>
+                        <!-- FIN DE LA LISTE -->
                         <br/>
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped">
-                                        <tbody>
-                                            <tr id="Appareil">
-                                                <td>Appareil</td>
-                                                <td>Canon EOS 5D</td>
-                                            </tr>
-                                            <tr id="Date">
-                                                <td>Date</td>
-                                                <td>24/04/1993</td>
-                                            </tr>
-                                            <tr id="Focale">
-                                                <td>Focale</td>
-                                                <td>50mm</td>
-                                            </tr>
-                                            <tr id="ISO">
-                                                <td>ISO</td>
-                                                <td>200</td>
-                                            </tr>
+                                        <tbody id="infosImage">
                                         </tbody>
                                     </table>
                                 </div>
