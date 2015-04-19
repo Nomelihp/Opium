@@ -1,12 +1,12 @@
 
 // Fonction pour traduire les champs de jobs en JSON
-function toJSON(id_chantier, commande, etat, erreur){
+exports.toJSON=function(id_chantier, commande, etat, erreur){
   var jsonString = "{'id_chantier':"+id_chantier+",'commande':"+commande+",'etat':"+etat+",'erreur':"+erreur+"}";
   return JSON.parse(jsonString);
 }
 
 // Verifier si un élément existe dans un tableau
-function inArray(element, array){
+exports.inArray=function(element, array){
   for (var i=0 ; i<array.length; i++){
     if (element == array[i]){
       break;
