@@ -1,10 +1,7 @@
-J'essaie de voir quelles **infos importantes** à extraire pour les montrer
-à l'utilisateur, et quelles *infos peuvent virer*. À faire confirmer par le
-product owner. Les `???` indiquent que je ne sais pas à quoi correspond
-l'info. N'hésitez pas à compléter.
+J'essaie de voir quelles **infos importantes** à extraire pour les montrer à l'utilisateur, et quelles *infos peuvent virer*. À faire confirmer par le product owner. Les `???` indiquent que je ne sais pas à quoi correspond l'info. N'hésitez pas à compléter.
 
-[{	"exif" :
-	{
+\[\{	"exif" :
+	\{
 		*"light value"* : "4.3", `???`
 		**"thumbnail image"** : "(Binary data 9089 bytes, use -b option to extract)", `Si c'est vraiment des miniatures, c'est cool. À vérifier`
 		_**"shutter speed"**_ : "1/8", `Temps de pose. C'est important ?`
@@ -70,6 +67,6 @@ l'info. N'hésitez pas à compléter.
 		*"directory"* : "./img_micmac/localuser/55329bcfd148fe56126e741d", `Surtout pas !`
 		**"file name"** : "DSC05958.JPG",
 		*"exiftool version number"* : "9.82"
-	},
+	\},
 	**"nom" : "DSC05958.JPG"**
-}]
+\}\]
