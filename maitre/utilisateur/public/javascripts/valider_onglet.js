@@ -12,7 +12,6 @@ function recupereExif()
              if(req.status == 200)
              {
                   infosExif = req.responseText;
-                  console.log(infosExif);
              }
           }
         };
