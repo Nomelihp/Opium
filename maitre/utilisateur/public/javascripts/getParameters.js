@@ -1,9 +1,10 @@
-var model = require('../../../model/mongo_config');
 var myTable = "";
 var myEtalon ="";
 
 var whatever = function onPageOpen() {
+    
     var myResume = document.getElementById("resumeParam");
+    var besoins = JSON.parse(besoins);
     
     //ajout nom
     var nom = besoins.nom;
@@ -53,8 +54,6 @@ var whatever = function onPageOpen() {
     var liste_images = besoins.liste_images;
     if(liste_images != null) {
         menuDeroulant = "<select size='3'>\n"; //variable où stocker le menu en attendant de le mettre dans myTable
-        //transformation du string en array
-        liste_images = JSON.parse(liste_images);
 
         for(var i=0; i<liste_images.length; i++) {
             menuDeroulant += "<option>"+liste_images[i]+"</option>\n";
@@ -107,7 +106,6 @@ var whatever = function onPageOpen() {
     
     var etalonnages = besoins.etalonnage;
     if(etalonnages) { //if exists
-        var etalonnages = JSON.parse(etalonnage);
 
 		for(var k=0; k<etalonnages.length; k++) {
 			var etalonnage = etalonnages[k];
@@ -170,13 +168,13 @@ var whatever = function onPageOpen() {
                 "\t\t<tr>\n"+
 					"\t\t\t<td>Images</td>\n";
 
-                if(!etalonnage.liste_images || etalonnage.length < 2) {
+                if(!etalonnage.liste_images || etalonnages.length < 2) {
 					myEtalon +=
 						"\t\t\t<td>Toutes</td>\n";
 				} else {
 					menuDeroulant = "<select size='3'>\n"; //variable où stocker le menu en attendant de le mettre dans myTable
 					//transformation du string en array
-					liste_images = JSON.parse(etalonnage.liste_images);
+					liste_images = etalonnage.liste_images;
 					for(var i=0; i<liste_images.length; i++) {
 						menuDeroulant += "<option>"+liste_images[i]+"</option>\n";
 					}
@@ -201,7 +199,7 @@ var whatever = function onPageOpen() {
 				}
 				myEtalon += "\t\t</tr>\n";
 
-				var dimensions = JSON.parse(etalonnage.capteur.dimensions);
+				var dimensions = etalonnage.capteur.dimensions;
 				myEtalon +=
                 "\t\t<tr>\n"+
                     "\t\t\t<td>Dimensions capteur</td>\n";                
