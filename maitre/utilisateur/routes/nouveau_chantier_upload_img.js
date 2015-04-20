@@ -49,10 +49,10 @@ var apresUpload = function (file,req,res) {
 				var jsonImg = {"nom":file.originalname,"exif":donneesExif};
 				listeImg.push(jsonImg);
 				
-				Besoins.findByIdAndUpdate(req.body._id, { liste_images: listeImg }, function(err, b) {
-					if (err) throw err;
-
-				});
+				Besoins.findByIdAndUpdate(req.body._id,{$push: {liste_images: jsonImg}},{safe: true, upsert: true, new:true},function(err, b) {
+					var bes = new Besoins(b);
+					}
+				);
 				
 			})
 		});
