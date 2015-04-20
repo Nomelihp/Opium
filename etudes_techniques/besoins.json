@@ -4,7 +4,7 @@ chantier
   login: "blabla",
   nom: "bla",
   date: "455656"
-  etat: 1:En attente de l'utilisateur, 2: prêt à être pris en charge par le module métier 3:Calcul en cours, 4:Non exécuté, 5:Calcul terminé avec succès, 6:Echec,
+  etat: 1:En attente de l'utilisateur, 2: Validé par l'utilisateur 3: prêt à être pris en charge par le module métier 4:Traduit en commandes, 5:calculs lancés, 6:Calcul terminé avec succès, 7:Echec, 8: Saisie masque, 9: Echec mise en place,
   commentaires: "lablablabla",
   type: "statue" OU "facade",
   liste_images: [{nom:"rien.JPG",exif:{}},{nom:"nimportekoi.RAW",exif:{}}],
@@ -30,7 +30,24 @@ chantier
             //Un autre bloc semblable à celui d'en haut
           }
 
-        ]
+        ],
+  masque3D: { SelectionInfo : 
+              { Item :
+                {
+                  ModelViewMatrix: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 
+                  ProjMatrix : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16], 
+                  glViewport : [1,2,3,4],
+                  Pt : [
+                     [1,2],
+                     [1,2],
+                     [1,2],
+                     [1,2],
+                     ...
+                     ],
+                  Mode : "1"
+                }
+              }
+            }
 }
 
 

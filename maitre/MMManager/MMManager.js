@@ -52,33 +52,11 @@ job.save(function (err) { if (err) console.log('error');});
 Jobs.find(function (err, jobs) {
 	if (err) return console.error(err);
 
-
-
-	//Suppression de tous les objets
-
-  	/*for (var i = 0; i < jobs.length; i++) {
-  		jobs[i].remove(function(err) {
-    		if (err) throw err;
-    		console.log('User successfully deleted!');
-  		});
-   	}*/
-
    	 console.log(jobs);
    })
 
 Esclave.find(function (err, jobs) {
 	if (err) return console.error(err);
-
-
-
-	//Suppression de tous les objets
-
-  	/*for (var i = 0; i < jobs.length; i++) {
-  		jobs[i].remove(function(err) {
-    		if (err) throw err;
-    		console.log('User successfully deleted!');
-  		});
-   	}*/
 
    	 console.log(jobs);
    })
@@ -93,19 +71,34 @@ function test_esclave_operationnel(ip) {
 function send_http (ip,job) {
 	// body...
 	// A FAIRE 
+	console.log(job['commande']);
 	console.log(ip);
 
 }
 
-function receive_http (retour) {
+function inscription (IP) {
 	// body...
-	// bool retour
-	if (retour) {
-		//ca a fonctionné
-	} else{
-		//ca a pas fonctionné
-	};
+
+
+	Esclave.find({ ip: IP }, function(err, esclaves) {
+		if (esclaves.length==0) {
+
+			var eclave = new Esclave({
+			        ip:IP,
+			        operationnel: 1
+			      });
+			eclave.save(function (err) {
+			  if (err) console.log('error');
+			});
+		}else{
+			console.log("esclave déjà inscrit !")
+		};
+
+	});
+
 }
+
+
 
 
 
@@ -144,10 +137,8 @@ function requete_esclave (ip,id_job,id_esclave) {
 
 
 
-server.on('notification',function(message,data){
-	// Regarder dans jobs les mises à jours pour récupérer les jobs non assigné
-
-
+function findJobs () {
+	// body...
 	Jobs.find({ etat: 0 },function (err, jobs) {
 		if (err) return console.error(err);
 
@@ -192,4 +183,49 @@ server.on('notification',function(message,data){
 		}// --- endfor
 
 	}) // end find jobs
+
+}
+
+function receive_http (retour) {
+	// body...
+	// bool retour
+	var ip=retour['ip'];
+	var erreur = retour['erreur'];
+	// --- update l'esclave pour le passer en opérationnel
+	Esclave.find({ ip: ip },function (err, esclaves) {
+			var esclave= new Esclave(esclaves[0]);
+			esclave['operationnel']=1;
+			esclave.save();
+		});
+
+	if (erreur) {
+		//ca a fonctionné
+		// --- update le job pour passer son état à finit avec succès
+		Jobs.find({ container: ip },function (err, jobs) {
+			var job= new Jobs(jobs[0]);
+			job['etat']=2;
+			job.save();
+		});
+
+		findJobs ();
+
+	} else{
+		//ca n'a pas fonctionné
+		// --- update le job pour passer son état à finit avec erreur
+		Jobs.find({ container: ip },function (err, jobs) {
+			var job= new Jobs(jobs[0]);
+			job['etat']=3;
+			job.save();
+		});
+	};
+}
+
+
+
+
+server.on('notification',function(message,data){
+	// Regarder dans jobs les mises à jours pour récupérer les jobs non assigné
+		findJobs () ;
+
+	
 }); //end server.on

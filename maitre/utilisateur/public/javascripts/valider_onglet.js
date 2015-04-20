@@ -55,7 +55,7 @@ function valider_onglet(id) {
         console.log(idChantier);
         
         var getinfo = ["nom", "commentaire"]
-        var getinfochecked = ["mask2D", "mask3D", "typestatus", "typefacade"]
+        var getinfochecked = ["typestatus", "typefacade"]
         //Tableau associatif "onglet courrant" : ["id des formulaires à valider"]
         var tabass = {"on_click1" : ["on_click1a"], "on_click2" : ["js-upload-form"], "on_click3" : ["etalonnageForm", "parametresForm"], "on_click4" : []}
         
@@ -68,6 +68,12 @@ function valider_onglet(id) {
         if(idChantier!="-1"){
             formjson._id = idChantier;
         }
+		else{
+		//On renvoit la date de création du chantier
+			var date1 = new Date();
+			var date2 = date1.getDate() + "-" + date1.getMonth() + "-" + date1.getFullYear()
+			formjson.date = date2;
+		}
         
         // on parcourt les formulaires présents dans l'onglet courant, en regardant la table d'association tabass
         for (var j = 0; j < tabass[ongletCourant].length; j++){
@@ -102,14 +108,19 @@ function valider_onglet(id) {
                 //VOIR POUR LA LISTE D'IMAGES
                 if(idelement=="infoCapteurCb" && el[l].checked){
                     var capteurjson={};
-                    capteurjson.focale_reelle = document.getElementById(focale_reelle).value;// BUG
-                    var dim1 = document.getElementById("dim1").value;
-                    var dim2 = document.getElementById("dim2").value;
-                    capteurjson.dimensions = "[" + dim1 +","+ dim2 +"]";
+                    capteurjson.focale_reelle = document.getElementById("focale_reelle").value;
+                    var dim1 = document.getElementById("dim_1").value;
+                    var dim2 = document.getElementById("dim_2").value;
+					dimens = [];
+					dimens.push(dim1);
+					dimens.push(dim2);
+                    capteurjson.dimensions = dimens;
                     etaljson.capteur = capteurjson;
                 }
             }
-        formjson.etalonnage = etaljson;
+		tabEtalonnage = [];
+		tabEtalonnage.push(etaljson)
+        formjson.etalonnage = tabEtalonnage;
         }
         else{
         for (var l = 0; l < el.length; l++)
@@ -131,6 +142,10 @@ function valider_onglet(id) {
                     break;
                     }
                 }
+				if ( idelement=="mask2D"){
+					if (el[l].checked){formjson.masque = "22D";}
+					else{formjson.masque = "3D";}
+				}
                 if ( idelement=="mise_a_echelle" || idelement=="basculement" ){
                     if( el[l].checked){formjson[idelement] = "1"}
                     else{formjson[idelement] = "0"}
