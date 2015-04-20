@@ -372,3 +372,30 @@ footer {
   top: 50% !important;
   transform: translateY(50%) !important;
 }
+
+/** Bloc d'images à récupérer pour le drag and drop */
+.drag-zone {
+  height: 240px;
+  width:920px;
+  border-width: 2px;
+  margin-bottom: 20px;
+  color: #ccc;
+  border-style: solid;
+  border-color: #ccc;
+  line-height: 200px;
+  text-align: center;
+  overflow: scroll;
+}
+/** Image à draguer */
+.miniatures-a-draguer
+{
+	height:120px;/* doit etre un facteur de drag-zone.height */
+	width:90px;/* doit etre un facteur de drag-zone.width -20 */
+	border-width: 1px;
+	border-color:#333;
+	border-style: solid;
+	float:left;
+	font-size:0.7em;
+	color:#4D4D4D;
+}
+
