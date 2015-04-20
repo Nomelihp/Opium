@@ -20,7 +20,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h4 class="page-head-line">MES CHANTIERS</h4>
+                    <h4 class="page-head-line">MES CHANTIERS (<%= chantiers.length %> ) </h4>
                 </div>
             </div>
 
@@ -32,9 +32,12 @@
             <div class="panel panel-default">
         
                 <div class="panel-header">
-                    <select class="form-control">
-                        <option selected="selected"><h4>Mon premier chantier</h4></option>
-                    </select>
+					<select class="form-control">
+						<% chantiers.forEach(function(chantier) { %>
+							<% console.log(chantier.nom); %>
+							<option value="<%= chantier.id %>"><%= chantier.nom %></option>
+						<% }); %>
+					</select>
                 </div>
 
                 <div class="panel-body">
