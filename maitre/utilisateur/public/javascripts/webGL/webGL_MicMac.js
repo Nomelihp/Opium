@@ -117,8 +117,8 @@ if(saisieMasq){
 
 try{
 	document.getElementById("submitMasq"+div).addEventListener("click", envoyerJSON);
-	document.getElementById("saisieMasqButton1"+div).addEventListener("click", masqClick);
-	document.getElementById("saisieMasqButton2"+div).addEventListener("click", masqClick);
+	document.getElementById("saisieMasq"+div).addEventListener("click", saisieMasque);
+	document.getElementById("resetMasq"+div).addEventListener("click", resetMasq);
 }catch (e){
 	console.log(' Les boutons pour la saisie du masque ne sont pas disponible');
 }
@@ -186,7 +186,7 @@ function render() {
 function onDocumentRightClick( event ) {
 
 	event.preventDefault();
-	var nbChildren=scene.children.length;
+	
 	if (listMasque2D.length>0){
 		if (listMasque2D.length>1){
 
@@ -299,21 +299,37 @@ function envoyerJSON(){
 
 //----- Activer Désactiver la saisie du Masque
 
-function masqClick(myRadio){
+function saisieMasque(){
 	
-	if(myRadio.target.value=="1") {saisieMasq=true;
+		saisieMasq=true;
 		controls.enabled = false;
 		document.addEventListener( 'click', onDocumentMouseClick, false );
 		document.addEventListener( 'contextmenu', onDocumentRightClick, false );
 		
-	}
+	
 
-	if (myRadio.target.value=="2") {saisieMasq=false;
+
+}
+function resetMasq(){
+	
+
+		while (listMasque2D.length>0){
+			if (listMasque2D.length>1){
+
+				scene.children.pop();
+
+			} 
+			scene.children.pop();
+			listMasque2D.pop();
+		}
+
+
+		saisieMasq=false;
 		controls.enabled = true;
 		document.removeEventListener( 'click', onDocumentMouseClick, false );
 		document.removeEventListener( 'contextmenu', onDocumentRightClick, false );
 		
-	}
+	
 
 
 }
