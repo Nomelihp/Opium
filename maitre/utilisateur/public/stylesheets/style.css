@@ -342,7 +342,7 @@ footer {
   list-style-type: none;
 }
 
-.radio .radio, .radio .checkbox, .checkbox .radio, .checkbox .checkbox, .radio .form-inline {
+.radio .radio, .radio .checkbox, .checkbox .radio, .checkbox .checkbox, .radio .form-inline, .tab {
   margin-left: 40px;
 }
 
