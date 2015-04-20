@@ -1,4 +1,4 @@
-<div class="tab-pane fade" id="cameras-pills" onclick="javascript: launchAll()">
+<div class="tab-pane fade" id="cameras-pills">
     <div class="panel-body">
 
 <!--  Liste des images à choisir pour drag and drop -->
@@ -76,7 +76,7 @@
                                     
                                     <div class="inline-radio">
                                         <label>
-                                            <input type="radio" name="imgSpec" id="choix" value="choix" disabled />
+                                            <input type="radio" name="imgSpec" id="choix" value="choix" onclick="javascript: launchAll()" disabled />
                                             <select class="form-control" id="menuDeroulantImages" size="3" disabled >
                                             </select>
                                         </label>
@@ -106,7 +106,7 @@
                             </div>
                         </div>
                         
-                        <div class="radio" id="fromFile">
+                        <div class="radio" id="fromFile" disabled >
                             <label>
                                 <input type="radio" class="root1" name="optionsRadios" value="fichier" onclick="javascript:grise('auto', null, 'root1');degrise('fromFile', null, 'NO_CLASS_NAME', true);" />
                                 Fichier de calibration

@@ -4,7 +4,19 @@ var majInfosChantier = function(idChantier){
 		var mesBesoins = JSON.parse(req.responseText);
         // Pour mettre à jour l'interface...
         onPageOpen(mesBesoins);
-        console.log(mesBesoins);
+        switch(mesBesoins.etat) {
+            case "6":
+                ungrey("produits-button");
+            case "8":
+                ungrey("zone-button");
+                break;
+            case "7":
+                toDanger("produits");
+                break;
+            case "9":
+                toDanger("mise");
+                break;
+        }
 	});
 }
 
@@ -73,5 +85,4 @@ function toWarning(id) {
     return true;
 }
 
-var test = ungrey("zone-button");
-
+var test = ungrey("produits-button");
