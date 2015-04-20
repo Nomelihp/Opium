@@ -4,7 +4,7 @@ chantier
   login: "blabla",
   nom: "bla",
   date: "455656"
-  etat: 1:En attente de l'utilisateur, 2: prêt à être pris en charge par le module métier 3:Traduit en commandes, 4:calculs lancés, 5:Calcul terminé avec succès, 6:Echec, 7: Saisie masque, 8: Echec mise en place,
+  etat: 1:En attente de l'utilisateur, 2: Validé par l'utilisateur 3: prêt à être pris en charge par le module métier 4:Traduit en commandes, 5:calculs lancés, 6:Calcul terminé avec succès, 7:Echec, 8: Saisie masque, 9: Echec mise en place,
   commentaires: "lablablabla",
   type: "statue" OU "facade",
   liste_images: ["rien.JPG","nimportekoi.RAW"],
