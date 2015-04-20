@@ -7,8 +7,13 @@ var majInfosChantier = function(idChantier){
         switch(mesBesoins.etat) {
             case "6":
                 ungrey("produits-button");
+                document.getElementById("nuage").disabled = 'false';
             case "8":
+                if(mesBesoins.residus > 1) {
+                    toWarning("mise")
+                }
                 ungrey("zone-button");
+                document.getElementById("nuage").disabled = 'disabled';
                 break;
             case "7":
                 toDanger("produits");

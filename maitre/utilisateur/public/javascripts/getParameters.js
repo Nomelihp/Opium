@@ -1,5 +1,3 @@
-
-
 function onPageOpen(besoins) {
     
     var myTable =
@@ -128,35 +126,8 @@ function onPageOpen(besoins) {
 
     document.getElementById('resumeParam').innerHTML = myTable;
     
-    var etalonnages = besoins.etalonnage;
-    if(etalonnages) { //if exists
-
-		for(var k=0; k<etalonnages.length; k++) {
-			var etalonnage = etalonnages[k];
-			
-			if(etalonnages.length > 1) {
-				var current = "etalon"+k;
-				myEtalon +=
-				'<div class="dropdown panel panel-info greyed-out" id="'+current+'">\n'+
-					'\t<div class="panel-heading">\n'+
-						'\t\t<h4>\n'+
-							'\t\t\t<button class="btn btn-info btn-sm" id="'+current+'-button" type="button" aria-expanded="true" onclick="javascript:plusMoins(\"'+current+'\");">\n'+
-								'\t\t\t\t<i class="fa fa-plus"></i>\n'+
-							'\t\t\t</button>\n';
-
-				var nom = etalonnage.nom;
-				if(nom) {
-					myEtalon += '\t\t\t'+nom+'\n';
-				} else {
-					myEtalon += '\t\t\tÉtalonnage '+k+'\n';
-				}
-
-				myEtalon +=
-						'\t\t</h4>\n'+
-					'\t</div>\n'+
-					'\n'+
-					'\t<div class="panel-body" id="'+current+'-body" style="display:none;">\n';	
-			}
+    var etalonnage = besoins.etalonnage;
+    if(etalonnage) { //if exists
         
             myEtalon +=
             "<table class='table table-striped table-bordered table-hover'>\n"+
@@ -192,7 +163,7 @@ function onPageOpen(besoins) {
                 "\t\t<tr>\n"+
 					"\t\t\t<td>Images</td>\n";
 
-                if(!etalonnage.liste_images || etalonnages.length < 2) {
+                if(!etalonnage.liste_images) {
 					myEtalon +=
 						"\t\t\t<td>Toutes</td>\n";
 				} else {
