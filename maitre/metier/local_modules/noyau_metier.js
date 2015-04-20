@@ -20,7 +20,7 @@ exports.besoin2jobs = function(jsonBesoin){
   }else if(jsonBesoin.quantite_points_liaison == "3"){
     quantite_points_liaison = 1500;
   }else{
-    quantite_points_liaison = 2000;
+    quantite_points_liaison = -1;
   }
   // Auto-etalonnage
   var type_auto_etalonage;

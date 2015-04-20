@@ -17,7 +17,25 @@ var notif_port = json.MMManager;
 console.log(listen_port);
 
 var server = messenger.createListener(listen_port);
+var client = messenger.createSpeaker(notif_port);
+
+var Besoin = new model.besoins();
 
 server.on('notification',function(message, data){
+  Besoin.find({ flag: '1' }, function(err, besoin) {
+    if (err) throw err;
+    for(var i=0; i<besoin.length; i++){
+      noyau_metier.besoin2jobs(besoin[i]);
+
+    }
+
+    setInterval(function(){
+      client.request('notification',function(data){
+
+
+      });
+    }, 1000);
+
+  });
 
 });
