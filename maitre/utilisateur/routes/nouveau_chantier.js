@@ -11,6 +11,18 @@ var module_metier = messenger.createSpeaker(params.metier);
 
 //  --------------------------------------------------------------- 
 
+// A partir des paramètres envoyés par le client, notifie le module métier si il y a du boulot
+var notificationMetier = function(params){
+	if (params.etat)// On vérifie qu'il y a bien un état dans les données envoyées
+	{
+		if (params.etat == 2) // On vérifie qu'il s'agit du code correspondant à la saisie terminée dans l'interface nouveau_chantier
+		{
+				module_metier.request('notification', {boulot:"oui"}, function(data){
+					; //  LOGS  A INSERER
+			});
+		}
+	}
+}
 
 // ------------  Renvoi de l'interface pour la saisie d'un nouveau chantier   ------------  
 router.get('/', function(req, res, next) {
@@ -43,12 +55,14 @@ router.get('/', function(req, res, next) {
 		{
 			var id = params._id;
 			delete params._id;// on enleve l'id pour ne pas l'insérer dans les champs à updater
-			//Besoins.findByIdAndUpdate("ObjectId(\""+params._id+"\")", params, function(err, besoin) {
+
 			Besoins.findByIdAndUpdate(id, params, function(err, besoin) {
 			if (err) throw err;
 			  // LOGS  A INSERER
 			});
-
+			
+			notificationMetier(params);
+			
 			res.send("{}");
 		}
 	}
@@ -59,7 +73,7 @@ router.get('/', function(req, res, next) {
 		besoin.save(function(err, doc, num){
 			// LOGS  A INSERER
 		});
-		console.log(besoin.id);
+		
 		
 		// on renvoie le numéro assigné au chantier
 		res.type('json');  
@@ -70,13 +84,10 @@ router.get('/', function(req, res, next) {
 	//next(new Error('not implemented'));
 })
 
-
 //  --------------------------------------------------------------- 
 
 // Notifie le module métier qu'il y a du boulot : A PLACER A LA DERNIERE VALIDATION DE L'UTILISATEUR
-/*module_metier.request('notification', {boulot:"oui"}, function(data){
-    console.log(data);
-  });
+/*
 */
 
 module.exports = router;
