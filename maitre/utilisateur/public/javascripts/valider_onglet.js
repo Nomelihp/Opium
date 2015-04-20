@@ -45,7 +45,6 @@ function valider_onglet(id) {
     if (ongletCourant == "on_click2")
     {
 		recupereExif();// Récupération des infos exif aupres du serveur
-		remplitImagesEtalonnage(infosExif);// Remplissage de l'onglet etalonnage
     }
     else
     {
