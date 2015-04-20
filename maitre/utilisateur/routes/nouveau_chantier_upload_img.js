@@ -1,5 +1,6 @@
 // Route permettant l'upload des images
-// optimisation possible  moyen d'éviter une copie en utilisant changeDest de multer
+// optimisation possible  moyen d'éviter une copie en utilisant changeDest de multer (en fait il faudrait passer
+// le login quelque part... en session? parce que sinon nécessité d'intérogger la base)
 
 var express = require('express');
 var router  = express.Router();

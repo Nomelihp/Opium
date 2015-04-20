@@ -1,6 +1,8 @@
 // Contient les informations exif des images importées
 var infosExif = null;
 
+
+
 // Récupère les informations exif des images du chantier auprès du serveur
 function recupereExif()
 {
@@ -11,7 +13,7 @@ function recupereExif()
           if (req.readyState == 4) {
              if(req.status == 200)
              {
-                  infosExif = req.responseText;
+                  infosExif = JSON.parse(req.responseText);
              }
           }
         };
@@ -40,7 +42,11 @@ function valider_onglet(id) {
     var ongletCourant = $("#ongletCourant").val();
     
     // Si on valide l'onglet 2, on récupère les métadonnées des images importées
-    if (ongletCourant == "on_click2")recupereExif();
+    if (ongletCourant == "on_click2")
+    {
+		recupereExif();// Récupération des infos exif aupres du serveur
+		remplitImagesEtalonnage(infosExif);// Remplissage de l'onglet etalonnage
+    }
     else
     {
     
