@@ -7,7 +7,7 @@ chantier
   etat: 1:En attente de l'utilisateur, 2: prêt à être pris en charge par le module métier 3:Calcul en cours, 4:Non exécuté, 5:Calcul terminé avec succès, 6:Echec,
   commentaires: "lablablabla",
   type: "statue" OU "facade",
-  liste_images: ["rien.JPG","nimportekoi.RAW"],
+  liste_images: [{nom:"rien.JPG",exif:{}},{nom:"nimportekoi.RAW",exif:{}}],
   masque: "22D" OU "3D",
   nombre_points_liaison: 1: Faible, 2:Moyen, 3:Important, 4:Maximal,
   mise_a_echelle: 0:Non, 1:Oui,
@@ -32,3 +32,7 @@ chantier
 
         ]
 }
+
+
+--------------------------------------------------------------------------------------------------------------------
+La structure de liste_images[i].exif est dans le fichier exif.json
