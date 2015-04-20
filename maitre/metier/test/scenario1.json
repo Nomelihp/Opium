@@ -1,1 +1,12 @@
-{ "__v" : 0, "_id" : ObjectId("5533d9d5de6d56781e070f00"), "basculement" : "0", "commentaire" : "champs-sur-marne", "etalonnage" : { "type_auto_etalonnage" : "fraserbasic", "auto_etalonnage" : "1", "nom" : "etal", "id" : "1" }, "liste_images" : [ { "exif" : null, "nom" : "10635957_10204721137802522_1441230659567297373_n.jpg" } ], "login" : "localuser", "mask3D" : "3D", "mise_a_echelle" : "0", "nom" : "Champs", "quantite_points_liaison" : "2" }
+{ "_id" : "5533d9d5de6d56781e070f00",
+ "basculement" : "0", 
+ "commentaire" : "champs-sur-marne",
+  "etalonnage" : [{
+                  "type_auto_etalonnage" : "fraserbasic",
+                   "auto_etalonnage" : "1",
+                   "nom" : "etal",
+                   "id" : "1",
+		   "liste_images":[{ "exif" : {"exif image width":"2302"}, "nom" : "10635957_10204721137802522_1441230659567297373_n.jpg" } ]
+                 }],
+   "liste_images" : [ { "exif" : {"exif image width":"2302"}, "nom" : "10635957_10204721137802522_1441230659567297373_n.jpg" }, { "exif" : {"exif image width":"2302"}, "nom" : "10635957_10204721137802522_1441230659573_n.jpg" }],
+   "login" : "localuser", "mask3D" : "3D", "mise_a_echelle" : "0", "nom" : "Champs", "quantite_points_liaison" : "2" }

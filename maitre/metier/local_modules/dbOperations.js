@@ -5,6 +5,16 @@ exports.toJSON=function(id_chantier, commande, etat, erreur){
   return JSON.parse(jsonString);
 }
 
+// Fonction pour extraire la liste des images
+exports.toListeImages=function(liste_images_exif){
+  var liste_images=[];
+  for(var i=0;i<liste_images_exif.length;i++){
+    liste_images.push(liste_images_exif[i].nom);
+  }
+  return liste_images;
+
+}
+
 // Verifier si un élément existe dans un tableau
 exports.inArray=function(element, array){
   for (var i=0 ; i<array.length; i++){
