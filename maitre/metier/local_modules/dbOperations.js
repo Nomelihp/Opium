@@ -1,12 +1,19 @@
-// Fonction pour récupérer le document de "jobs" qui correspond au nom d'un chantier donnné
-function getJobsDocument( nom_chantier ){
-  return  model.besoins.find({ nom: nom_chantier });
-}
 
 // Fonction pour traduire les champs de jobs en JSON
-function toJSON(id_chantier, commande, etat, erreur){
-  var jsonString = "{'id_chantier':"+id_chantier+",'commande':"+commande+",'etat':"+etat+",'erreur':"+erreur+"}";
+exports.toJSON=function(id_chantier, commande, etat, erreur){
+  var jsonString = "{\"id_chantier\":\""+id_chantier+"\",\"commande\":\""+commande+"\",\"etat\":\""+etat+"\",\"erreur\":\""+erreur+"\"}";
   return JSON.parse(jsonString);
+}
+
+// Verifier si un élément existe dans un tableau
+exports.inArray=function(element, array){
+  for (var i=0 ; i<array.length; i++){
+    if (element == array[i]){
+      break;
+      return true
+    }
+  }
+  return false;
 }
 
 // Fonction pour enregistrer le job dans la BD et changer le flag du besoin à 1

@@ -2,13 +2,13 @@
     Modifier l'étalonnage
 </button>
 
-<div class="modal fade" id="myEtalon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="myEtalon" tabindex="-1" role="dialog" aria-labelledby="myEtalonLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Définition de l'étalonnage</h4>
+                <h4 class="modal-title" id="myEtalonLabel">Définition de l'étalonnage</h4>
             </div>
-            <form method="get">
+            <form method="get" id="etalonnageForm">
                 <div class="modal-body">
                     <div class="notice-board">
                         <label>Nom de la calibration</label>
@@ -16,7 +16,7 @@
                                                       
                         <div class="radio" id="auto">
                             <label>
-                                <input type="radio" class="root1" name="optionsRadios" value="auto" onclick="javascript:grise('fromFile', null, 'root1');degrise('auto', null, 'root2');" checked />
+                                <input type="radio" class="root1" id="auto_etalonnage" name="optionsRadios" value="auto" onclick="javascript:grise('fromFile', null, 'root1');degrise('auto', null, 'root2');" checked />
                                 Auto-Étalonnage
                             </label>
                             
@@ -31,6 +31,12 @@
                                     <label>
                                         <input type="radio" name="options" id="fisheye" value="fisheye" />
                                         Fish-Eye
+                                    </label>
+                                </div>
+                                <div class="inline-radio">
+                                    <label>
+                                        <input type="radio" name="options" id="fraserbasic" value="fraserbasic" />
+                                        FraserBasic
                                     </label>
                                 </div>
                             </div>
@@ -54,7 +60,7 @@
                                     <label>
                                         <input type="checkbox" value="focaleReelle" disabled />
                                         Focale réelle
-                                        <input type="number" class="inline-input" id="focalereelle" min="0" disabled /> mm
+                                        <input type="number" class="inline-input" id="focale_reelle" min="0" disabled /> mm
                                     </label>
                                 </div>
                                 <div class="checkbox root2">
@@ -76,13 +82,13 @@
                             </label>
 
                             <div class="form-inline">
-                                <!-- EXTENSION TEMPORAIRE. À CHANGER -->
-                                <input type="file" name="files[]" id="js-upload-files" accept=".xml" disabled  />
+                                <!-- VERIFIER LE MIME, PLUTOT -->
+                                <input type="file" name="files[]" id="js-upload-calib-files" accept="text/xml, application/xml" disabled  />
                             </div>
                         </div>
                     </div>
-                    <br />	
-                </div>					
+                    <br />    
+                </div>                    
                                                                     
                 <div class="modal-footer">
                     <button type="reset" class="btn btn-default">Retour aux valeurs par défaut</button>

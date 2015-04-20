@@ -349,3 +349,26 @@ footer {
 .inline-input {
   width: 50px;
 }
+
+.greyed-out {
+  border-color: #bbbbbb !important;
+}
+
+.greyed-out .panel-heading {
+  color: #575757 !important;
+  background-color: #dddddd !important;
+}
+
+.greyed-out .btn {
+  background-color: #bbbbbb !important;
+  border-color: #a6a6a6 !important;
+  color: #dddddd !important;
+  cursor: default !important;
+}
+
+.greyed-out .panel-heading:before {
+  content: url("/images/please-wait.gif") !important;
+  float: right !important;
+  top: 50% !important;
+  transform: translateY(50%) !important;
+}

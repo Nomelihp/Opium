@@ -1,24 +1,83 @@
+// Route permettant l'upload des images
+// optimisation possible  moyen d'éviter une copie en utilisant changeDest de multer
+
 var express = require('express');
 var router  = express.Router();
 var params 	= require('../../config.json');
 var modele  = require('../../model/mongo_config');
+var Besoins = modele.besoins;
 
 var express = require('express');
 var multer  = require('multer');
+var fs 		= require('fs');	
 
-var app = express()
-app.use(multer({ dest: './uploads/'}))
+// Extraction des métadonnées exif
+var exif 	= require('exif2');	
+
+var apresUpload = function (file,req,res) {
+  // On déplace le fichier dans le répertoire de l'utilisateur et du chantier correspondants
+  
+  // Récupération du nom de l'utilisateur à partir de l'identifiant du chantier
+  Besoins.findById(req.body._id, function(err, b) {
+	  if (err) throw err;
+	
+		var bes = new Besoins(b);
+		var dir1 = params.repertoire_donnees+bes.login+"/"
+		var dir2 = dir1+req.body._id+"/";
+		var cheminFinalImg = dir2+file.originalname;
+		
+		// Creation des repertoires correspondant au chantier si ils n'existent pas
+		if (!fs.existsSync(dir1)){
+			fs.mkdirSync(dir1);
+		}
+		if (!fs.existsSync(dir2)){
+			fs.mkdirSync(dir2);
+		}
+		// Copie du fichier vers son chemin définitif
+		fs.rename(params.repertoire_donnees+"tmp/"+file.name, cheminFinalImg, function (err) {
+			if (err) throw err;
+			// Récupération des métadonnées exif de l'image
+			exif(cheminFinalImg, function(err, donneesExif){
+				
+				// Update de la collection besoins avec la nouvelle image et ses metadonnees exif
+				var listeImg = [];
+				if(bes.liste_images)// il y a déjà des images dans le document
+				{
+					listeImg = bes.liste_images;
+				}
+				var jsonImg = {"nom":file.originalname,"exif":donneesExif};
+				listeImg.push(jsonImg);
+				
+				Besoins.findByIdAndUpdate(req.body._id, { liste_images: listeImg }, function(err, b) {
+					if (err) throw err;
+
+				});
+				
+			})
+		});
+	});
+  
+  
+}
+
+// Paramétrage de l'upload via le middleware multer
+router.use(multer({ dest: params.repertoire_donnees+"tmp/",
+	// on renomme le fichier
+	rename:function(fieldname, filename, req, res){
+		// on renomme le fichier avec la date du moment
+		return filename.replace(/\W+/g, '-')+"_"+ Date.now();
+	},
+	onFileUploadComplete: apresUpload	
+}));
 
 router.get('/', function(req, res){
-  res.send('hello world');
+  ;
 })
 
 .post('/', function(req, res){
-    console.log(req.body) // form fields
-    console.log(req.files) // form files
-    res.status(204).end()
+	// on ne renvoie rien (lien difficile avec multer pour détecter l'upload vraiment fini à ce niveau)
+	res.status(204).end()
 });
-
 
 
 module.exports = router;

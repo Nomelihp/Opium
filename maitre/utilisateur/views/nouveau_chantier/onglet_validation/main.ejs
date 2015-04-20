@@ -1,7 +1,18 @@
 <div class="col-md-6" id="on_click4" style="display:none;">
     <div class="notice-board">
-        Résumé de ce qu'il s'est passé avant.
+        <div class="panel panel-default">
+            
+            <div class="panel-heading">
+                Résumé des paramètres du chantier
+            </div>
+            
+            <% include ../../resume_param %>
+        
+            <% include ../../resume_etalonnage %>
+        </div>
         <br />
-        <a class="btn btn-social btn-other" type="submit"><span class="glyphicon glyphicon-check"></span> &nbsp;LANCER LE CALCUL </a>&nbsp;
+        <a class="btn btn-social btn-other" type="submit">
+            <span class="glyphicon glyphicon-check"></span>&nbsp;LANCER LE CALCUL
+        </a>&nbsp;
     </div>
 </div>

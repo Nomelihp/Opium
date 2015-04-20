@@ -1,0 +1,34 @@
+chantier
+{
+  _id: "1",
+  login: "blabla",
+  nom: "bla",
+  date: "455656"
+  etat: 1:En attente de l'utilisateur, 2:Calcul en cours, 3:Non exécuté, 4:Calcul terminé avec succès, 5:Echec,
+  commentaires: "lablablabla",
+  type: "statue" OU "facade",
+  liste_images: ["rien.JPG","nimportekoi.RAW"],
+  masque: "22D" OU "3D",
+  nombre_points_liaison: 1: Faible, 2:Moyen, 3:Important, 4:Maximal,
+  mise_a_echelle: 0:Non, 1:Oui,
+  basculement: 0:Non, 1:Oui,
+  
+  etalonnage:[
+          {
+            id: "1",
+            nom= "",
+            auto_etalonnage: 0: Non, 1: Oui,
+            type_auto_etalonnage: "standard", "fisheye", "fraserbasic",
+            liste_images: ["rien.JPG","nimportekoi.RAW"],
+            capteur:{
+                      focale_reelle: 33,
+                      dimensions: [15,199],
+                    }
+          }
+          ,
+          {
+            //Un autre bloc semblable à celui d'en haut
+          }
+
+        ]
+}
