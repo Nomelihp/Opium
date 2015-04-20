@@ -1,8 +1,10 @@
 // Fonction de mise à jour des informations de chantier
 var majInfosChantier = function(idChantier){
 	infosChantier(idChantier,function(req){
-		var toto = JSON.parse(req.responseText);
-			  // Pour mettre à jour l'interface....
+		var mesBesoins = JSON.parse(req.responseText);
+        // Pour mettre à jour l'interface...
+        onPageOpen(mesBesoins);
+        console.log(mesBesoins);
 	});
 }
 
@@ -70,3 +72,5 @@ function toWarning(id) {
     
     return true;
 }
+
+var test = ungrey("zone-button");
