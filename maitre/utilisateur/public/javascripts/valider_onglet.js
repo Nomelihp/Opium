@@ -11,7 +11,7 @@ function recupereExif()
           if (req.readyState == 4) {
              if(req.status == 200)
              {
-                  infosExif = req.responseText;
+                  infosExif = JSON.parse(req.responseText);
              }
           }
         };
@@ -67,6 +67,8 @@ function valider_onglet(id) {
 			var date1 = new Date();
 			var date2 = date1.getDate() + "-" + date1.getMonth() + "-" + date1.getFullYear()
 			formjson.date = date2;
+		//On met l'état "En attente de l'utilisateur"
+			formjson.etat = "1";
 		}
         
         // on parcourt les formulaires présents dans l'onglet courant, en regardant la table d'association tabass
@@ -181,6 +183,33 @@ function valider_onglet(id) {
     //Changement d'onglet
     $("#ongletCourant").val(id);
     return true;
+}
+
+function lancer_calcul() {
+	
+	
+	if(document.getElementById("nom").value == ""){
+		alert("Entrez un nom de chantier");
+	}
+	else{
+		if(infosExif){
+		console.log(infosExif);
+		//LENGTH MARCHE PAS CAR INFOEXIF EST UN STRING
+		console.log(infosExif.length);
+			if(infosExif.length < 2){alert("Importez au moins deux images");}
+			else{
+				alert("Validation(à faire)");
+				//On change de page et on change d'état
+/* 				var req = new XMLHttpRequest();    
+				req.open('POST','/nouveau_chantier',true);
+				//On précise que l'information qu'on envoie est du JSON
+				req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+				req.send(JSON.stringify(formjson));
+				} */
+				}
+			}
+		else{alert("Importez au moins deux images");}
+	}
 }
 
 // Affiche ou cache un div en fonction de sa visibilité précédente
