@@ -271,14 +271,24 @@ function envoyerJSON(){
 		};
 		text= text+'],"Mode" : "1"}}}';
 
-		
+
 		
 		try {
-  			var masqjson=JSON.parse(text);  
+			
+  			var masqjson=JSON.parse(text); 
+  			var req = new XMLHttpRequest();    
+        	req.open('POST','/chantiers',true);
+			req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        	req.send(JSON.stringify(masqjson)); 
 			
 		} catch (e) {
 			console.log("erreur");
+
 		}
+
+		
+		
+		
 		
 		/*var form = document.createElement("form");
     	var	input = document.createElement("input");
