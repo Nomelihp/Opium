@@ -1,23 +1,9 @@
 // Fonction de mise à jour des informations de chantier
 var majInfosChantier = function(idChantier){
-	// Demande au serveur le besoin en json correspondant à l'id
-	var req = new XMLHttpRequest();    
-	req.open('POST','/chantiers',true);
-	
-	req.onreadystatechange = function (aEvt) {
-	  if (req.readyState == 4) {
-		 if(req.status == 200)
-		 {
-			  alert(req.responseText);
-			  
-			  var toto = JSON.parse(req.responseText);
+	infosChantier(idChantier,function(req){
+		var toto = JSON.parse(req.responseText);
 			  // Pour mettre à jour l'interface....
-		 }
-	  }
-	};
-	// On envoie l'id chantier et la demande de besoin
-	req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-	req.send(JSON.stringify({"_id":idChantier,"demandeBesoin":"oui"}));
+	});
 }
 
 // Fonction principale pour lancer les écoutes
