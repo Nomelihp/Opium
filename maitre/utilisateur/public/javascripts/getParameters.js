@@ -109,14 +109,14 @@ function onPageOpen(besoins) {
     }
 
     //ajout mise à l'échelle. Non par défaut.
-    if(besoins.mise_a_echelle) {
+    if(besoins.mise_a_echelle == "1") {
         myTable = ajout(myTable,"Mise à l'échelle","oui");
     } else {
         myTable = ajout(myTable,"Mise à l'échelle","non");
     }
 
     //ajout basculement. Non par défaut.
-    if(besoins.basculement) {
+    if(besoins.basculement == "1") {
         myTable = ajout(myTable,"Basculement","oui");
     } else {
         myTable = ajout(myTable,"Basculement","non");
@@ -141,10 +141,10 @@ function onPageOpen(besoins) {
 		"<tbody>\n";
 
 		// SI AUTO-ETALONNAGE
-		if(etalonnage.auto_etalonnage) {
+		if(etalonnage.auto_etalonnage == "1") {
 			myEtalon +=
 			"\t\t<tr>\n"
-				"\t\t\t<td>Auto-étalonnage</td>\n";
+;				"\t\t\t<td>Auto-étalonnage</td>\n";
 
 			var type_etalon = etalonnage.type_auto_etalonnage;
 			switch(type_etalon) {
@@ -201,17 +201,29 @@ function onPageOpen(besoins) {
 				"\t\t\t<td>Dimensions capteur</td>\n";                
 			
 			if(focale) {
-				myEtalon += "\t\t\t<td>"+dimensions[0]+"×"+dimensions[1]+"</td>\n"    
+				myEtalon += "\t\t\t<td>"+dimensions[0]+"×"+dimensions[1]+"</td>\n";   
 			} else {
-				myEtalon += "\t\t\t<td>Auto</td>\n"    
+				myEtalon += "\t\t\t<td>Auto</td>\n"   ; 
 			}
 			myEtalon += "\t\t</tr>\n";
 					
 
 		// SI FICHIER D'ETALONNAGE    
-		} else {
+		} else if(etalonnage.auto_etalonnage == 0) {
 			//FETCH FILE
+			myEtalon+=
+			"\t\t<tr>\n" +
+				"\t\t\t<td>Fichier d'étalonnage</td>\n"+
+				"\t\t\t<td>/path/to/file</td>\n"+
+			"<\t\t</tr>\n";
+		} else {
+			myEtalon+=
+			"\t\t<tr>\n" +
+				"\t\t\t<td>Auto-étalonnage</td>\n"+
+				"\t\t\t<td>Standard</td>\n"+
+			"\t\t</tr>\n";
 		}
+		
 		myEtalon +=
 			"\t</tbody>\n"+
 		"</table>";
@@ -248,6 +260,7 @@ function onPageOpen(besoins) {
     }
 
     document.getElementById('resumeParam').innerHTML = myTable+myEtalon;
+    console.log(myTable+myEtalon);
 
     return true;
 }
