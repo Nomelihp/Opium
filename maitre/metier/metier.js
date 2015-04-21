@@ -12,14 +12,14 @@ var repertoire_micmac = json.repertoire_micmac;
 
 // Récupérer le port d'écoute depuis ../config.json
 var listen_port = parseInt(json.metier);
-var notif_port = parseInt(json.MMManager);
+var notif_port = parseInt(json.MMManager_metier);
 
 console.log(listen_port);
 
 var server = messenger.createListener(listen_port);
 var client = messenger.createSpeaker(notif_port);
 
-var Besoin = new model.besoins({});
+var Besoin;
 console.log('avant la notif');
 server.on('notification',function(message, data){
   console.log('notif recue');
@@ -27,14 +27,9 @@ server.on('notification',function(message, data){
     if (err) throw err;
     console.log('notification reçue');
     for(var i=0; i<besoin.length; i++){
-      console.log(typeof(besoin[i]));
-      console.log(besoin[i]);
-      noyau_metier.besoin2jobs(besoin[i]);
-      Besoin.findOneAndUpdate({_id:JSON.parse(besoin[i])._id},{etat:'3'},function(err,besoin){
-        if(err) throw err;
-      });
+      Besoin = new model.besoins(besoin[i]);
+      noyau_metier.besoin2jobs(Besoin);
     }
-
   });
 
 });

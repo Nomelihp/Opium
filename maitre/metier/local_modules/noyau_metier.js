@@ -10,11 +10,11 @@ exports.besoin2jobs = function(jsonBesoin){
 
   // On récupère la liste des images
   var liste_images=[];
-  liste_images = dbOperations.toListeImages(JSON.parse(jsonBesoin).liste_images);
+  liste_images = dbOperations.toListeImages(jsonBesoin);
 
   // On récupère la liste des images pour l'etalonnage
   var liste_images_etalonnage;
-  liste_images_etalonnage = dbOperations.toListeImages(jsonBesoin.etalonnage[0].liste_images);
+  liste_images_etalonnage = dbOperations.toListeImages(jsonBesoin);
 
   // Dans tous les cas le calcul des images de liaison est obligatoire
   var id_chantier = jsonBesoin.id_chantier;
@@ -45,7 +45,7 @@ exports.besoin2jobs = function(jsonBesoin){
           commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin._id+"/"+liste_images.join(" "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
           commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin._id+"/"+liste_images.join(" "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=MEP "+"@ExitOnBrkp");
-        }else if(dbOperations.inArray(jsonBesoin.etalonnage.liste_images[0],liste_images)){
+        }else if(dbOperations.inArray(liste_images_etalonnage[0],liste_images)){
 
           commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin._id+"/"+liste_images.join(" "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
@@ -126,13 +126,26 @@ exports.besoin2jobs = function(jsonBesoin){
     job = new model.jobs(dbOperations.toJSON(jsonBesoin._id, commandes[i], 0, ''));
     job.save(function(err, job){
       if(err) throw err;
+      console.log(job);
 
     });
   }
-}
 
-exports.appariement = function(jsonBesoin){
+// get a user with ID of 1
 
+jsonBesoin.findById(jsonBesoin._id, function(err, besoin) {
+  if (err) throw err;
 
+  // change the users location
+  besoin.etat = '3';
+
+  // save the user
+  besoin.save(function(err) {
+    if (err) throw err;
+
+    console.log('User successfully updated!');
+  });
+
+});
 
 }

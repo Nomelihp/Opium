@@ -107,6 +107,18 @@ function valider_onglet(id) {
                 if(idelement=="standard" && el[l].checked){etaljson.type_auto_etalonnage="standard"}
                 if(idelement=="fisheye" && el[l].checked){etaljson.type_auto_etalonnage="fisheye"}
                 if(idelement=="fraserbasic" && el[l].checked){etaljson.type_auto_etalonnage="fraserbasic"}
+				//Nouvelle image
+				if(idelement=="js-upload-files2"){
+					var listImCal = [];
+					var uploadFiles2 = document.getElementById('js-upload-files2').files;
+					if(uploadFiles2.length!=0){
+						for(var j=0;j<uploadFiles2.length;j++){
+						importeFichier(uploadFiles2[j]);
+						listImCal.push(uploadFiles2[j].name);
+						}
+					}
+					etaljson.liste_images = listImCal;
+				}
 				//ListeImages
                 if(idelement=="choix" && el[l].checked){
 					var listImCal = [];
@@ -120,6 +132,7 @@ function valider_onglet(id) {
 					}
 					etaljson.liste_images = listImCal;
 				}
+				
 				//Infos Capteur
                 if(idelement=="infoCapteurCb" && el[l].checked){
                     var capteurjson={};
@@ -200,6 +213,9 @@ function valider_onglet(id) {
     }
     //Changement d'onglet
     $("#ongletCourant").val(id);
+	//Si on passe sur l'onglet 4, on fait le récapitulatif
+	if(id == "on_click4"){majInfosChantier(idChantier);}
+	
     return true;
 }
 
@@ -273,4 +289,14 @@ function chevronDown(id) {
     
     element.innerHTML = element.innerHTML.replace("right","down");
     return true;
+}
+
+// Fonction de mise à jour des informations de chantier
+var majInfosChantier = function(idChantier){
+	infosChantier(idChantier,function(req){
+		var mesBesoins = JSON.parse(req.responseText);
+        // Pour mettre à jour l'interface...
+        onPageOpen(mesBesoins);
+		console.log("Ca fait qqch 2");
+	});
 }

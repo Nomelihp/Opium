@@ -15,7 +15,7 @@
             
             <div class="panel-heading">
                 Définition de l'étalonnage
-                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myExif" style="float: right;">
+                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myExif" style="float: right;" onclick="javascript: launchAll()">
                     Visualiser les données exif
                 </button>
             </div>
@@ -68,8 +68,8 @@
                                             <input type="radio" name="imgSpec" id="upload" value="upload" disabled />
                                             Importer de nouvelles images
                                             <div class="form-inline form-group">
-                                                <input type="file" name="files[]" id="js-upload-calib-images" accept="image/*" multiple disabled />
-                                                <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit" disabled >Importer</button>
+                                                <input type="file" name="files[]" id="js-upload-files2" accept="image/*" multiple disabled />
+                                                <!-- <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit2" disabled >Importer</button> -->
                                             </div>
                                         </label>
                                     </div>
@@ -77,6 +77,7 @@
                                     <div class="inline-radio">
                                         <label>
                                             <input type="radio" name="imgSpec" id="choix" value="choix" onclick="javascript: launchAll()" disabled />
+											Sélection des images servant à la calibration
 											<div id="menuDeroulantImages">
 											</div>
                                         </label>
@@ -120,15 +121,18 @@
                     </div>
                     <br />    
                 </div>                    
-                                                                    
+                                           
                 <div class="panel-footer">
                     <button type="reset" class="btn btn-default">Retour aux valeurs par défaut</button>
+					<!--- Boutons non gérés   
                     <button type="submit" class="btn btn-primary">Suivant</button>
+					-->
                 </div>
                 
             </form>
         </div>
 
+		
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN ETALONNAGE - - - - - - - - - - - - - - - - - - - - - -->
 
     </div>
