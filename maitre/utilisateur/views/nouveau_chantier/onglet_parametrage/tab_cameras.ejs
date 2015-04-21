@@ -54,9 +54,9 @@
                                 </div>
                             </div>
                             
-                            <div class="checkbox">
+                            <div class="checkbox" id="imgCalib">
                                 <label>
-                                    <input type="checkbox" value="imagesCalibration" />
+                                    <input type="checkbox" id="imgCalibCb" value="imagesCalibration" class="root3" onchange='informationCapteur("imgCalib");' />
                                     Images spécifiques pour la calibration
                                 </label>
                                 
@@ -65,19 +65,19 @@
                                     <!-- Importer de nouvelles images -->
                                     <div class="inline-radio">
                                         <label>
-                                            <input type="radio" name="imgSpec" id="upload" value="upload" onclick="document.getElementById('js-upload-calib-images').disabled=false" />
+                                            <input type="radio" name="imgSpec" id="upload" value="upload" disabled />
                                             Importer de nouvelles images
                                             <div class="form-inline form-group">
-                                                <input type="file" name="files[]" id="js-upload-calib-images" accept="image/*" multiple disabled  />
-                                                <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Importer</button>
+                                                <input type="file" name="files[]" id="js-upload-calib-images" accept="image/*" multiple disabled />
+                                                <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit" disabled >Importer</button>
                                             </div>
                                         </label>
                                     </div>
                                     
                                     <div class="inline-radio">
                                         <label>
-                                            <input type="radio" name="imgSpec" id="choix" value="choix" />
-                                            <select class="form-control" id="menuDeroulantImages" size="3">
+                                            <input type="radio" name="imgSpec" id="choix" value="choix" disabled />
+                                            <select class="form-control" id="menuDeroulantImages" size="3" disabled >
                                             </select>
                                         </label>
                                     </div>
@@ -86,7 +86,7 @@
                             
                             <div class="checkbox" id="infoCapteur">
                                 <label>
-                                    <input type="checkbox" class="root3" value="infoCapteur" id="infoCapteurCb" onchange='informationCapteur("infoCapteurCb");'/>
+                                    <input type="checkbox" class="root3" value="infoCapteur" id="infoCapteurCb" onchange='informationCapteur("infoCapteur");'/>
                                     Informations sur le capteur
                                 </label>
                                 
