@@ -297,6 +297,5 @@ var majInfosChantier = function(idChantier){
 		var mesBesoins = JSON.parse(req.responseText);
         // Pour mettre à jour l'interface...
         onPageOpen(mesBesoins);
-		console.log("Ca fait qqch 2");
 	});
 }
