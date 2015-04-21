@@ -124,7 +124,7 @@ function onPageOpen(besoins) {
 
     myTable += "</tbody></table></div>";
   
-    var etalonnage = besoins.etalonnage;
+    var etalonnage = besoins.etalonnage[0];
     if(etalonnage) { //if exists
         
 		myEtalon +=
@@ -143,8 +143,8 @@ function onPageOpen(besoins) {
 		// SI AUTO-ETALONNAGE
 		if(etalonnage.auto_etalonnage == "1") {
 			myEtalon +=
-			"\t\t<tr>\n"
-;				"\t\t\t<td>Auto-étalonnage</td>\n";
+			"\t\t<tr>\n" +
+				"\t\t\t<td>Auto-étalonnage</td>\n";
 
 			var type_etalon = etalonnage.type_auto_etalonnage;
 			switch(type_etalon) {
@@ -164,7 +164,9 @@ function onPageOpen(besoins) {
 			"\t\t<tr>\n"+
 				"\t\t\t<td>Images</td>\n";
 
-			if(!etalonnage.liste_images) {
+			console.log("length img",etalonnage.liste_images.length);
+			console.log("imgs",etalonnage.liste_images);
+			if(!etalonnage.liste_images.length) {
 				myEtalon +=
 					"\t\t\t<td>Toutes</td>\n";
 			} else {
@@ -181,7 +183,7 @@ function onPageOpen(besoins) {
 			myEtalon += "\t\t</tr>\n";
 
 			//AJOUT INFO CAPTEUR
-			var capteur = etalonnage.capteur;
+			var capteur = etalonnage.capteur[0];
 
 			var focale = etalonnage.capteur.focale_reelle;
 			myEtalon +=
@@ -260,7 +262,7 @@ function onPageOpen(besoins) {
     }
 
     document.getElementById('resumeParam').innerHTML = myTable+myEtalon;
-    console.log(myTable+myEtalon);
+	console.log(myEtalon);
 
     return true;
 }
