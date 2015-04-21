@@ -20,7 +20,7 @@ exports.send_http = function (url,job) {
 }
 
 // Inscrit un esclave
-exports.inscription = function (URL) {
+exports.inscription = function (URL,res) {
 
 	Esclave.find({ url: URL }, function(err, esclaves) {
 		if (esclaves.length==0) {
@@ -31,11 +31,13 @@ exports.inscription = function (URL) {
 			      });
 			eclave.save(function (err) {
 			  if (err) console.log('error');
+			  res.status(204).end();
 			});
 		}else{
-			console.log("esclave déjà inscrit !")
+			console.log("esclave déjà inscrit !");
+			res.status(400).end();
 		};
-
+		
 	});
 
 }

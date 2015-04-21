@@ -1,6 +1,7 @@
 var config 	  = require('../config.json');
 var messenger = require('messenger')
 var express   = require('express');
+var http   	  = require('http');
 
 /**
  * a faire
@@ -22,8 +23,48 @@ var app = express();
 
 // Inscription de l'esclave aupres du maitre
 app.get('/inscriptionEsclave', function(req, res) {
-	comportementsMMM.inscription("http://"+req.connection.remoteAddress+":"+req.query.port);
+	comportementsMMM.inscription("http://"+req.connection.remoteAddress+":"+req.query.port,res,function(){
+				
+		});
 });
+
+// Fonction de test pour l'envoi de job à l'esclave
+app.get('/testEnvoiJob', function(req, res) {
+
+
+	var postData = JSON.stringify({
+		"commande": "Tapioca All *.JPG ..."
+	});
+
+	var options = {
+		method: 'POST',
+		hostname: '127.0.0.1',
+		port: 9208,
+		path: '/recoitJob',
+		headers: {
+			'Content-Type': 'application/json;charset=UTF-8'
+		  }
+	};
+
+	var req = http.request(
+		options,
+		function(res){
+			console.log("hey");
+			console.log(res);
+		}
+	);
+
+	req.on('error', function(err) {
+	  console.log('problem', err);
+	});
+
+	req.write(JSON.stringify({"commande": "Tapioca All *.JPG ..."}));
+	req.end();
+		
+	res.status(200).end("coucouc");
+
+});
+
 
 app.listen(parseInt(config.MMManager_esclave)); 
 

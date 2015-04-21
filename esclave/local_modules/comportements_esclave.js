@@ -7,15 +7,18 @@ var ACTIVITE_ESCLAVE = "DETENDU";
 var INSCRIT 	 	 = false;
 
 // Inscription auprès du maitre
-exports.inscription = function(){
+exports.inscription = function(resExpress,callbackAffichage){
 	// envoi d'une requete http auprès du maitre
 	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/inscriptionEsclave?port="+config_esclave.esclave_port,function callback(response){
 
 		  response.setEncoding('utf8');
-		  console.log(res.statusCode);
-		  response.on('data', function (chunk) {
-			;//console.log('BODY: ' + chunk);
-		  });
+		  
+		  callbackAffichage(resExpress,response);
+		  
+		  /*response.on('data', function (chunk) {
+			console.log('BODY: ' + chunk);
+			comportements.pageHTML(res,msg);
+		  });*/
 	})
 	
 }
