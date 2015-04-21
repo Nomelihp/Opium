@@ -200,6 +200,9 @@ function valider_onglet(id) {
     }
     //Changement d'onglet
     $("#ongletCourant").val(id);
+	//Si on passe sur l'onglet 4, on fait le récapitulatif
+	if(id == "on_click4"){majInfosChantier(idChantier);}
+	
     return true;
 }
 
@@ -273,4 +276,14 @@ function chevronDown(id) {
     
     element.innerHTML = element.innerHTML.replace("right","down");
     return true;
+}
+
+// Fonction de mise à jour des informations de chantier
+var majInfosChantier = function(idChantier){
+	infosChantier(idChantier,function(req){
+		var mesBesoins = JSON.parse(req.responseText);
+        // Pour mettre à jour l'interface...
+        onPageOpen(mesBesoins);
+		console.log("Ca fait qqch 2");
+	});
 }
