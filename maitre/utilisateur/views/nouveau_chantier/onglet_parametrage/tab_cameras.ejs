@@ -15,7 +15,7 @@
             
             <div class="panel-heading">
                 Définition de l'étalonnage
-                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myExif" style="float: right;">
+                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myExif" style="float: right;" onclick="javascript: launchAll()">
                     Visualiser les données exif
                 </button>
             </div>
@@ -77,6 +77,7 @@
                                     <div class="inline-radio">
                                         <label>
                                             <input type="radio" name="imgSpec" id="choix" value="choix" onclick="javascript: launchAll()" disabled />
+											Sélection des images servant à la calibration
 											<div id="menuDeroulantImages">
 											</div>
                                         </label>
@@ -120,7 +121,7 @@
                     </div>
                     <br />    
                 </div>                    
-                                                                    
+<!--- Bouttons non gérés                                              
                 <div class="panel-footer">
                     <button type="reset" class="btn btn-default">Retour aux valeurs par défaut</button>
                     <button type="submit" class="btn btn-primary">Suivant</button>
@@ -128,7 +129,8 @@
                 
             </form>
         </div>
-
+-->
+		
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - FIN ETALONNAGE - - - - - - - - - - - - - - - - - - - - - -->
 
     </div>
