@@ -164,9 +164,7 @@ function onPageOpen(besoins) {
 			"\t\t<tr>\n"+
 				"\t\t\t<td>Images</td>\n";
 
-			console.log("length img",etalonnage.liste_images.length);
-			console.log("imgs",etalonnage.liste_images);
-			if(!etalonnage.liste_images.length) {
+			if(!etalonnage.liste_images || !etalonnage.liste_images.length) {
 				myEtalon +=
 					"\t\t\t<td>Toutes</td>\n";
 			} else {
@@ -201,8 +199,8 @@ function onPageOpen(besoins) {
 			myEtalon +=
 			"\t\t<tr>\n"+
 				"\t\t\t<td>Dimensions capteur</td>\n";                
-			
-			if(focale) {
+
+			if(dimensions[0]) {
 				myEtalon += "\t\t\t<td>"+dimensions[0]+"×"+dimensions[1]+"</td>\n";   
 			} else {
 				myEtalon += "\t\t\t<td>Auto</td>\n"   ; 

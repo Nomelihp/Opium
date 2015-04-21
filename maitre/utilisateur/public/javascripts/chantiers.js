@@ -97,5 +97,3 @@ function toWarning(id) {
     
     return true;
 }
-
-var test = ungrey("produits-button");
