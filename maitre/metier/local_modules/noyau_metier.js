@@ -45,7 +45,7 @@ exports.besoin2jobs = function(jsonBesoin){
           commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin._id+"/"+liste_images.join(" "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
           commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin._id+"/"+liste_images.join(" "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" Out=MEP "+"@ExitOnBrkp");
-        }else if(dbOperations.inArray(jsonBesoin.etalonnage.liste_images[0],liste_images)){
+        }else if(dbOperations.inArray(liste_images_etalonnage[0],liste_images)){
 
           commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin._id+"/"+liste_images.join(" "+config.repertoire_donnees+jsonBesoin.login+"/"+jsonBesoin.nom+"/")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
@@ -123,9 +123,10 @@ exports.besoin2jobs = function(jsonBesoin){
   // Persister dans la BD
   var job;
   for(var i=0 ; i<commandes.length; i++){
-    job = new model.jobs(dbOperations.toJSON(jsonBesoin._id, commandes[i], 0, ''));
+    job = new model.jobs(dbOperations.toJSON(jsonBesoin._id, commandes[i], 0, '',i));
     job.save(function(err, job){
       if(err) throw err;
+      console.log(job);
 
     });
   }

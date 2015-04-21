@@ -27,13 +27,13 @@ server.on('notification',function(message, data){
     if (err) throw err;
     console.log('notification reçue');
     for(var i=0; i<besoin.length; i++){
-      Besoin = new model.jobs(besoin[i]);
+      Besoin = new model.besoins(besoin[i]);
       noyau_metier.besoin2jobs(Besoin);
-      Besoin.findOneAndUpdate({_id:JSON.parse(besoin[i])._id},{etat:'3'},function(err,besoin){
-        if(err) throw err;
-      });
+      Besoin.etat='3';
+      Besoin.save(function(err){
+	if (err) throw err;
+	});
     }
-
   });
 
 });
