@@ -29,10 +29,6 @@ server.on('notification',function(message, data){
     for(var i=0; i<besoin.length; i++){
       Besoin = new model.besoins(besoin[i]);
       noyau_metier.besoin2jobs(Besoin);
-      Besoin.etat='3';
-      Besoin.save(function(err){
-	if (err) throw err;
-	});
     }
   });
 

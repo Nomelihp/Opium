@@ -123,17 +123,29 @@ exports.besoin2jobs = function(jsonBesoin){
   // Persister dans la BD
   var job;
   for(var i=0 ; i<commandes.length; i++){
-    job = new model.jobs(dbOperations.toJSON(jsonBesoin._id, commandes[i], 0, '',i));
+    job = new model.jobs(dbOperations.toJSON(jsonBesoin._id, commandes[i], 0, ''));
     job.save(function(err, job){
       if(err) throw err;
       console.log(job);
 
     });
   }
-}
 
-exports.appariement = function(jsonBesoin){
+// get a user with ID of 1
 
+jsonBesoin.findById(jsonBesoin._id, function(err, besoin) {
+  if (err) throw err;
 
+  // change the users location
+  besoin.etat = '3';
+
+  // save the user
+  besoin.save(function(err) {
+    if (err) throw err;
+
+    console.log('User successfully updated!');
+  });
+
+});
 
 }
