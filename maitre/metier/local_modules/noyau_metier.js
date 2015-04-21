@@ -10,11 +10,11 @@ exports.besoin2jobs = function(jsonBesoin){
 
   // On récupère la liste des images
   var liste_images=[];
-  liste_images = dbOperations.toListeImages(JSON.parse(jsonBesoin).liste_images);
+  liste_images = dbOperations.toListeImages(jsonBesoin);
 
   // On récupère la liste des images pour l'etalonnage
   var liste_images_etalonnage;
-  liste_images_etalonnage = dbOperations.toListeImages(jsonBesoin.etalonnage[0].liste_images);
+  liste_images_etalonnage = dbOperations.toListeImages(jsonBesoin);
 
   // Dans tous les cas le calcul des images de liaison est obligatoire
   var id_chantier = jsonBesoin.id_chantier;
