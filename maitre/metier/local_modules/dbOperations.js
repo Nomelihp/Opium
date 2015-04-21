@@ -6,14 +6,21 @@ exports.toJSON=function(id_chantier, commande, etat, erreur){
 }
 
 // Fonction pour extraire la liste des images
-exports.toListeImages = function(liste_images_exif){
-  console.log(typeof(liste_images_exif));
+exports.toListeImages = function(jsonBesoin){
   var liste_images=[];
-  for(var i=0;i<liste_images_exif.length;i++){
-    liste_images.push(liste_images_exif[i].nom);
+  for(var i=0;i<jsonBesoin.liste_images.length;i++){
+    liste_images.push(jsonBesoin.liste_images[i].nom);
   }
   return liste_images;
+}
 
+// Fonction pour extraire la liste des images
+exports.toListeImagesEtalonnage = function(jsonBesoin){
+  var liste_images=[];
+  for(var i=0;i<jsonBesoin.etalonnage[0].liste_images.length;i++){
+    liste_images.push(jsonBesoin.etalonnage[0].liste_images[i].nom);
+  }
+  return liste_images;
 }
 
 // Verifier si un élément existe dans un tableau

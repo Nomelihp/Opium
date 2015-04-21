@@ -1,33 +1,32 @@
 var model = require('../../model/mongo_config');
 
 // Modeles mongoose
-var Esclave=model.esclaves;
-var Jobs=model.jobs;
+var Esclave	=	model.esclaves;
+var Jobs	=	model.jobs;
 
 // Retourne true si un esclave est opérationnel
-exports.test_esclave_operationnel = function (ip) {
+exports.test_esclave_operationnel = function (url) {
 	// body...
 	
 	return true;
 }
 
 // Envoi un job à un esclave
-exports.send_http = function (ip,job) {
+exports.send_http = function (url,job) {
 	// body...
 	// A FAIRE 
 	console.log(job['commande']);
-	console.log(ip);
+	console.log(url);
 }
 
 // Inscrit un esclave
-exports.inscription = function (IP) {
-	// body...
+exports.inscription = function (URL) {
 
-	Esclave.find({ ip: IP }, function(err, esclaves) {
+	Esclave.find({ url: URL }, function(err, esclaves) {
 		if (esclaves.length==0) {
 
 			var eclave = new Esclave({
-			        ip:IP,
+			        url:URL,
 			        operationnel: 1
 			      });
 			eclave.save(function (err) {
@@ -46,10 +45,11 @@ exports.requete_esclave=function (tJob,id_esclave) {
 	if (tJob['container']=='') {
 		// requete sur l'esclave correspondant
 		Esclave.findOne({ operationnel: 1 }, function(err, esclave) {
-			Jobs.findByIdAndUpdate(tJob['_id'], { container: esclave['ip'],etat : 1 }, function(err, job) {
+			Jobs.findByIdAndUpdate(tJob['_id'], { container: esclave['url'],etat : 1 }, function(err, job) {
+
 			  if (err) throw err;
 			  console.log("update");
-			  send_http (esclave['ip'],job);
+			  send_http (esclave['url'],job);
 			});
 			
 			esclave.etat=2;
@@ -58,7 +58,7 @@ exports.requete_esclave=function (tJob,id_esclave) {
 			Jobs.find({ id_chantier: tJob['id_chantier'] },function (err, jobs) {
 				for (var i = 0; i < jobs.length; i++) {
 					var newjob= new Jobs(jobs[i]);
-					Jobs.findByIdAndUpdate(newjob['_id'], { container: esclave['ip'] }, function(err, job) {
+					Jobs.findByIdAndUpdate(newjob['_id'], { container: esclave['url'] }, function(err, job) {
 					  if (err) throw err;
 					});
 				};
@@ -70,13 +70,10 @@ exports.requete_esclave=function (tJob,id_esclave) {
 		});
 
 	}else{
-
-		
-
 		Jobs.findByIdAndUpdate(tJob['_id'], { etat : 1 }, function(err, job) {
 		  if (err) throw err;
 		  console.log("update");
-		  send_http (ip,job);
+		  send_http (url,job);
 		});
 		// Mise à jour du esclave concerné
 		Esclave.findByIdAndUpdate(id_esclave, { operationnel: 2 }, function(err, job) {
@@ -104,6 +101,7 @@ exports.findJobs=function() {
 			var job = new Jobs(jobs[i]);
 
 			console.log(job['id_chantier']);
+
 			// ----   test si on vient d'assigner le job d'un même chantier
 			var inListChantiers=false;
 			for (var i = 0; i < list_chantiers.length; i++) {
@@ -113,7 +111,7 @@ exports.findJobs=function() {
 				//  ----   Si le job est déjà assigné à un conteneur on lui donne ce qu'il veut 
 				if (job['container']!='') {
 
-					Esclave.find({ ip: job['container'] }, function(err, esclaves) {
+					Esclave.find({ url: job['container'] }, function(err, esclaves) {
 					  if (err) throw err;
 					  // test si l'esclave est opérationnel
 					  if (test_esclave_operationnel(job['container'])) {
@@ -139,6 +137,7 @@ exports.findJobs=function() {
 				};// --- endif job['container']!=''
 
 			}; // end if inlistchantiers
+
 		}// --- endfor
 
 	}) // end find jobs
@@ -151,10 +150,10 @@ exports.findJobs=function() {
 exports.receive_http = function (retour) {
 	// body...
 	// bool retour
-	var ip=retour['ip'];
+	var url=retour['url'];
 	var erreur = retour['erreur'];
 	// --- update l'esclave pour le passer en opérationnel
-	Esclave.find({ ip: ip },function (err, esclaves) {
+	Esclave.find({ url: url },function (err, esclaves) {
 			var esclave= new Esclave(esclaves[0]);
 			esclave['operationnel']=1;
 			esclave.save();
@@ -163,7 +162,7 @@ exports.receive_http = function (retour) {
 	if (erreur) {
 		//ca a fonctionné
 		// --- update le job pour passer son état à finit avec succès
-		Jobs.find({ container: ip },function (err, jobs) {
+		Jobs.find({ container: url },function (err, jobs) {
 			var job= new Jobs(jobs[0]);
 			job['etat']=2;
 			job.save();
@@ -174,7 +173,7 @@ exports.receive_http = function (retour) {
 	} else{
 		//ca n'a pas fonctionné
 		// --- update le job pour passer son état à finit avec erreur
-		Jobs.find({ container: ip },function (err, jobs) {
+		Jobs.find({ container: url },function (err, jobs) {
 			var job= new Jobs(jobs[0]);
 			job['etat']=3;
 			job.save();
