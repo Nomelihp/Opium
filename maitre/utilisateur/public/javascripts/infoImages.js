@@ -1,14 +1,13 @@
 
 
 //liste des infos à extraire du exif
-var myExifKeys = ["create date","file size","image size","camera model name","focal length","f number","iso","shutter speed","aperture","exposure time","sharpness","saturation","contrast","white balance","color space","orientation"];
+var myExifKeys = ["create date","file size","image size","camera model name","focal length","f number","iso","shutter speed","aperture","exposure time"];
 
 function launchAll() {
 	var idChantier = $("#idChantier").val();
 	infosChantier(idChantier,function(req){
 		var mesBesoins = JSON.parse(req.responseText);
         // Pour mettre à jour l'interface...
-		console.log(mesBesoins);
 		nomsImages(mesBesoins);
 		//nomsBalises(mesBesoins);
 	});
@@ -17,7 +16,6 @@ function launchAll() {
 }
 
 function nomsImages(besoins) {
-    console.log("nomsImages");
     var myListe = "";
 	var liste_images = besoins.liste_images;
     for(var i=0; i<liste_images.length; i++){
@@ -25,12 +23,11 @@ function nomsImages(besoins) {
     }
     
     document.getElementById("nomsImages").innerHTML = myListe;
-    document.getElementById("menuDeroulantImages").innerHTML = '<select id="menuSelectImages" class="form-control" size="3" multiple >'+myListe+'</select>';
+    document.getElementById("menuDeroulantImages").innerHTML = '<select id="menuSelectImages" class="form-control" size="6" multiple >'+myListe+'</select>';
     
 }
 
 function nomsBalises(besoins) {
-	console.log("nomsBalises");
     var myListe = "";
     for(var i=0; i<myExifKeys.length; i++){
         myListe += "<option value='"+myExifKeys[i]+"'>"+myExifKeys[i]+"</option>";
@@ -40,14 +37,12 @@ function nomsBalises(besoins) {
 }
 
 function infosImage(imagePosition) {
-    console.log("infosImage");
 	var myListe = "";
 	var idChantier = $("#idChantier").val();
 	infosChantier(idChantier,function(req){
 		var mesBesoins = JSON.parse(req.responseText);
         //Pour mettre à jour l'interface...
 		var liste_images = mesBesoins.liste_images;
-		console.log(liste_images);
 		//On cherche l'exif de l'image selectionnée
 		for(var i=0; i<liste_images.length; i++){
 			if(liste_images[i].nom == imagePosition){
@@ -57,14 +52,12 @@ function infosImage(imagePosition) {
 				}
 			}
 		}
-    console.log(myListe);
     document.getElementById("infosImage").innerHTML = myListe;
 	});
     
 }
 
 function infosBalise(baliseName) {
-    console.log("infosBalise");
     var myExif = JSON.parse(besoins.liste_images); //PAS LE BON PATH VERS EXIFS.
     
     for(var i=0; i<myExif.length; i++){
