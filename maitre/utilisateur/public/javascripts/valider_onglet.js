@@ -14,6 +14,8 @@ function recupereExif()
              if(req.status == 200)
              {
                   infosExif = JSON.parse(req.responseText);
+				  console.log(infosExif);
+				  console.log(infosExif[0]);
              }
           }
         };
@@ -75,7 +77,6 @@ function valider_onglet(id) {
 			formjson.etat = "1";
 		//validation du troisième onglet à la première validation
 			tabass.on_click1 = ["on_click1a","etalonnageForm", "parametresForm"];
-			console.log(tabass);
 		}
         
         // on parcourt les formulaires présents dans l'onglet courant, en regardant la table d'association tabass
@@ -106,7 +107,20 @@ function valider_onglet(id) {
                 if(idelement=="standard" && el[l].checked){etaljson.type_auto_etalonnage="standard"}
                 if(idelement=="fisheye" && el[l].checked){etaljson.type_auto_etalonnage="fisheye"}
                 if(idelement=="fraserbasic" && el[l].checked){etaljson.type_auto_etalonnage="fraserbasic"}
-                //VOIR POUR LA LISTE D'IMAGES
+				//ListeImages
+                if(idelement=="choix" && el[l].checked){
+					var listImCal = [];
+					var menuListImages = document.getElementById("menuSelectImages");
+					console.log("Menu deroulant resultat :");
+					for(var i=0; i<menuSelectImages.length; i++) {
+						if(menuListImages[i].selected){
+							console.log(menuListImages[i].value);
+							listImCal.push(menuListImages[i].value)
+						}
+					}
+					etaljson.liste_images = listImCal;
+				}
+				//Infos Capteur
                 if(idelement=="infoCapteurCb" && el[l].checked){
                     var capteurjson={};
                     capteurjson.focale_reelle = document.getElementById("focale_reelle").value;

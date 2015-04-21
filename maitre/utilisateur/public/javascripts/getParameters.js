@@ -84,6 +84,7 @@ function onPageOpen(besoins) {
         myTable = ajout(myTable,"Images",menuDeroulant);
     } else {
         myTable = ajout(myTable,"Images","PAS D'IMAGES IMPORTÉES","red");
+        myTable = ajout(myTable,"","Si vous avez importé des images, attendez quelques instants, elles vont apparaître.");
     }
 
     //ajout masque (2D/3D). Si pas encore défini, 3D par défaut.

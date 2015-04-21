@@ -41,11 +41,12 @@ exports.inscription = function (URL) {
 }
 
 
-exports.requete_esclave=function (url,id_job,id_esclave) {
-	if (url=='') {
+exports.requete_esclave=function (tJob,id_esclave) {
+	if (tJob['container']=='') {
 		// requete sur l'esclave correspondant
 		Esclave.findOne({ operationnel: 1 }, function(err, esclave) {
-			Jobs.findByIdAndUpdate(id_job, { container: esclave['url'],etat : 1 }, function(err, job) {
+			Jobs.findByIdAndUpdate(tJob['_id'], { container: esclave['url'],etat : 1 }, function(err, job) {
+
 			  if (err) throw err;
 			  console.log("update");
 			  send_http (esclave['url'],job);
@@ -53,12 +54,26 @@ exports.requete_esclave=function (url,id_job,id_esclave) {
 			
 			esclave.etat=2;
 			esclave.save();
-			
+			//--- on assigne les jobs du meme chantier à un esclave
+			Jobs.find({ id_chantier: tJob['id_chantier'] },function (err, jobs) {
+				for (var i = 0; i < jobs.length; i++) {
+					var newjob= new Jobs(jobs[i]);
+					Jobs.findByIdAndUpdate(newjob['_id'], { container: esclave['url'] }, function(err, job) {
+					  if (err) throw err;
+					});
+				};
+				
+
+			});
+
+
 		});
 
 	}else{
 
-		Jobs.findByIdAndUpdate(id_job, { etat : 1 }, function(err, job) {
+		
+
+		Jobs.findByIdAndUpdate(tJob['_id'], { etat : 1 }, function(err, job) {
 		  if (err) throw err;
 		  console.log("update");
 		  send_http (url,job);
@@ -83,44 +98,49 @@ exports.findJobs=function() {
 	Jobs.find({ etat: 0 },function (err, jobs) {
 		if (err) return console.error(err);
 
+		var list_chantiers=[];
 		for (var i = 0; i < jobs.length; i++) {
 
 			var job = new Jobs(jobs[i]);
 
 			console.log(job['id_chantier']);
 
-			//  ----   Si le job est déjà assigné à un conteneur on lui donne ce qu'il veut 
-			if (job['container']!='') {
+			// ----   test si on vient d'assigner le job d'un même chantier
+			var inListChantiers=false;
+			for (var i = 0; i < list_chantiers.length; i++) {
+				if(list_chantiers[i]==job['id_chantier']) inListChantiers=true;
+			};
+			if (!inListChantiers) {
+				//  ----   Si le job est déjà assigné à un conteneur on lui donne ce qu'il veut 
+				if (job['container']!='') {
 
-				Esclave.find({ url: job['container'] }, function(err, esclaves) {
-				  if (err) throw err;
-				  // test si l'esclave est opérationnel
-				  if (test_esclave_operationnel(job['container'])) {
-				  	// s'il est déjà occupé
-				  	if (esclaves['operationnel']==2) {
-				  		console.log("occupé");
-				  		requete_esclave ('',job['_id'],esclaves['_id']) ;
+					Esclave.find({ url: job['container'] }, function(err, esclaves) {
+					  if (err) throw err;
+					  // test si l'esclave est opérationnel
+					  if (test_esclave_operationnel(job['container'])) {
+					  	// s'il est déjà occupé
+					  	if (esclaves['operationnel']!=2) {
+					  		console.log("libre");
+					  		requete_esclave (job,esclaves['_id']) ;
 
-				  	}else{
-				  		console.log("libre");
-				  		requete_esclave (job['container'],job['_id'],esclaves['_id']) ;
-				  		// A FAIRE : Passer l'esclave en occupé
-				  	}
+					  	}
 
-				  }else{
-				  	// A FAIRE : Passer l'esclave en non opérationnel
-				  	requete_esclave ('',job['_id'],esclaves['_id']);
-				  }
+					  }else{
+					  	// A FAIRE : Passer l'esclave en non opérationnel
+					  	requete_esclave (job,esclaves['_id']);
+					  }
 
-				  console.log(esclaves);
-				});
+					  console.log(esclaves);
+					});
 
-			} else{
-				// le job n'est pas assigné
-				requete_esclave ('',job['_id'],esclaves['_id']);
+				} else{
+					// le job n'est pas assigné
+					requete_esclave (job,esclaves['_id']);
 
-			};// --- endif job['container']!=''
+				};// --- endif job['container']!=''
 
+			}; // end if inlistchantiers
+>>>>>>> 91fddb2522db3a4659399b919d9c345e17ffe130
 		}// --- endfor
 
 	}) // end find jobs
