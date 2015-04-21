@@ -239,6 +239,7 @@ function onDocumentMouseClick( event ) {
 }
 
 }
+// Intégration du chantier au besoin côté serveur
 function envoyerJSON(){    
 	
 	var rectBox=document.getElementById(div).getBoundingClientRect();
@@ -247,7 +248,8 @@ function envoyerJSON(){
 	if (listMasque2D.length<3) { 
 		alert("Vous devez selectionner un minimum de 3 points")
 	} else{
-		var text = '{ "SelectionInfo" : { "Item" : ';
+		var text = '{ "_id":"'+$("#idChantier").val()+'"';
+		text +=  ',"masque3D":{"SelectionInfo" : { "Item" : ';
 
 		text = text+ '{"ModelViewMatrix": [';
 		text= text+camera.matrix.elements[0];
@@ -269,22 +271,26 @@ function envoyerJSON(){
 		for (var i = 1; i < listMasque2D.length; i++) {
 			text= text+' ,['+listMasque2D[i].x+','+listMasque2D[i].y+']';
 		};
-		text= text+'],"Mode" : "1"}}}';
+		text= text+'],"Mode" : "1"}}}}';
 
 
 		
-		try {
-			
-  			var masqjson=JSON.parse(text); 
-  			var req = new XMLHttpRequest();    
-        	req.open('POST','/chantiers',true);
-			req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        	req.send(JSON.stringify(masqjson)); 
-			
-		} catch (e) {
-			console.log("erreur");
 
-		}
+		
+		var req = new XMLHttpRequest();    
+		req.open('POST','/nouveau_chantier',true);
+		req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		req.onreadystatechange = function (aEvt) {
+		if (req.readyState == 4) {
+			 if(req.status == 200)
+			 {
+				  alert("masque mis à jour");
+			 }
+		  }
+		};
+		req.send(text); 
+			
+
 
 		
 		
