@@ -35,16 +35,17 @@ function degrise(id, elem, classe, isInfoCapteur) {
     }
     
     if(!isInfoCapteur) {
-        informationCapteur("infoCapteurCb");
+        informationCapteur("infoCapteur");
+        informationCapteur("imgCalib");
     }
 }
 
-// Si "information sur le capteur" est coché, dégrise le contenu. Grise sinon.
+// Si l'élément id+Cb est coché, dégrise le contenu. Grise sinon.
 function informationCapteur(id) {
     
-    if(document.getElementById(id).checked == true){
-        degrise("infoCapteur", null, "NO_CLASS_NAME", true);
+    if(document.getElementById(id+"Cb").checked == true){
+        degrise(id, null, "NO_CLASS_NAME", true);
     } else {
-        grise("infoCapteur", null, 'root3');
+        grise(id, null, 'root3');
     }
 }

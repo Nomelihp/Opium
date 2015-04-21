@@ -3,7 +3,7 @@ chantier
   _id: "1",
   login: "blabla",
   nom: "bla",
-  date: "455656"
+  date: "JJ-MM-YYYY"
   etat: 1:En attente de l'utilisateur, 2: Validé par l'utilisateur (à l'issue de l'interface nouveau_chantier) 3: prêt à être pris en charge par le module métier 4:Traduit en commandes, 5:calculs lancés, 6:Calcul terminé avec succès, 7:Echec, 8: Saisie masque, 9: Echec mise en place,
   commentaires: "lablablabla",
   type: "statue" OU "facade",
