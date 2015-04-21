@@ -51,7 +51,6 @@ function valider_onglet(id) {
     
         //On récupère l'idChantier de la page
         var idChantier = $("#idChantier").val();
-        console.log(idChantier);
         
         var getinfo = ["nom", "commentaire"]
         var getinfochecked = ["typestatus", "typefacade"]
@@ -74,12 +73,14 @@ function valider_onglet(id) {
 			formjson.date = date2;
 		//On met l'état "En attente de l'utilisateur"
 			formjson.etat = "1";
+		//validation du troisième onglet à la première validation
+			tabass.on_click1 = ["on_click1a","etalonnageForm", "parametresForm"];
+			console.log(tabass);
 		}
         
         // on parcourt les formulaires présents dans l'onglet courant, en regardant la table d'association tabass
         for (var j = 0; j < tabass[ongletCourant].length; j++){
         var idform = (tabass[ongletCourant])[j];
-        console.log(idform);
         // Récupération du formulaire
         var Form = document.forms[idform];
         // Boucle tous les éléments du formulaire i
@@ -89,7 +90,6 @@ function valider_onglet(id) {
             var etaljson = {};
             etaljson.id = "1" //A VOIR CE QU'IL FAUT METTRE
             for (var l = 0; l < el.length; l++){
-                console.log("boucle");
                 var idelement = el[l].id;
                 //Nouveau JSON pour cet etalonnage
                 if(idelement=="calibrationname"){etaljson.nom = el[l].value;}
@@ -170,7 +170,6 @@ function valider_onglet(id) {
                  //Récupération du nouvel id du chantier
                   var jsonrecu = JSON.parse(req.responseText);
                   idChantier = jsonrecu._id;
-                  console.log(idChantier);
                   //On met l'id chantier dans la page
                   if($("#idChantier").val() == "-1")$("#idChantier").val(idChantier);
                   }
@@ -198,9 +197,7 @@ function lancer_calcul() {
 	}
 	else{
 		if(infosExif){
-		console.log(infosExif);
 		//LENGTH MARCHE PAS CAR INFOEXIF EST UN STRING
-		console.log(infosExif.length);
 			if(infosExif.length < 2){alert("Importez au moins deux images");}
 			else{
 				//création d'un JSON

@@ -1,53 +1,74 @@
-var myTable = "";
-var myEtalon ="";
 
-var whatever = function onPageOpen() {
+
+function onPageOpen(besoins) {
+    
+    var myTable =
+    "<h4>Paramètres de base</h4>\n"+
+
+    "<div class=\"table-responsive\">\n"+
+    "<table class=\"table table-striped\">\n"+
+    "<thead>\n"+
+        "\t<tr>\n"+
+            "\t\t<th>Paramètre</th>\n"+
+            "\t\t<th>Valeur</th>\n"+
+        "\t</tr>\n"+
+    "</thead>\n"+
+    "<tbody>\n";
+    var myEtalon ="";
     
     var myResume = document.getElementById("resumeParam");
-    var besoins = JSON.parse(besoins);
     
     //ajout nom
     var nom = besoins.nom;
+    console.log("nom ",nom);
     if(nom != null) {
-        myTable.ajout("Nom",nom);
+        myTable = ajout(myTable,"Nom",nom);
     } else {
-        myTable.ajout("Nom","NON DÉFINI","red");
+        myTable = ajout(myTable,"Nom","NON DÉFINI","red");
     }
 
     //ajout date
-    myTable.ajout("Projet créé le",besoins.date); //À CONVERTIR EN QUELQUE CHOSE DE LISIBLE
+    myTable = ajout(myTable,"Projet créé le",besoins.date); //À CONVERTIR EN QUELQUE CHOSE DE LISIBLE
 
     //ajout etat du calcul
     switch(besoins.etat) {
-        case 1:
-            myTable.ajout("État","En attente de l'utilisateur","blue");
+        case "1":
+            myTable = ajout(myTable,"État","En attente de l'utilisateur","blue");
             break;
-        case 2:
-            myTable.ajout("État","Calcul en cours");
+        case "2":
+            myTable = ajout(myTable,"État","Calcul en cours");
             break;
-        case 3:
-            myTable.ajout("État","Non exécuté");
+        case "3":
+        case "4":
+        case "5":
+            myTable = ajout(myTable,"État","Calculs lancés");
             break;
-        case 4:
-            myTable.ajout("État","Calcul terminé avec succès","green");
+        case "6":
+            myTable = ajout(myTable,"État","Calculs terminés avec succès","green");
             break;
-        case 5:
-            myTable.ajout("État","ÉCHEC","red");
+        case "7":
+            myTable = ajout(myTable,"État","ÉCHEC","red");
+            break;
+        case "8":
+            myTable = ajout(myTable,"État","Saisie masque","blue");
+            break;
+        case "9":
+            myTable = ajout(myTable,"État","ÉCHEC DE LA MISE EN PLACE","red");
             break;
     }
 
     //ajout commentaires
     var commentaires = besoins.commentaires;
     if(commentaires != null) {
-        myTable.ajout("Commentaires",commentaires);
+        myTable = ajout(myTable,"Commentaires",commentaires);
     }
 
     //ajout type (Statue/Facade)
     var type = besoins.type;
     if(type != null) {
-        myTable.ajout("Type",type);
+        myTable = ajout(myTable,"Type",type);
     } else {
-        myTable.ajout("Type","NON DÉFINI","red");
+        myTable = ajout(myTable,"Type","NON DÉFINI","red");
     }
 
     //ajout liste images, sous forme de menu déroulant
@@ -56,51 +77,53 @@ var whatever = function onPageOpen() {
         menuDeroulant = "<select size='3'>\n"; //variable où stocker le menu en attendant de le mettre dans myTable
 
         for(var i=0; i<liste_images.length; i++) {
-            menuDeroulant += "<option>"+liste_images[i]+"</option>\n";
+            menuDeroulant += "<option>"+liste_images[i].nom+"</option>\n";
         }
         
         menuDeroulant += "</select>"
-        myTable.ajout("Images",menuDeroulant);
+        myTable = ajout(myTable,"Images",menuDeroulant);
     } else {
-        myTable.ajout("Images","PAS D'IMAGES IMPORTÉES","red");
+        myTable = ajout(myTable,"Images","PAS D'IMAGES IMPORTÉES","red");
     }
 
     //ajout masque (2D/3D). Si pas encore défini, 3D par défaut.
     if(besoins.masque=="22D") {
-        myTable.ajout("Masque","deux masques 2D");
+        myTable = ajout(myTable,"Masque","deux masques 2D");
     } else {
-        myTable.ajout("Masque","un masque 3D");
+        myTable = ajout(myTable,"Masque","un masque 3D");
     }
 
     //ajout nombre points liaison
     switch(besoins.nombre_points_liaison) {
         case 1:
-            myTable.ajout("Nombre de points de liaison","Faible");
+            myTable = ajout(myTable,"Nombre de points de liaison","Faible");
             break;
         case 2:
-            myTable.ajout("Nombre de points de liaison","Moyen");
+            myTable = ajout(myTable,"Nombre de points de liaison","Moyen");
             break;
         case 3:
-            myTable.ajout("Nombre de points de liaison","Important");
+            myTable = ajout(myTable,"Nombre de points de liaison","Important");
             break;
         case 4:
-            myTable.ajout("Nombre de points de liaison","Maximal");
+            myTable = ajout(myTable,"Nombre de points de liaison","Maximal");
             break;
     }
 
     //ajout mise à l'échelle. Non par défaut.
     if(besoins.mise_a_echelle) {
-        myTable.ajout("Mise à l'échelle","oui");
+        myTable = ajout(myTable,"Mise à l'échelle","oui");
     } else {
-        myTable.ajout("Mise à l'échelle","non");
+        myTable = ajout(myTable,"Mise à l'échelle","non");
     }
 
     //ajout basculement. Non par défaut.
     if(besoins.basculement) {
-        myTable.ajout("Basculement","oui");
+        myTable = ajout(myTable,"Basculement","oui");
     } else {
-        myTable.ajout("Basculement","non");
+        myTable = ajout(myTable,"Basculement","non");
     }
+
+    myTable += "</tbody></table></div>";
 
     document.getElementById('resumeParam').innerHTML = myTable;
     
@@ -176,7 +199,7 @@ var whatever = function onPageOpen() {
 					//transformation du string en array
 					liste_images = etalonnage.liste_images;
 					for(var i=0; i<liste_images.length; i++) {
-						menuDeroulant += "<option>"+liste_images[i]+"</option>\n";
+						menuDeroulant += "<option>"+liste_images[i].nom+"</option>\n";
 					}
 					menuDeroulant += "</select>";
 
@@ -228,7 +251,7 @@ var whatever = function onPageOpen() {
     // VALEUR PAR DÉFAUT
     } else {
         myEtalon +=
-        "<h4>Étalonnage par défaut<h4>"
+        "<h5>\tÉtalonnage par défaut<h5>"
         "<table class='table table-striped table-bordered table-hover'>\n"+
             "\t<thead>\n"+
                 "\t\t<tr>\n"+
@@ -262,14 +285,15 @@ var whatever = function onPageOpen() {
     return true;
 }
 
-function ajout(parametre, valeur, couleur) {
+function ajout(myTable, parametre, valeur, couleur) {
     var style;
     
-    if(couleur == "undefined") {
+    if(!couleur) {
         style = "";
     } else {
-        style = "style='color: "+couleur+"'"
+        style = " style='color: "+couleur+";'";
     }
     
     myTable += "<tr>\n\t<td>"+parametre+"</td>\n\t<td"+style+">"+valeur+"</td>\n</tr>\n";
+    return myTable;
 }
