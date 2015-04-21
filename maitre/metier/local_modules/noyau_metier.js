@@ -131,21 +131,5 @@ exports.besoin2jobs = function(jsonBesoin){
     });
   }
 
-// get a user with ID of 1
-
-jsonBesoin.findById(jsonBesoin._id, function(err, besoin) {
-  if (err) throw err;
-
-  // change the users location
-  besoin.etat = '3';
-
-  // save the user
-  besoin.save(function(err) {
-    if (err) throw err;
-
-    console.log('User successfully updated!');
-  });
-
-});
 
 }

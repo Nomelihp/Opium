@@ -27,6 +27,12 @@ server.on('notification',function(message, data){
     if (err) throw err;
     console.log('notification reçue');
     for(var i=0; i<besoin.length; i++){
+      model.besoins.findByIdAndUpdate(besoin[i]._id, { etat: '3' }, function(err, besoin) {
+        if (err) throw err;
+
+        // we have the updated user returned to us
+        console.log(besoin);
+        });
       Besoin = new model.besoins(besoin[i]);
       noyau_metier.besoin2jobs(Besoin);
     }
