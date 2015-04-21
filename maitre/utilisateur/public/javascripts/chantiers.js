@@ -5,23 +5,31 @@ var majInfosChantier = function(idChantier){
         // Pour mettre à jour l'interface...
         onPageOpen(mesBesoins);
         switch(mesBesoins.etat) {
-            case "6":
-                ungrey("produits-button");
-                document.getElementById("nuage").disabled = 'false';
-            case "8":
-                if(mesBesoins.residus > 1) {
-                    toWarning("mise")
-                }
-                ungrey("zone-button");
-                document.getElementById("nuage").disabled = 'disabled';
-                break;
-            case "7":
-                toDanger("produits");
-                break;
-            case "9":
-                toDanger("mise");
-                break;
-        }
+			case "6":
+				ungrey("mise-button");
+				if(mesBesoins.residus > 1) {
+					toWarning("mise");
+				}
+				ungrey("zone-button");
+				ungrey("results-button");
+				break;
+			case "7":
+				toDanger(results);
+			case "8":
+				ungrey("mise-button");
+				if(mesBesoins.residus > 1) {
+					toWarning("mise");
+				}
+				ungrey("zone-button");
+				ungrey("results-button");
+				document.getElementById("nuage").disabled = "disabled";
+
+			case "9":  //comme Bernard. Cazeneuve. Mdr lol.
+				ungrey("mise-button");
+				danger("mise");
+				break;
+		}
+        document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+mesBesoins.residus+' px.</div>'
 	});
 }
 

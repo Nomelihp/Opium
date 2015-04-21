@@ -1,7 +1,7 @@
-<div class="dropdown panel panel-success" id="mise">
+<div class="dropdown panel panel-success greyed-out" id="mise">
     <div class="panel-heading">
         <h4>
-            <button class="btn btn-success btn-sm" id="mise-button" type="button" aria-expanded="true" onclick="javascript:plusMoins('mise');">
+            <button class="btn btn-success btn-sm" disabled="disabled" id="mise-button" type="button" aria-expanded="true" onclick="javascript:plusMoins('mise');">
                 <i class="fa fa-plus"></i>
             </button>
             Mise en place
@@ -9,8 +9,6 @@
     </div>
 
     <div class="panel-body" id="mise-body" style="display:none;">
-        <div class="panel panel-default panel-body">
-            Résidus : <%= chantier.residus %> px.
-        </div>
+        <div id="residusChantier"></div>
     </div>
 </div>
