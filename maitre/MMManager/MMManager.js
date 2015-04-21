@@ -4,9 +4,11 @@ var express   = require('express');
 
 /**
  * a faire
- * function test_esclave_operationnel
- * function send_http
- * */
+ * maitre et esclave / émission : envoi de jobs à l'esclave
+ * maitre et esclave / réception : retour des résultats
+ * esclave / desinscription + test_esclave_operationnel
+ *
+*/
 
 var comportementsMMM = require('./local_modules/comportements_mmm');
 //var testsMMM 		 = require('./local_modules/tests_mmm');

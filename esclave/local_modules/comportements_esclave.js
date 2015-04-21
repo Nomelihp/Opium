@@ -11,8 +11,8 @@ exports.inscription = function(){
 	// envoi d'une requete http auprès du maitre
 	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/inscriptionEsclave?port="+config_esclave.esclave_port,function callback(response){
 
-		  
 		  response.setEncoding('utf8');
+		  console.log(res.statusCode);
 		  response.on('data', function (chunk) {
 			;//console.log('BODY: ' + chunk);
 		  });

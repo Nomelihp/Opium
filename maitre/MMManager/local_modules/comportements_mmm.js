@@ -70,9 +70,6 @@ exports.requete_esclave=function (tJob,id_esclave) {
 		});
 
 	}else{
-
-		
-
 		Jobs.findByIdAndUpdate(tJob['_id'], { etat : 1 }, function(err, job) {
 		  if (err) throw err;
 		  console.log("update");
@@ -140,7 +137,7 @@ exports.findJobs=function() {
 				};// --- endif job['container']!=''
 
 			}; // end if inlistchantiers
->>>>>>> 91fddb2522db3a4659399b919d9c345e17ffe130
+
 		}// --- endfor
 
 	}) // end find jobs
