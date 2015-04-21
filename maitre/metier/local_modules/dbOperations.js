@@ -6,7 +6,8 @@ exports.toJSON=function(id_chantier, commande, etat, erreur){
 }
 
 // Fonction pour extraire la liste des images
-exports.toListeImages=function(liste_images_exif){
+exports.toListeImages = function(liste_images_exif){
+  console.log(typeof(liste_images_exif));
   var liste_images=[];
   for(var i=0;i<liste_images_exif.length;i++){
     liste_images.push(liste_images_exif[i].nom);
@@ -20,7 +21,7 @@ exports.inArray=function(element, array){
   for (var i=0 ; i<array.length; i++){
     if (element == array[i]){
       break;
-      return true
+      return true;
     }
   }
   return false;

@@ -39,13 +39,21 @@ function onPageOpen(besoins) {
             myTable = ajout(myTable,"État","Calcul en cours");
             break;
         case "3":
-            myTable = ajout(myTable,"État","Non exécuté");
-            break;
         case "4":
-            myTable = ajout(myTable,"État","Calcul terminé avec succès","green");
-            break;
         case "5":
+            myTable = ajout(myTable,"État","Calculs lancés");
+            break;
+        case "6":
+            myTable = ajout(myTable,"État","Calculs terminés avec succès","green");
+            break;
+        case "7":
             myTable = ajout(myTable,"État","ÉCHEC","red");
+            break;
+        case "8":
+            myTable = ajout(myTable,"État","Saisie masque","blue");
+            break;
+        case "9":
+            myTable = ajout(myTable,"État","ÉCHEC DE LA MISE EN PLACE","red");
             break;
     }
 
@@ -76,6 +84,7 @@ function onPageOpen(besoins) {
         myTable = ajout(myTable,"Images",menuDeroulant);
     } else {
         myTable = ajout(myTable,"Images","PAS D'IMAGES IMPORTÉES","red");
+        myTable = ajout(myTable,"","Si vous avez importé des images, attendez quelques instants, elles vont apparaître.");
     }
 
     //ajout masque (2D/3D). Si pas encore défini, 3D par défaut.
