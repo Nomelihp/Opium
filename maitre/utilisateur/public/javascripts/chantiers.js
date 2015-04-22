@@ -47,14 +47,9 @@ var chantiers = function($) {
 
 function importPly (idChantier) {
     ungrey("zone-button");
-        var req = new XMLHttpRequest();    
-        req.open('GET','/nouveau_chantier?id='+$("#idChantier").val(),true);
-        req.onreadystatechange = function (aEvt) {
-          console.log(aEvt)
-        };
 
-        req.setRequestHeader("Content-Type", "application/xml;charset=UTF-8");
-        // req.send(JSON.stringify({"_id":$("#idChantier").val(),"demandePly":"oui"}));
+    webGL_MicMac("/chantiers?getFichier=toto&typeFichier=nuagePly&idChantier="+idChantier,"Restriction");
+        
 }
 
 
