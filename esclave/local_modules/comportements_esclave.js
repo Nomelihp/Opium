@@ -17,6 +17,15 @@ exports.inscription = function(resExpress,callbackAffichage){
 	})	
 }
 
+// Desinscription auprès du maitre
+exports.desinscription = function(resExpress,callbackAffichage){
+	// envoi d'une requete http auprès du maitre
+	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/desinscriptionEsclave",function callback(response){
+		  response.setEncoding('utf8');
+		  callbackAffichage(resExpress,response);
+	})	
+}
+
 // Renvoie un code retour au maitre
 retourJob = function(idEsclave,idJob,codeRetour){
 	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/retourEsclave?idJob="+idJob+"&codeRetour="+codeRetour+"&idEsclave="+idEsclave,function (response){
@@ -64,6 +73,7 @@ exports.pageHTML = function(res,msg){
 	else string += "<tr><td>inscription</td><td>non inscrit</td>";
 	string += "<tr><td>activité</td><td>"+ACTIVITE_ESCLAVE+"</td>";
 	string += "<tr><td>actions</td><td><a href=\"/inscription\">inscription</a></td>";
+	string += "<tr><td></td><td><a href=\"/desinscription\">desinscription</a></td>";
 	string += "</body></html>"
 	
 	res.end(string);
