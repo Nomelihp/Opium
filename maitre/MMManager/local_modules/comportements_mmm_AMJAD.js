@@ -40,21 +40,25 @@ exports.inscription = function (IP,PORT,res) {
 	*Examine les esclaves inscrits et teste si ils répondent... Si ce n'est pas le cas, les désinscrit
 */
 exports.examine_esclaves = function () {
+  var Esclave;
+  
   var hosts = [];
+  
   model.esclaves.find({},function(err,esclave){
     if (err) console.log('[MMManager][examine_esclaves] Erreur BD! model.esclaves.find ne marche pas');
     for(var i=0;i<esclave.length;i++){
-      hosts.push(esclave[i].url);
+      Esclave = new model.esclaves(esclave[i]);
+      hosts.push(Esclave.ip);
     }
     hosts.forEach(function(host){
     ping.sys.probe(host, function(isAlive){
       if(!isAlive){
-        console.log('[MMManager][examine_esclaves] Attention! Esclave '+host+' mort');
-        model.esclaves.findByIdAndUpdate(esclave[i]._id,{operationnel:'0'},function(err2){
-          console.log('[MMManager][examine_esclaves] Erreur! lors de la mise à jour du flag operationnel à 0 dans model.esclaves');
+        console.log('[MMManager][examine_esclaves] Attention! Esclave '+Esclave._id+' mort');
+        model.esclaves.findByIdAndUpdate(Esclave._id,{operationnel:'0'},function(err2){
+          if(err2) console.log('[MMManager][examine_esclaves] Erreur! lors de la mise à jour du flag operationnel à 0 dans model.esclaves');
         });
       }else{
-        console.log('[MMManager][examine_esclaves] Esclave '+esclave[i].url+' répond à mes pings il est vivant');
+        console.log('[MMManager][examine_esclaves] Esclave '+Esclave.ip+' répond à mes pings il est vivant');
       }
       });
   });
