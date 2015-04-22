@@ -37,10 +37,25 @@ var majInfosChantier = function(idChantier){
 var chantiers = function($) {
         'use strict';
      // Changement d'id de chantier dans le select
-    $("#idChantier").change(function(e){
-            majInfosChantier($("#idChantier").val());
-    })
+	$("#idChantier").change(function(e){
+			majInfosChantier($("#idChantier").val());
+            importPly($("#idChantier").val());
+            
+	})
+
 }(jQuery);
+
+function importPly (idChantier) {
+    ungrey("zone-button");
+        var req = new XMLHttpRequest();    
+        req.open('GET','/nouveau_chantier?id='+$("#idChantier").val(),true);
+        req.onreadystatechange = function (aEvt) {
+          console.log(aEvt)
+        };
+
+        req.setRequestHeader("Content-Type", "application/xml;charset=UTF-8");
+        // req.send(JSON.stringify({"_id":$("#idChantier").val(),"demandePly":"oui"}));
+}
 
 
 function plusMoins(nomPanel) {
@@ -97,5 +112,3 @@ function toWarning(id) {
     
     return true;
 }
-
-var test = ungrey("produits-button");
