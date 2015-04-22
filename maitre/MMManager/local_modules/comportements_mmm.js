@@ -97,7 +97,7 @@ var launchNextJobChantier=function(job){
  * Reception du résultat envoyé par un esclave
  * req : Request réceptionnée par express
  * res : res d'express
- * test OK
+ * test OK sauf test code retour avant lancement chantier suivant
  * */
 exports.recoitResultat = function (req, res) {
 	console.log("L esclave "+req.connection.remoteAddress+" me renvoie "+req.query.codeRetour);
@@ -118,12 +118,13 @@ exports.recoitResultat = function (req, res) {
 						res.status(400).end("");// retour http pb
 					}
 					// On lance la prochaine commande du chantier
-					else
+					else if (req.query.codeRetour == 2)
 					{
 						console.log("Lancement du job suivant "+req.query.idJob+" "+zeJob.id);
 						launchNextJobChantier(zeJob);
 						res.status(200).end("");// retour http ok
 					}
+					else res.status(200).end("");
 			});
 		}
 	});
