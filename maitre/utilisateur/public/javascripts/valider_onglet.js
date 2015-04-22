@@ -55,7 +55,7 @@ function valider_onglet(id) {
         var idChantier = $("#idChantier").val();
         
         var getinfo = ["nom", "commentaire"]
-        var getinfochecked = ["typestatus", "typefacade"]
+        var getinfochecked = ["typestatue", "typefacade"]
         //Tableau associatif "onglet courrant" : ["id des formulaires à valider"]
         var tabass = {"on_click1" : ["on_click1a"], "on_click2" : ["js-upload-form"], "on_click3" : ["etalonnageForm", "parametresForm"], "on_click4" : []}
         
@@ -166,7 +166,7 @@ function valider_onglet(id) {
                     //Si l'id est dans la liste des input à récupérer, on l'ajoute à l'objet JSON
                     if( idelement==getinfochecked[i] ){
                         if (el[l].checked){
-                            formjson[idelement] = el[l].value;}
+                            formjson.type = el[l].value;}
                     break;
                     }
                 }
