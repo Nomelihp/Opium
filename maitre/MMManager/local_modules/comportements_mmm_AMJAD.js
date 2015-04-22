@@ -39,8 +39,7 @@ exports.inscription = function (IP,PORT,res) {
 /*
 	*Examine les esclaves inscrits et teste si ils répondent... Si ce n'est pas le cas, les désinscrit
 */
-var examine_esclaves = function () {
-  var session = ping.createSession();
+exports.examine_esclaves = function () {
   var hosts = [];
   model.esclaves.find({},function(err,esclave){
     if (err) console.log('[MMManager][examine_esclaves] Erreur BD! model.esclaves.find ne marche pas');
