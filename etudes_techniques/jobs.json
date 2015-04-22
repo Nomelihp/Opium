@@ -1,10 +1,13 @@
 jobs
 {
   {
+    _id:,
     id_chantier: "502",
+    login:"localuser",
+    ordre_execution:"1",
     container: "http://172.30.30.2:8060",
     commande: "Tapioca All *.JPG ...",
-    etat: 0 Non assigné, 1 assigné, 2 finit avec succès, 3 finit avec erreur
+    etat: 0 Non assigné, 1 assigné, 2 fini avec succès, 3 fini avec erreur
     erreur: "la mise en place bla bla bla"
   }
 

@@ -1,9 +1,20 @@
 var express    	  = require('express');
+var bodyParser 	  = require('body-parser');
+
 var comportements = require('./local_modules/comportements_esclave');
 var config		  = require('./config_esclave');
 var ip 			  = require('ip');
 
 var app 		  = express();
+
+
+// parse application/json
+app.use(bodyParser.json())
+
+app.use(function (req, res, next) {
+  next()
+})
+
 
 app.get('/', function(req, res) {
     comportements.pageHTML(res,"");
@@ -24,10 +35,9 @@ app.post('/recoitJob', function(req, res) {
 	// On vérifie que la requête a bien été initiée par le maitre
 	if (req.connection.remoteAddress == config.maitre_ip)
 	{
-		console.log("coucou");
-		console.log(req);	
+		comportements.lanceJob(req, res);
 	}
-	res.status(204).end();
+	else res.status(400).end();// retour requete http pb
 	
 });
 

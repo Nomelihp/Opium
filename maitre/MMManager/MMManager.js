@@ -33,7 +33,10 @@ app.get('/testEnvoiJob', function(req, res) {
 
 
 	var postData = JSON.stringify({
-		"commande": "Tapioca All *.JPG ..."
+		"idJob":"333",
+		"idChantier":"55374fad83bc6ec91902ed82",
+		"login":"localuser",
+		"commande": "ls"
 	});
 
 	var options = {
@@ -41,30 +44,34 @@ app.get('/testEnvoiJob', function(req, res) {
 		hostname: '127.0.0.1',
 		port: 9208,
 		path: '/recoitJob',
-		headers: {
-			'Content-Type': 'application/json;charset=UTF-8'
-		  }
+		headers: {'Content-Type': 'application/json'}
 	};
 
 	var req = http.request(
 		options,
 		function(res){
-			console.log("hey");
-			console.log(res);
+			if (res.statusCode == 400)
+				console.log("mettre etat job à 3");
+			else if (res.statusCode == 204)
+				console.log("mettre etat job à 1");
 		}
 	);
 
 	req.on('error', function(err) {
-	  console.log('problem', err);
+	  //;console.log('problem', err);
 	});
 
-	req.write(JSON.stringify({"commande": "Tapioca All *.JPG ..."}));
+	req.write(postData);
 	req.end();
 		
 	res.status(200).end("coucouc");
 
 });
 
+// Code retour de l'esclave
+app.get('/retourEsclave', function(req, res) {
+	console.log("L esclave "+req.connection.remoteAddress+" me renvoie "+req.query.codeRetour);
+});
 
 app.listen(parseInt(config.MMManager_esclave)); 
 
