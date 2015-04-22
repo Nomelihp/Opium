@@ -103,6 +103,7 @@ function majChantier(besoins) {
         case "7":
             toDanger(results);
         case "8":
+            plusMoins("zone");
             ungrey("mise-button");
             if(bsoins.residus > 1) {
                 toWarning("mise");
