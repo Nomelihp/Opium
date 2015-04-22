@@ -45,7 +45,7 @@ var examine_esclaves = function () {
 
 /*
  * Lance le prochain job à réaliser sur un chantier
- * à tester
+ * test OK
  * */
 var launchNextJobChantier=function(job){
 	var ordreSuivant = parseInt(job.ordre_execution)+1;
@@ -70,7 +70,7 @@ var launchNextJobChantier=function(job){
  * Reception du résultat envoyé par un esclave
  * req : Request réceptionnée par express
  * res : res d'express
- * à tester
+ * test OK
  * */
 exports.recoitResultat = function (req, res) {
 	console.log("L esclave "+req.connection.remoteAddress+" me renvoie "+req.query.codeRetour);
