@@ -32,8 +32,8 @@
         
                 <div class="panel-header">
                     <select class="form-control" id="idChantier">
+                        <option value="">Sélectionner un chantier</option>
                         <% chantiers.forEach(function(chantier) { %>
-                            <% console.log(chantier.nom); %>
                             <option value="<%= chantier.id %>"><%= chantier.nom %></option>
                         <% }); %>
                     </select>
@@ -65,7 +65,6 @@
    
     <script src="/javascripts/chantiers.js"></script>
     <script src="/javascripts/getParameters.js"></script>
-    <script src="/javascripts/valider_onglet.js"></script>
     
     <!-- BOOTSTRAP SCRIPTS  -->
     <script src="/javascripts/bootstrap.js"></script>

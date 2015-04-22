@@ -2,6 +2,7 @@ var model = require('../../model/mongo_config');
 var config = require('../../config.json');
 var model = require('../../model/mongo_config');
 var dbOperations = require('./dbOperations');
+var fs = require('fs');
 
 exports.besoin2jobs = function(jsonBesoin){
 
@@ -123,15 +124,23 @@ exports.besoin2jobs = function(jsonBesoin){
   for(var i=0 ; i<commandes.length; i++){
     job = new model.jobs(dbOperations.toJSON(jsonBesoin._id, commandes[i], 0, '',config.login,(i+1).toString()));
     job.save(function(err, job){
-      if(err) throw err;
-      console.log(job);
+      if(err) throw console.log('Erreur lors de l\'enregistrement des jobs Verifiez les paramètres de votre BD');
+      console.log('Enregistrement de jobs dans la BD réussi !')
 
     });
   }
 
-
 }
 
-exports.apperiement_dense=function(jsonBesoin){
+exports.appariement_dense=function(jsonBesoin){
+  fs.writeFile(config.repertoire_donnees+"/"+config.login+"/"+jsonBesoin._id+"/");
+  var masque3D = jsonBesoin.masque3D;
+  var job2;
+   
+  // Commande pour générer le fichier du masque à partir du JSON
+  job2.save(function(err,job2){
+    if(err) throw console.log('Erreur lors de l\'enregistrement de la commande d\'appariement dans la BD. Verifiez que le serveur de la BD est allumé et que les pramètres d\'accès sont bons');
+    console.log('Enregistrement du job de l\'appariement dense dans la DB réussi !')
+  });
 
 }

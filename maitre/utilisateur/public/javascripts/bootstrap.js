@@ -2112,3 +2112,17 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
   })
 
 }(jQuery);
+
+// Affiche ou cache un div en fonction de sa visibilité précédente
+function afficher(id) {
+
+    var element = document.getElementById(id);
+
+    if(element.style.display=="block") {
+        element.style.display="none";
+    } else {
+        element.style.display="block";
+    }
+
+    return true;
+}
