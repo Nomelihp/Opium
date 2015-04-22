@@ -64,7 +64,7 @@ function onPageOpen(besoins) {
     //ajout type (Statue/Facade)
     var type = besoins.type;
     if(type) {
-        myTable = ajout(myTable,"Type",type);
+        myTable = ajout(myTable,"Type",capitalizeFirstLetter(type));
     } else {
         myTable = ajout(myTable,"Type","NON DÉFINI","red");
     }
@@ -87,9 +87,9 @@ function onPageOpen(besoins) {
 
     //ajout masque (2D/3D). Si pas encore défini, 3D par défaut.
     if(besoins.masque=="22D") {
-        myTable = ajout(myTable,"Masque","deux masques 2D");
+        myTable = ajout(myTable,"Masque","Deux masques 2D");
     } else {
-        myTable = ajout(myTable,"Masque","un masque 3D");
+        myTable = ajout(myTable,"Masque","Un masque 3D");
     }
 
     //ajout nombre points liaison
@@ -110,16 +110,16 @@ function onPageOpen(besoins) {
 
     //ajout mise à l'échelle. Non par défaut.
     if(besoins.mise_a_echelle == "1") {
-        myTable = ajout(myTable,"Mise à l'échelle","oui");
+        myTable = ajout(myTable,"Mise à l'échelle","Oui");
     } else {
-        myTable = ajout(myTable,"Mise à l'échelle","non");
+        myTable = ajout(myTable,"Mise à l'échelle","Non");
     }
 
     //ajout basculement. Non par défaut.
     if(besoins.basculement == "1") {
-        myTable = ajout(myTable,"Basculement","oui");
+        myTable = ajout(myTable,"Basculement","Oui");
     } else {
-        myTable = ajout(myTable,"Basculement","non");
+        myTable = ajout(myTable,"Basculement","Non");
     }
 
     myTable += "</tbody></table></div>";

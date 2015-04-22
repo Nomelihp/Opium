@@ -2126,3 +2126,7 @@ function afficher(id) {
 
     return true;
 }
+
+function capitalizeFirstLetter(string) { //Passe la première lettre du string en majuscule
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}

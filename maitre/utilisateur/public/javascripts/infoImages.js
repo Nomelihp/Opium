@@ -36,7 +36,7 @@ function nomsBalises(besoins) {
     document.getElementById("nomsBalises").innerHTML = myListe;
 }
 
-function infosImage(imagePosition) {
+function infosImage(imageName) {
     var myListe = "";
     var idChantier = $("#idChantier").val();
     infosChantier(idChantier,function(req){
@@ -44,15 +44,21 @@ function infosImage(imagePosition) {
         //Pour mettre à jour l'interface...
         var liste_images = mesBesoins.liste_images;
         //On cherche l'exif de l'image selectionnée
-        for(var i=0; i<liste_images.length; i++){
-            if(liste_images[i].nom == imagePosition){
-                var myImage = liste_images[i]["exif"];
-                for(var i=0; i<myExifKeys.length; i++){
-                    myListe += "<tr><td>"+myExifKeys[i]+"</td><td>"+myImage[myExifKeys[i]]+"</td></tr>";
-                }
+        var i=0;
+        while(i<liste_images.length && liste_images[i].nom != imageName) {
+            i++;
+        }
+        var myImage = liste_images[i]["exif"];
+        for(var i=0; i<myExifKeys.length; i++){
+            if(typeof myImage[myExifKeys[i]] != "undefined"){
+                myListe += "<tr><td>"+capitalizeFirstLetter(myExifKeys[i])+"</td><td>"+capitalizeFirstLetter(myImage[myExifKeys[i]])+"</td></tr>";
             }
         }
-    document.getElementById("infosImage").innerHTML = myListe;
+        if(myListe) {
+            document.getElementById("infosImage").innerHTML = myListe;
+        } else {
+            document.getElementById("infosImage").innerHTML = "Aucune information disponible sur cette image.";
+        }
     });
     
 }
@@ -62,16 +68,22 @@ function infosBalise(baliseName) {
     var idChantier = $("#idChantier").val();
     infosChantier(idChantier,function(req){
         var mesBesoins = JSON.parse(req.responseText);
+        var info = false;
         //Pour mettre à jour l'interface...
         var liste_images = mesBesoins.liste_images;
         for(var i=0; i<liste_images.length; i++){
-            myListe += "<tr><td>"+liste_images[i]["nom"]+"</td><td>"+liste_images[i]["exif"][baliseName]+"</td></tr>";
+            if(typeof liste_images[i]["exif"][baliseName] != "undefined") { //si l'information est présente
+                myListe += "<tr><td>"+liste_images[i]["nom"]+"</td><td>"+liste_images[i]["exif"][baliseName]+"</td></tr>";
+                info = true; //au moins une des images contient l'info voulue
+            } else {
+                myListe += "<tr><td>"+liste_images[i]["nom"]+"</td><td>Inconnu</td></tr>";
+            }
+            
         }
-    
-    document.getElementById("infosBalise").innerHTML = myListe;
+        if(info) {
+            document.getElementById("infosBalise").innerHTML = myListe;
+        } else {
+            document.getElementById("infosBalise").innerHTML = "Aucune des images importées ne contient cette information.";
+        }
     });
-    
-    
-    
 }
-
