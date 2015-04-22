@@ -1,6 +1,6 @@
 //Met à jour le résumé des paramètres du chantier.
 function onPageOpen(besoins) {
-	
+    
     var myTable =
     "<h4>Paramètres de base</h4>\n"+
 
