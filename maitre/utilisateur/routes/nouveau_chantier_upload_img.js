@@ -40,19 +40,23 @@ var apresUpload = function (file,req,res) {
 			// Récupération des métadonnées exif de l'image
 			exif(cheminFinalImg, function(err, donneesExif){
 				
-				// Update de la collection besoins avec la nouvelle image et ses metadonnees exif
-				var listeImg = [];
-				if(bes.liste_images)// il y a déjà des images dans le document
-				{
-					listeImg = bes.liste_images;
-				}
-				var jsonImg = {"nom":file.originalname,"exif":donneesExif};
-				listeImg.push(jsonImg);
 				
-				Besoins.findByIdAndUpdate(req.body._id,{$push: {liste_images: jsonImg}},{safe: true, upsert: true, new:true},function(err, b) {
-					var bes = new Besoins(b);
+				// Update de la collection besoins avec la nouvelle image et ses metadonnees exif
+				//Pas d'update pour les images pour la calibration
+				if(req.body.isCalib == "0"){
+					var listeImg = [];
+					if(bes.liste_images)// il y a déjà des images dans le document
+					{
+						listeImg = bes.liste_images;
 					}
-				);
+					var jsonImg = {"nom":file.originalname,"exif":donneesExif};
+					listeImg.push(jsonImg);
+					
+					Besoins.findByIdAndUpdate(req.body._id,{$push: {liste_images: jsonImg}},{safe: true, upsert: true, new:true},function(err, b) {
+						var bes = new Besoins(b);
+						}
+					);
+				}
 				
 			})
 		});
