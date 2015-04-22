@@ -26,8 +26,16 @@ app.get('/inscription', function(req, res) {
 	comportements.inscription(res,function(resExpress,responseHttpGet){
 			if (responseHttpGet.statusCode == 204) comportements.pageHTML(resExpress,"inscription ok");
 			else if (responseHttpGet.statusCode == 400) comportements.pageHTML(resExpress,"pb d'inscription (déjà inscrit??)");
-	});
-    
+	}); 
+});
+
+// Desinscription de l'esclave aupres du maitre
+app.get('/desinscription', function(req, res) {
+	
+	comportements.desinscription(res,function(resExpress,responseHttpGet){
+			if (responseHttpGet.statusCode == 204) comportements.pageHTML(resExpress,"desinscription ok");
+			else if (responseHttpGet.statusCode == 400) comportements.pageHTML(resExpress,"pb... l esclave etait il bien inscrit???");
+	}); 
 });
 
 // Réquête de demande de job lancée par le maitre
