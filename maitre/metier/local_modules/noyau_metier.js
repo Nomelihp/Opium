@@ -133,14 +133,25 @@ exports.besoin2jobs = function(jsonBesoin){
 }
 
 exports.appariement_dense=function(jsonBesoin){
-  fs.writeFile(config.repertoire_donnees+"/"+config.login+"/"+jsonBesoin._id+"/");
-  var masque3D = jsonBesoin.masque3D;
   var job2;
-   
-  // Commande pour générer le fichier du masque à partir du JSON
-  job2.save(function(err,job2){
-    if(err) throw console.log('Erreur lors de l\'enregistrement de la commande d\'appariement dans la BD. Verifiez que le serveur de la BD est allumé et que les pramètres d\'accès sont bons');
-    console.log('Enregistrement du job de l\'appariement dense dans la DB réussi !')
-  });
+  var commandes_appariement = [];
+  var taille_nuage;
+  if(jsonBesoin.taille_nuage=='1'){
+    taille_nuage = "QuickMac";
+  }else if(jsonBesoin.taille_nuage=='1'){
+    taille_nuage = "MicMac"
+  }else{
+    taille_nuage = "BigMac";
+  }
 
+  commandes_appariement.push(config.repertoire_micmac+"mm3d PIMs "+taille_nuage+" AperiCloud_MEP_selectionInfo.xml");
+  commandes_appariement.push(config.repertoire_micmac+"mm3d");
+  // Commande pour générer le fichier du masque à partir du JSON
+  for(var k=0;k<commandes.length;k++){
+    job2 = new model.jobs(dbOperations.toJSON(jsonBesoin._id,commandes_appariement[k],0,'',config.login,(10+i).toString));
+    job2.save(function(err,job2){
+      if(err) throw console.log('Erreur lors de l\'enregistrement de la commande d\'appariement dans la BD. Verifiez que le serveur de la BD est allumé et que les pramètres d\'accès sont bons');
+      console.log('Enregistrement du job de l\'appariement dense dans la DB réussit !')
+    });
+  }
 }

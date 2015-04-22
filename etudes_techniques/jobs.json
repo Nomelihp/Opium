@@ -7,7 +7,7 @@ jobs
     ordre_execution:"1",
     container: "http://172.30.30.2:8060",
     commande: "Tapioca All *.JPG ...",
-    etat: 0 Non assigné, 1 assigné, 2 fini avec succès, 3 fini avec erreur
+    etat: "0" Non assigné, "1" assigné, "2" fini avec succès, "3" fini avec erreur
     erreur: "la mise en place bla bla bla"
   }
 
