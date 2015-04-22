@@ -10,12 +10,12 @@ function launchAll() {
         nomsBalises(mesBesoins);
     });   
 }
-
+//génère la liste des noms des images, et l'insère dans 1) le menu déroulant de sélection pour la calibration et 2) dans le menu déroulant de visualisation des exifs
 function nomsImages(besoins) {
     var myListe = "";
     var liste_images = besoins.liste_images;
     if(liste_images){
-        myListe += "<option value=''>Sélectionnez une image</option>";
+        myListe += "<option value=''>Sélectionnez une image</option>"; //Option par défaut
         for(var i=0; i<liste_images.length; i++){
             myListe += "<option value='"+liste_images[i].nom+"'>"+liste_images[i].nom+"</option>";
         }
@@ -36,25 +36,25 @@ function nomsBalises(besoins) {
     document.getElementById("nomsBalises").innerHTML = myListe;
 }
 
+//génère la liste des informations exif sur l'image, et le place dans le tableau infosImage
 function infosImage(imageName) {
-    var myListe = "";
+    var myListe = ""; //la liste des infos, màj au fur et à mesure
     var idChantier = $("#idChantier").val();
     infosChantier(idChantier,function(req){
         var mesBesoins = JSON.parse(req.responseText);
-        //Pour mettre à jour l'interface...
         var liste_images = mesBesoins.liste_images;
-        //On cherche l'exif de l'image selectionnée
+        //On cherche l'image selectionnée
         var i=0;
         while(i<liste_images.length && liste_images[i].nom != imageName) {
             i++;
         }
-        var myImage = liste_images[i]["exif"];
+        var myImage = liste_images[i]["exif"]; //les infos exifs de l'image
         for(var i=0; i<myExifKeys.length; i++){
-            if(typeof myImage[myExifKeys[i]] != "undefined"){
+            if(typeof myImage[myExifKeys[i]] != "undefined"){ //si l'info existe
                 myListe += "<tr><td>"+capitalizeFirstLetter(myExifKeys[i])+"</td><td>"+capitalizeFirstLetter(myImage[myExifKeys[i]])+"</td></tr>";
             }
         }
-        if(myListe) {
+        if(myListe) { //si on a au moins une info
             document.getElementById("infosImage").innerHTML = myListe;
         } else {
             document.getElementById("infosImage").innerHTML = "Aucune information disponible sur cette image.";
@@ -64,13 +64,12 @@ function infosImage(imageName) {
 }
 
 function infosBalise(baliseName) {
-    var myListe = "";
+    var myListe = ""; //la liste des infos, màj au fur et à mesure
     var idChantier = $("#idChantier").val();
     infosChantier(idChantier,function(req){
         var mesBesoins = JSON.parse(req.responseText);
         var info = false;
-        //Pour mettre à jour l'interface...
-        var liste_images = mesBesoins.liste_images;
+        var liste_images = mesBesoins.liste_images; //on récupère la liste d'images
         for(var i=0; i<liste_images.length; i++){
             if(typeof liste_images[i]["exif"][baliseName] != "undefined") { //si l'information est présente
                 myListe += "<tr><td>"+liste_images[i]["nom"]+"</td><td>"+liste_images[i]["exif"][baliseName]+"</td></tr>";
@@ -80,7 +79,7 @@ function infosBalise(baliseName) {
             }
             
         }
-        if(info) {
+        if(info) { //si au moins une des images contenait l'info
             document.getElementById("infosBalise").innerHTML = myListe;
         } else {
             document.getElementById("infosBalise").innerHTML = "Aucune des images importées ne contient cette information.";
