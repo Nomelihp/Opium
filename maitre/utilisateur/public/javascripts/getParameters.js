@@ -1,36 +1,6 @@
 //Met à jour le résumé des paramètres du chantier.
 function onPageOpen(besoins) {
-
-    ungrey("config-button");
-    switch(besoins.etat) { //pour savoir quels boutons griser
-        case "6":
-            ungrey("mise-button");
-            if(besoins.residus > 1) {
-                toWarning("mise");
-            }
-            ungrey("zone-button");
-            ungrey("produits-button");
-            break;
-        case "7":
-            toDanger(results);
-        case "8":
-            ungrey("mise-button");
-            if(bsoins.residus > 1) {
-                toWarning("mise");
-            }
-            ungrey("zone-button");
-            ungrey("produits-button");
-            webGL_MicMac("/chantiers?getFichier=yes&typeFichier=nuagePly&idChantier="+idChantier,"Restriction");
-            document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
-        case "9":  //comme Bernard. Cazeneuve. Mdr lol.
-            ungrey("mise-button");
-            danger("mise");
-            break;
-    }
-               
-    document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+besoins.residus+' px.</div>'; //màj des résidus
-    document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+besoins._id+"')"; //màj du bouton de suppression
-
+	
     var myTable =
     "<h4>Paramètres de base</h4>\n"+
 

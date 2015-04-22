@@ -8,15 +8,14 @@ function launchAll() {
         // Pour mettre à jour l'interface...
 		nomsImages(mesBesoins);
 		nomsBalises(mesBesoins);
-	});
-    
-   
+	});   
 }
 
 function nomsImages(besoins) {
     var myListe = "";
 	var liste_images = besoins.liste_images;
 	if(liste_images){
+		myListe += "<option value=''>Sélectionnez une image</option>";
 		for(var i=0; i<liste_images.length; i++){
 			myListe += "<option value='"+liste_images[i].nom+"'>"+liste_images[i].nom+"</option>";
 		}
@@ -29,6 +28,7 @@ function nomsImages(besoins) {
 function nomsBalises(besoins) {
     var myListe = "";
     console.log("exifKeys",myExifKeys);
+    myListe += "<option value=''>Sélectionnez une balise</option>";
     for(var i=0; i<myExifKeys.length; i++){
         myListe += "<option value='"+myExifKeys[i]+"'>"+myExifKeys[i]+"</option>";
     }
