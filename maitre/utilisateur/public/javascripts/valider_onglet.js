@@ -1,25 +1,54 @@
 // Contient les informations exif des images importées
 var infosExif = null;
+var tempsAffichage = "1";
 
 
 
 // Récupère les informations exif des images du chantier auprès du serveur
 function recupereExif()
 {
+	//on attend que les fichiers soient créés
         var req = new XMLHttpRequest();    
         req.open('POST','/nouveau_chantier',true);
-        
+
         req.onreadystatechange = function (aEvt) {
           if (req.readyState == 4) {
              if(req.status == 200)
              {
                   infosExif = JSON.parse(req.responseText);
+				  console.log(infosExif);
              }
           }
         };
         // On envoie l'id chantier et la demande d'exif
         req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         req.send(JSON.stringify({"_id":$("#idChantier").val(),"demandeExif":"oui"}));
+}
+
+// Récupère les informations exif des images du chantier auprès du serveur
+function recupereExif2()
+{
+	if(infosExif == null){
+		//Etat en attente de réponse
+		tempsAffichage = "0";
+		//on attend que les fichiers soient créés
+			var req = new XMLHttpRequest();    
+			req.open('POST','/nouveau_chantier',true);
+
+			req.onreadystatechange = function (aEvt) {
+			  if (req.readyState == 4) {
+				 if(req.status == 200)
+				 {
+					  infosExif = JSON.parse(req.responseText);
+					  console.log(infosExif);
+					  tempsAffichage = "1";
+				 }
+			  }
+			};
+			// On envoie l'id chantier et la demande d'exif
+			req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			req.send(JSON.stringify({"_id":$("#idChantier").val(),"demandeExif":"oui"}));
+		}
 }
 
 // Valide un onglet en envoyant les paramètres du formulaire et en affichant l'onglet suivant
@@ -179,6 +208,9 @@ function valider_onglet(id) {
                 if ( idelement=="quantite_points_liaison" ){
                     formjson[idelement] = el[l].options[el[l].selectedIndex].value;
                 }
+				if ( idelement=="taille_nuage" ){
+                    formjson[idelement] = el[l].options[el[l].selectedIndex].value;
+                }
             }
         }
         }
@@ -218,49 +250,56 @@ function valider_onglet(id) {
 }
 
 function lancer_calcul() {
-	
+
+	//Test InfoExif
+	recupereExif2();
 	//Tests de validation
-	if(document.getElementById("nom").value == ""){
-		alert("Entrez un nom de chantier");
+	if(tempsAffichage=="0"){//Il faut attendre la réponse du serveur
+		alert("Veuillez importer des images ou patientez quelques secondes avant de rappuyer sur le bouton");
 	}
 	else{
-		console.log(infosExif);
-		if(infosExif){
-			if(infosExif.length < 2){alert("Importez au moins deux images");}
-			else{
-				if((document.getElementById("dim_1").value != "" && document.getElementById("dim_2").value == "") || (document.getElementById("dim_1").value == "" && document.getElementById("dim_2").value != "")){
-				alert("Rentrez 2 dimensions pour la caméra");
-				}
+		if(document.getElementById("nom").value == ""){
+			alert("Entrez un nom de chantier");
+		}
+		else{
+			console.log(infosExif);
+			if(infosExif){
+				if(infosExif.length < 2){alert("Importez au moins deux images");}
 				else{
-					var test=1;
-					var champsNumber = ["focale_reelle","dim_1","dim_2"];
-					for(var i=0; i<champsNumber.length; i++){
-						if(isNaN(document.getElementById(champsNumber[i]).value)){alert("N'entrez que des nombres dans les champs Focale et Dimension"); test=0;}
-						else{
-							if(parseFloat(document.getElementById(champsNumber[i]).value) < 0){alert("Les champs Focale et Dimension ne doivent pas être négatifs"); test=0;}
-						}
+					if((document.getElementById("dim_1").value != "" && document.getElementById("dim_2").value == "") || (document.getElementById("dim_1").value == "" && document.getElementById("dim_2").value != "")){
+					alert("Rentrez 2 dimensions pour la caméra");
 					}
-					//tous les tests sont passés
-					if(test == 1){
-						//création d'un JSON
-						var formjson = {};
-						//Recherche de l'idChantier
-						var idChantier = $("#idChantier").val();
-						formjson._id = idChantier;
-						//On change de page et on change d'état
-						formjson.etat = "2";
-						//Envoi de la requête au serveur
-						var req = new XMLHttpRequest();
-						req.open('POST','/nouveau_chantier',true);
-						//On précise que l'information qu'on envoie est du JSON
-						req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-						req.send(JSON.stringify(formjson));
-						document.location.href="chantiers";
+					else{
+						var test=1;
+						var champsNumber = ["focale_reelle","dim_1","dim_2"];
+						for(var i=0; i<champsNumber.length; i++){
+							if(isNaN(document.getElementById(champsNumber[i]).value)){alert("N'entrez que des nombres dans les champs Focale et Dimension"); test=0;}
+							else{
+								if(parseFloat(document.getElementById(champsNumber[i]).value) < 0){alert("Les champs Focale et Dimension ne doivent pas être négatifs"); test=0;}
+							}
+						}
+						//tous les tests sont passés
+						if(test == 1){
+							//création d'un JSON
+							var formjson = {};
+							//Recherche de l'idChantier
+							var idChantier = $("#idChantier").val();
+							formjson._id = idChantier;
+							//On change de page et on change d'état
+							formjson.etat = "2";
+							//Envoi de la requête au serveur
+							var req = new XMLHttpRequest();
+							req.open('POST','/nouveau_chantier',true);
+							//On précise que l'information qu'on envoie est du JSON
+							req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+							req.send(JSON.stringify(formjson));
+							document.location.href="chantiers";
+						}
 					}
 				}
 			}
+			else{alert("Importez au moins deux images");}
 		}
-		else{alert("Importez au moins deux images");}
 	}
 }
 
