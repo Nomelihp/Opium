@@ -2,5 +2,6 @@
   "maitre_ip":"127.0.0.1",
   "maitre_port":"9207",
   "esclave_port":"9208",
+  "repertoire_micmac":"",
   "img_micmac_esclave":"/home/cwamgis/Bureau/Opium/Opium/maitre/utilisateur/img_micmac/"
 }

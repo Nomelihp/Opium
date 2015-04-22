@@ -1,38 +1,10 @@
 // Fonction de mise à jour des informations de chantier
 var majInfosChantier = function(idChantier){
-
     infosChantier(idChantier,function(req){
 
         var mesBesoins = JSON.parse(req.responseText);
         // Pour mettre à jour l'interface...
         onPageOpen(mesBesoins); //pour le resumé des paramètres
-        switch(mesBesoins.etat) { //pour savoir quels boutons griser
-            case "6":
-                ungrey("mise-button");
-                if(mesBesoins.residus > 1) {
-                    toWarning("mise");
-                }
-                ungrey("zone-button");
-                ungrey("produits-button");
-                break;
-            case "7":
-                toDanger(results);
-            case "8":
-                ungrey("mise-button");
-                if(mesBesoins.residus > 1) {
-                    toWarning("mise");
-                }
-                ungrey("zone-button");
-                ungrey("produits-button");
-                 webGL_MicMac("/chantiers?getFichier=yes&typeFichier=nuagePly&idChantier="+idChantier,"Restriction");
-                document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
-            case "9":  //comme Bernard. Cazeneuve. Mdr lol.
-                ungrey("mise-button");
-                danger("mise");
-                break;
-        }
-        document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+mesBesoins.residus+' px.</div>'; //màj des résidus
-        document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+mesBesoins._id+"')"; //màj du bouton de suppression
         // document.getElementById("position").onclick="javascript: returnProduit(position,'"+mesBesoins._id+"')";
        
     });
@@ -42,14 +14,13 @@ var majInfosChantier = function(idChantier){
 var chantiers = function($) {
         'use strict';
      // Changement d'id de chantier dans le select
-	$("#idChantier").change(function(e){
-        returnProduit('position',$("#idChantier").val());
-        returnProduit('nuage',$("#idChantier").val());
-        returnProduit('calibration',$("#idChantier").val());
-		majInfosChantier($("#idChantier").val());
-            
-            
-	})
+    $("#idChantier").change(function(e){
+        var id = $("#idChantier").val();
+        returnProduit('position',id); //màj des boutons de téléchargement
+        returnProduit('nuage',id);
+        returnProduit('calibration',id);
+        majInfosChantier(id);
+    })
 
 }(jQuery);
 
@@ -115,9 +86,4 @@ function supprimerChantier(idChantier) {
 
 function returnProduit (id_form,idChantier) {
      document.getElementById(id_form).href="/chantiers?getFichier=yes&typeFichier="+id_form+"&idChantier="+idChantier;
-
-    
-
-
 }
-
