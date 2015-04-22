@@ -14,7 +14,7 @@ exports.besoin2jobs = function(jsonBesoin){
 
   // On récupère la liste des images pour l'etalonnage
   var liste_images_etalonnage;
-  liste_images_etalonnage = dbOperations.toListeImages(jsonBesoin);
+  liste_images_etalonnage = dbOperations.toListeImagesEtalonnage(jsonBesoin);
 
   // Dans tous les cas le calcul des images de liaison est obligatoire
   var id_chantier = jsonBesoin.id_chantier;
@@ -34,8 +34,6 @@ exports.besoin2jobs = function(jsonBesoin){
   var type_auto_etalonage;
   // Tableau des commandes
   var commandes=[];
-
-  console.log(jsonBesoin.etalonnage.length);
 
   for(var i = 0; i < jsonBesoin.etalonnage.length ;i++){
     if(jsonBesoin.etalonnage[i].auto_etalonnage == "1"){
