@@ -5,7 +5,7 @@ var modele  = require('../../model/mongo_config');
 var Besoins = modele.besoins;
 
 // JSON de correspondance entre le type de fichier demandé et le chemin relatif dans un chantier MICMAC
-var tabCorrespondanceFichiers = {"nuagePly":"AperiCloud_MEP.ply","fichier2":"Ori-Malt-TrucMuche/machin.xml"};
+var tabCorrespondanceFichiers = {"position":"AperiCloud_MEP.ply","nuage":"C3DC_QuickMac.ply","calibration":"Ori-calib/AutoCal180.xml"};
 
 
 /* GET home page. */

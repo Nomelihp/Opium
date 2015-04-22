@@ -1,6 +1,8 @@
 // Fonction de mise à jour des informations de chantier
 var majInfosChantier = function(idChantier){
+
     infosChantier(idChantier,function(req){
+
         var mesBesoins = JSON.parse(req.responseText);
         // Pour mettre à jour l'interface...
         onPageOpen(mesBesoins); //pour le resumé des paramètres
@@ -11,7 +13,7 @@ var majInfosChantier = function(idChantier){
                     toWarning("mise");
                 }
                 ungrey("zone-button");
-                ungrey("results-button");
+                ungrey("produits-button");
                 break;
             case "7":
                 toDanger(results);
@@ -21,8 +23,8 @@ var majInfosChantier = function(idChantier){
                     toWarning("mise");
                 }
                 ungrey("zone-button");
-                ungrey("results-button");
-                 webGL_MicMac("/chantiers?getFichier=toto&typeFichier=nuagePly&idChantier="+idChantier,"Restriction");
+                ungrey("produits-button");
+                 webGL_MicMac("/chantiers?getFichier=yes&typeFichier=nuagePly&idChantier="+idChantier,"Restriction");
                 document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
             case "9":  //comme Bernard. Cazeneuve. Mdr lol.
                 ungrey("mise-button");
@@ -31,6 +33,8 @@ var majInfosChantier = function(idChantier){
         }
         document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+mesBesoins.residus+' px.</div>'; //màj des résidus
         document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+mesBesoins._id+"')"; //màj du bouton de suppression
+        // document.getElementById("position").onclick="javascript: returnProduit(position,'"+mesBesoins._id+"')";
+       
     });
 }
 
@@ -39,17 +43,15 @@ var chantiers = function($) {
         'use strict';
      // Changement d'id de chantier dans le select
 	$("#idChantier").change(function(e){
-			majInfosChantier($("#idChantier").val());
+        returnProduit('position',$("#idChantier").val());
+        returnProduit('nuage',$("#idChantier").val());
+        returnProduit('calibration',$("#idChantier").val());
+		majInfosChantier($("#idChantier").val());
             
             
 	})
 
 }(jQuery);
-
-function importPly (idChantier) {
-    ungrey("zone-button");
-        
-}
 
 
 function plusMoins(nomPanel) {
@@ -110,3 +112,12 @@ function toWarning(id) {
 function supprimerChantier(idChantier) {
 
 }
+
+function returnProduit (id_form,idChantier) {
+     document.getElementById(id_form).href="/chantiers?getFichier=yes&typeFichier="+id_form+"&idChantier="+idChantier;
+
+    
+
+
+}
+
