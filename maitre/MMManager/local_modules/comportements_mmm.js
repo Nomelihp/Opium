@@ -42,21 +42,78 @@ var examine_esclaves = function () {
 		return true;
 }
 
-var recoitResultat = function (esclave,job) {
 
-
+/*
+ * Lance le prochain job à réaliser sur un chantier
+ * à tester
+ * */
+var launchNextJobChantier=function(job){
+	var ordreSuivant = parseInt(job.ordre_execution)+1;
+	console.log("ordre suivant = "+ordreSuivant);
+	// On recherche le prochain job à lancer
+	Jobs.find({ id_chantier:job.id_chantier,ordre_execution:""+ordreSuivant },function (err, j) {
+		
+		if(j.length > 0)
+		{
+			console.log("attribution du suivant ...");
+			attribue(new Jobs(j[0]));
+		}
+		else
+		{
+				;// Logs à insérer
+				// Chantier terminé
+		}
+	});
 }
+
+/*
+ * Reception du résultat envoyé par un esclave
+ * req : Request réceptionnée par express
+ * res : res d'express
+ * à tester
+ * */
+exports.recoitResultat = function (req, res) {
+	console.log("L esclave "+req.connection.remoteAddress+" me renvoie "+req.query.codeRetour);
+	// Libération de l'esclave
+	Esclave.findByIdAndUpdate(req.query.idEsclave, {operationnel:1}, function(err, e) {
+		if (err)
+		{
+			// Logs à insérer
+			res.status(400).end("");// retour http pb
+		}
+		else
+		{	// Mise à jour de l'état du job
+			Jobs.findByIdAndUpdate(req.query.idJob, {etat:""+req.query.codeRetour}, function(err, j) {
+					var zeJob = new Jobs(j);
+					if (err)
+					{
+						// Logs à insérer
+						res.status(400).end("");// retour http pb
+					}
+					// On lance la prochaine commande du chantier
+					else
+					{
+						console.log("Lancement du job suivant "+req.query.idJob+" "+zeJob.id);
+						launchNextJobChantier(zeJob);
+						res.status(200).end("");// retour http ok
+					}
+			});
+		}
+	});
+	
+}
+
 
 /* Envoi un job à un esclave
 	 *esclave : destinataire
 	 *job : job à faire
-	 * a tester
+	 *test ok
 */
 var envoieUnJob = function (esclave,job) {
 	// On passe l'état de l'esclave à occupé
 	Esclave.findByIdAndUpdate(esclave.id, {operationnel:2}, function(err, e) {
 		// On envoie la requete contenant le job
-		var postData = JSON.stringify({"idJob":job.id,"idChantier":job.id_chantier,"login":job.login,"commande": job.commande});
+		var postData = JSON.stringify({"idJob":job.id,"idChantier":job.id_chantier,"login":job.login,"commande": job.commande,"idEsclave":esclave.id});
 		var options = {method: 'POST',hostname: esclave.ip,port: parseInt(esclave.port),path: '/recoitJob',headers: {'Content-Type': 'application/json'}};
 		var req = http.request(options,function(res){
 				if (res.statusCode == 400)

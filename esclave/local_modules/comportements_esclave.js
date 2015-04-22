@@ -18,8 +18,8 @@ exports.inscription = function(resExpress,callbackAffichage){
 }
 
 // Renvoie un code retour au maitre
-retourJob = function(idJob,codeRetour){
-	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/retourEsclave?idJob="+idJob+"&codeRetour="+codeRetour,function (response){
+retourJob = function(idEsclave,idJob,codeRetour){
+	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/retourEsclave?idJob="+idJob+"&codeRetour="+codeRetour+"&idEsclave="+idEsclave,function (response){
 		;
 	});
 }
@@ -36,10 +36,10 @@ exports.lanceJob = function (req, res){
 			ACTIVITE_ESCLAVE = "DETENDU";
 			// Correspond à un exit != 0
 			if (error != null) {
-				retourJob(req.body.idJob,3); // code retour : fini avec erreur
+				retourJob(req.body.idEsclave,req.body.idJob,3); // code retour : fini avec erreur
 				//LOGS A INSERER
 			}
-			else retourJob(req.body.idJob,2); // code retour : fini avec succes
+			else retourJob(req.body.idEsclave,req.body.idJob,2); // code retour : fini avec succes
 			
 		});
 		res.status(204).end();// retour requete http ok (le code de retour de resultat sera envoyé plus tard)

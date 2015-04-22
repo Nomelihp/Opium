@@ -76,15 +76,15 @@ app.get('/testLaunch', function(req, res) {
 
 
 // Code retour de l'esclave
-app.get('/retourEsclave', function(req, res) {
-	console.log("L esclave "+req.connection.remoteAddress+" me renvoie "+req.query.codeRetour);
-});
+app.get('/retourEsclave', comportementsMMM.recoitResultat);
+
+
 
 app.listen(parseInt(config.MMManager_esclave)); 
 
 // ---------------- Réception des notifications du module métier
 server.on('notification',function(message,data){
 	// Regarder dans jobs les mises à jours pour récupérer les jobs non assignés
-		comportementsMMM.launchJobs () ;
+		comportementsMMM.launchNewFirstJobs () ;
 	
 }); // End server.on
