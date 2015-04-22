@@ -13,6 +13,7 @@ chantier
   mise_a_echelle: 0:Non, 1:Oui,
   basculement: 0:Non, 1:Oui,
   taille_nuage: 1: Faible, 2: Moyen, 3: Important,
+  message_erreur: ''
   etalonnage:[
           {
             id: "1",
