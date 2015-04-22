@@ -264,20 +264,6 @@ function lancer_calcul() {
 	}
 }
 
-// Affiche ou cache un div en fonction de sa visibilité précédente
-function afficher(id) {
-
-    var element = document.getElementById(id);
-
-    if(element.style.display=="block") {
-        element.style.display="none";
-    } else {
-        element.style.display="block";
-    }
-
-    return true;
-}
-
 // Tourne le chevron d'un onglet
 function tournerChevron(id) {
 
