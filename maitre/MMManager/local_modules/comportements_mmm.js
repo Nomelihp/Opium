@@ -9,7 +9,7 @@ var Jobs	=	model.jobs;
 /* Inscrit un esclave
  * IP : Adresse IP de l'esclave
  * PORT : port d'écoute de l'esclave
- * res : res http à renvoyer au client
+ * res : res express à renvoyer au client
  * test OK
  * */
 exports.inscription = function (IP,PORT,res) {
@@ -34,6 +34,21 @@ exports.inscription = function (IP,PORT,res) {
 	});
 }
 
+/*
+	* Desinscrit un esclave
+	* IP : Adresse IP de l'esclave
+	* res : res express à renvoyer au client
+	* test ok
+*/
+exports.desinscription = function(IP,res){
+	// find the user with id 4
+	Esclave.findOneAndRemove({ ip: IP }, function(err) {
+		  if (err)res.status(400).end();
+		  // Logs à insérer
+		  console.log("Desinscription esclave "+IP+" OK");
+		  res.status(204).end();
+	});
+}
 
 /*
 	*Examine les esclaves inscrits et teste si ils répondent... Si ce n'est pas le cas, les désinscrit

@@ -23,10 +23,14 @@ var app = express();
 
 // Inscription de l'esclave aupres du maitre
 app.get('/inscriptionEsclave', function(req, res) {
-	comportementsMMM.inscription(req.connection.remoteAddress,req.query.port,res,function(){
-				
-		});
+	comportementsMMM.inscription(req.connection.remoteAddress,req.query.port,res);
 });
+
+// Inscription de l'esclave aupres du maitre
+app.get('/desinscriptionEsclave', function(req, res) {
+	comportementsMMM.desinscription(req.connection.remoteAddress,res);
+});
+
 
 // Fonction de test pour l'envoi de job à l'esclave
 app.get('/testEnvoiJob', function(req, res) {
