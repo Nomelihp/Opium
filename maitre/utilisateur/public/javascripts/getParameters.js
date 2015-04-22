@@ -164,6 +164,7 @@ function onPageOpen(besoins) {
 			"\t\t<tr>\n"+
 				"\t\t\t<td>Images</td>\n";
 
+            console.log(etalonnage.liste_images);
 			if(!etalonnage.liste_images || !etalonnage.liste_images.length) {
 				myEtalon +=
 					"\t\t\t<td>Toutes</td>\n";
@@ -172,7 +173,7 @@ function onPageOpen(besoins) {
 				//transformation du string en array
 				liste_images = etalonnage.liste_images;
 				for(var i=0; i<liste_images.length; i++) {
-					menuDeroulant += "<option>"+liste_images[i].nom+"</option>\n";
+					menuDeroulant += "<option>"+liste_images[i]+"</option>\n";
 				}
 				menuDeroulant += "</select>";
 
@@ -181,32 +182,44 @@ function onPageOpen(besoins) {
 			myEtalon += "\t\t</tr>\n";
 
 			//AJOUT INFO CAPTEUR
-			var capteur = etalonnage.capteur[0];
+			var capteur = etalonnage.capteur;
+            if(capteur) {
+                capteur = capteur[0];
 
-			var focale = etalonnage.capteur.focale_reelle;
-			myEtalon +=
-			"\t\t<tr>\n"+
-				"\t\t\t<td>Focale capteur</td>\n";                
-			
-			if(focale) {
-				myEtalon += "\t\t\t<td>"+focale+"</td>\n"    
-			} else {
-				myEtalon += "\t\t\t<td>Auto</td>\n"    
-			}
-			myEtalon += "\t\t</tr>\n";
+                var focale = etalonnage.capteur.focale_reelle;
+                myEtalon +=
+                "\t\t<tr>\n"+
+                    "\t\t\t<td>Focale capteur</td>\n";                
+                
+                if(focale) {
+                    myEtalon += "\t\t\t<td>"+focale+"</td>\n";
+                } else {
+                    myEtalon += "\t\t\t<td>Auto</td>\n";  
+                }
+                myEtalon += "\t\t</tr>\n";
 
-			var dimensions = etalonnage.capteur.dimensions;
-			myEtalon +=
-			"\t\t<tr>\n"+
-				"\t\t\t<td>Dimensions capteur</td>\n";                
+                var dimensions = etalonnage.capteur.dimensions;
+                myEtalon +=
+                "\t\t<tr>\n"+
+                    "\t\t\t<td>Dimensions capteur</td>\n";                
 
-			if(dimensions[0]) {
-				myEtalon += "\t\t\t<td>"+dimensions[0]+"×"+dimensions[1]+"</td>\n";   
-			} else {
-				myEtalon += "\t\t\t<td>Auto</td>\n"   ; 
-			}
-			myEtalon += "\t\t</tr>\n";
-					
+                if(dimensions[0]) {
+                    myEtalon += "\t\t\t<td>"+dimensions[0]+"×"+dimensions[1]+"</td>\n";   
+                } else {
+                    myEtalon += "\t\t\t<td>Auto</td>\n"; 
+                }
+                myEtalon += "\t\t</tr>\n";
+            } else {
+                myEtalon +=
+                "\t\t<tr>\n"+
+                    "\t\t\t<td>Focale capteur</td>\n"+
+                    "\t\t\t<td>Auto</td>\n"+
+                "\t\t</tr>\n"+
+                "\t\t<tr>\n"+
+                    "\t\t\t<td>Dimensions capteur</td>\n"+
+                    "\t\t\t<td>Auto</td>\n"+
+                "\t\t</tr>\n";
+            }
 
 		// SI FICHIER D'ETALONNAGE    
 		} else if(etalonnage.auto_etalonnage == 0) {
