@@ -51,13 +51,16 @@ server.on('notification',function(message, data){
         if(err) console.log('Erreur dans l\'enregistrement du fichier masque');
         console.log('enregistrement du fichier maque réussit !');
       });
+      }
       //noyau_metier.appariement_dense(Besoin2);
       setTimeout(function(){
         client.request('notification', {boulot:"oui"}, function(data){
           
       });
     }, 2000);
-    }
+    
   });
+
+  // Vérifier les jobs qui ont finit 
 
 });
