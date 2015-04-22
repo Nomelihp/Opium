@@ -12,8 +12,11 @@ var Jobs	=	model.jobs;
  * res : res express à renvoyer au client
  * test OK
  * */
-exports.inscription = function (IP,PORT,res) {
-
+exports.inscription = function (IP_brute,PORT,res) {
+	
+	// On veut de l'IP v4
+	var IP = (IP_brute === '::' ? '::ffff:' : '') + '127.0.0.1';
+	
 	Esclave.find({ ip: IP }, function(err, esclaves) {
 		if (esclaves.length==0) {
 
@@ -44,7 +47,11 @@ exports.inscription = function (IP,PORT,res) {
 	* res : res express à renvoyer au client
 	* test ok
 */
-exports.desinscription = function(IP,res){
+exports.desinscription = function(IP_brute,res){
+	
+	// On veut de l'IP v4
+	var IP = (IP_brute === '::' ? '::ffff:' : '') + '127.0.0.1';
+	
 	// find the user with id 4
 	Esclave.findOneAndRemove({ ip: IP }, function(err) {
 		  if (err)res.status(400).end();
