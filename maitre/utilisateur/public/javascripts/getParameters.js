@@ -164,7 +164,6 @@ function onPageOpen(besoins) {
 			"\t\t<tr>\n"+
 				"\t\t\t<td>Images</td>\n";
 
-            console.log(etalonnage.liste_images);
 			if(!etalonnage.liste_images || !etalonnage.liste_images.length) {
 				myEtalon +=
 					"\t\t\t<td>Toutes</td>\n";
@@ -273,7 +272,6 @@ function onPageOpen(besoins) {
     }
 
     document.getElementById('resumeParam').innerHTML = myTable+myEtalon;
-	console.log(myEtalon);
 
     return true;
 }

@@ -14,8 +14,8 @@ function recupereExif()
              if(req.status == 200)
              {
                   infosExif = JSON.parse(req.responseText);
-				  console.log(infosExif);
-				  console.log(infosExif[0]);
+				  //console.log(infosExif);
+				  //console.log(infosExif[0]);
              }
           }
         };

@@ -19,9 +19,5 @@ var gestionCameras = function(fichier) {
 	var nbEtalonnages = document.getElementById('nbEtalonnages');
 	
 	var drag_zone_etalonnage1 = document.getElementById('nbEtalonnages');
-	
-	nbEtalonnages.onchange = function()
-	{
-			alert("coucou");
-	};
+
 }(jQuery);
