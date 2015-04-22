@@ -28,7 +28,7 @@ function recupereExif()
 function valider_onglet(id) {
     
     var affichages = ["on_click1","on_click2","on_click3","on_click4"];
-    var boutons = ["cliquable1","cliquable2","cliquable3","cliquable4"]
+    var boutons = ["cliquable1","cliquable2","cliquable3","cliquable4"];
 
     // change le style des tous les boutons et cache tous les onglets
     for(var i=0; i<4; i++) {
@@ -221,31 +221,46 @@ function valider_onglet(id) {
 
 function lancer_calcul() {
 	
-	
+	//Tests de validation
 	if(document.getElementById("nom").value == ""){
 		alert("Entrez un nom de chantier");
 	}
 	else{
 		if(infosExif){
-		//LENGTH MARCHE PAS CAR INFOEXIF EST UN STRING
 			if(infosExif.length < 2){alert("Importez au moins deux images");}
 			else{
-				//création d'un JSON
-				var formjson = {};
-				//Recherche de l'idChantier
-				var idChantier = $("#idChantier").val();
-				formjson._id = idChantier;
-				//On change de page et on change d'état
-				formjson.etat = "2";
-				//Envoi de la requête au serveur
-				var req = new XMLHttpRequest();
-				req.open('POST','/nouveau_chantier',true);
-				//On précise que l'information qu'on envoie est du JSON
-				req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-				req.send(JSON.stringify(formjson));
-				document.location.href="chantiers";
+				if((document.getElementById("dim_1").value != "" && document.getElementById("dim_2").value == "") || (document.getElementById("dim_1").value == "" && document.getElementById("dim_2").value != "")){
+				alert("Rentrez 2 dimensions pour la caméra");
+				}
+				else{
+					var test=1;
+					var champsNumber = ["focale_reelle","dim_1","dim_2"];
+					for(var i=0; i<champsNumber.length; i++){
+						if(isNaN(document.getElementById(champsNumber[i]).value)){alert("N'entrez que des nombres dans les champs Focale et Dimension"); test=0;}
+						else{
+							if(parseFloat(document.getElementById(champsNumber[i]).value) < 0){alert("Les champs Focale et Dimension ne doivent pas être négatifs"); test=0;}
+						}
+					}
+					//tous les tests sont passés
+					if(test == 1){
+						//création d'un JSON
+						var formjson = {};
+						//Recherche de l'idChantier
+						var idChantier = $("#idChantier").val();
+						formjson._id = idChantier;
+						//On change de page et on change d'état
+						formjson.etat = "2";
+						//Envoi de la requête au serveur
+						var req = new XMLHttpRequest();
+						req.open('POST','/nouveau_chantier',true);
+						//On précise que l'information qu'on envoie est du JSON
+						req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+						req.send(JSON.stringify(formjson));
+						document.location.href="chantiers";
+					}
 				}
 			}
+		}
 		else{alert("Importez au moins deux images");}
 	}
 }
