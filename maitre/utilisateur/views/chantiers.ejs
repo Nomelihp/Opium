@@ -32,8 +32,8 @@
         
                 <div class="panel-header">
                     <select class="form-control" id="idChantier">
+                        <option value="">Sélectionner un chantier</option>
                         <% chantiers.forEach(function(chantier) { %>
-                            <% console.log(chantier.nom); %>
                             <option value="<%= chantier.id %>"><%= chantier.nom %></option>
                         <% }); %>
                     </select>

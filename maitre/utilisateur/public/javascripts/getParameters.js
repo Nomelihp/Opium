@@ -1,6 +1,36 @@
 //Met à jour le résumé des paramètres du chantier.
 function onPageOpen(besoins) {
-    
+
+    ungrey("config-button");
+    switch(besoins.etat) { //pour savoir quels boutons griser
+        case "6":
+            ungrey("mise-button");
+            if(besoins.residus > 1) {
+                toWarning("mise");
+            }
+            ungrey("zone-button");
+            ungrey("produits-button");
+            break;
+        case "7":
+            toDanger(results);
+        case "8":
+            ungrey("mise-button");
+            if(bsoins.residus > 1) {
+                toWarning("mise");
+            }
+            ungrey("zone-button");
+            ungrey("produits-button");
+            webGL_MicMac("/chantiers?getFichier=yes&typeFichier=nuagePly&idChantier="+idChantier,"Restriction");
+            document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
+        case "9":  //comme Bernard. Cazeneuve. Mdr lol.
+            ungrey("mise-button");
+            danger("mise");
+            break;
+    }
+               
+    document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+besoins.residus+' px.</div>'; //màj des résidus
+    document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+besoins._id+"')"; //màj du bouton de suppression
+
     var myTable =
     "<h4>Paramètres de base</h4>\n"+
 
@@ -127,61 +157,61 @@ function onPageOpen(besoins) {
     var etalonnage = besoins.etalonnage[0];
     if(etalonnage) { //if exists
         
-		myEtalon +=
-		"<h4>Étalonnage</h4>\n"+
+        myEtalon +=
+        "<h4>Étalonnage</h4>\n"+
 
-		"<div class=\"table-responsive\">\n"+
-		"<table class=\"table table-striped\">\n"+
-		"\t<thead>\n"+
-			"\t\t<tr>\n"+
-				"\t\t\t<th>Paramètre</th>\n"+
-				"\t\t\t<th>Valeur</th>\n"+
-			"\t\t</tr>\n"+
-		"\t</thead>\n"+
-		"<tbody>\n";
+        "<div class=\"table-responsive\">\n"+
+        "<table class=\"table table-striped\">\n"+
+        "\t<thead>\n"+
+            "\t\t<tr>\n"+
+                "\t\t\t<th>Paramètre</th>\n"+
+                "\t\t\t<th>Valeur</th>\n"+
+            "\t\t</tr>\n"+
+        "\t</thead>\n"+
+        "<tbody>\n";
 
-		// SI AUTO-ETALONNAGE
-		if(etalonnage.auto_etalonnage == "1") {
-			myEtalon +=
-			"\t\t<tr>\n" +
-				"\t\t\t<td>Auto-étalonnage</td>\n";
+        // SI AUTO-ETALONNAGE
+        if(etalonnage.auto_etalonnage == "1") {
+            myEtalon +=
+            "\t\t<tr>\n" +
+                "\t\t\t<td>Auto-étalonnage</td>\n";
 
-			var type_etalon = etalonnage.type_auto_etalonnage;
-			switch(type_etalon) {
-				case "fisheye":
-					myEtalon += "\t\t\t<td>Fish-Eye</td>\n";
-					break;
-				case "fraserbasic":
-					myEtalon += "\t\t\t<td>Fraser Basic</td>\n";
-					break;
-				case "standard":
-				default:
-					myEtalon += "\t\t\t<td>Standard</td>\n";
-					break;
-			}
-			myEtalon +=
-			"\t\t</tr>\n"+
-			"\t\t<tr>\n"+
-				"\t\t\t<td>Images</td>\n";
+            var type_etalon = etalonnage.type_auto_etalonnage;
+            switch(type_etalon) {
+                case "fisheye":
+                    myEtalon += "\t\t\t<td>Fish-Eye</td>\n";
+                    break;
+                case "fraserbasic":
+                    myEtalon += "\t\t\t<td>Fraser Basic</td>\n";
+                    break;
+                case "standard":
+                default:
+                    myEtalon += "\t\t\t<td>Standard</td>\n";
+                    break;
+            }
+            myEtalon +=
+            "\t\t</tr>\n"+
+            "\t\t<tr>\n"+
+                "\t\t\t<td>Images</td>\n";
 
-			if(!etalonnage.liste_images || !etalonnage.liste_images.length) {
-				myEtalon +=
-					"\t\t\t<td>Toutes</td>\n";
-			} else {
-				menuDeroulant = "<select size='3'>\n"; //variable où stocker le menu en attendant de le mettre dans myTable
-				//transformation du string en array
-				liste_images = etalonnage.liste_images;
-				for(var i=0; i<liste_images.length; i++) {
-					menuDeroulant += "<option>"+liste_images[i]+"</option>\n";
-				}
-				menuDeroulant += "</select>";
+            if(!etalonnage.liste_images || !etalonnage.liste_images.length) {
+                myEtalon +=
+                    "\t\t\t<td>Toutes</td>\n";
+            } else {
+                menuDeroulant = "<select size='3'>\n"; //variable où stocker le menu en attendant de le mettre dans myTable
+                //transformation du string en array
+                liste_images = etalonnage.liste_images;
+                for(var i=0; i<liste_images.length; i++) {
+                    menuDeroulant += "<option>"+liste_images[i]+"</option>\n";
+                }
+                menuDeroulant += "</select>";
 
-				myEtalon += "\t\t\t<td>"+menuDeroulant+"</td>\n";
-			}
-			myEtalon += "\t\t</tr>\n";
+                myEtalon += "\t\t\t<td>"+menuDeroulant+"</td>\n";
+            }
+            myEtalon += "\t\t</tr>\n";
 
-			//AJOUT INFO CAPTEUR
-			var capteur = etalonnage.capteur;
+            //AJOUT INFO CAPTEUR
+            var capteur = etalonnage.capteur;
             if(capteur) {
                 capteur = capteur[0];
 
@@ -220,26 +250,26 @@ function onPageOpen(besoins) {
                 "\t\t</tr>\n";
             }
 
-		// SI FICHIER D'ETALONNAGE    
-		} else if(etalonnage.auto_etalonnage == 0) {
-			//FETCH FILE
-			myEtalon+=
-			"\t\t<tr>\n" +
-				"\t\t\t<td>Fichier d'étalonnage</td>\n"+
-				"\t\t\t<td>/path/to/file</td>\n"+
-			"<\t\t</tr>\n";
-		} else {
-			myEtalon+=
-			"\t\t<tr>\n" +
-				"\t\t\t<td>Auto-étalonnage</td>\n"+
-				"\t\t\t<td>Standard</td>\n"+
-			"\t\t</tr>\n";
-		}
-		
-		myEtalon +=
-			"\t</tbody>\n"+
-		"</table>";
-	// VALEUR PAR DÉFAUT
+        // SI FICHIER D'ETALONNAGE    
+        } else if(etalonnage.auto_etalonnage == 0) {
+            //FETCH FILE
+            myEtalon+=
+            "\t\t<tr>\n" +
+                "\t\t\t<td>Fichier d'étalonnage</td>\n"+
+                "\t\t\t<td>/path/to/file</td>\n"+
+            "<\t\t</tr>\n";
+        } else {
+            myEtalon+=
+            "\t\t<tr>\n" +
+                "\t\t\t<td>Auto-étalonnage</td>\n"+
+                "\t\t\t<td>Standard</td>\n"+
+            "\t\t</tr>\n";
+        }
+        
+        myEtalon +=
+            "\t</tbody>\n"+
+        "</table>";
+    // VALEUR PAR DÉFAUT
     } else {
         myEtalon +=
         "<h5>\tÉtalonnage par défaut<h5>"

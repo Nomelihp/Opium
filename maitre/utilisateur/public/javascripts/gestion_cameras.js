@@ -15,9 +15,9 @@ function drop(ev) {
 }
 
 var gestionCameras = function(fichier) {
-	var dragZone 	  = document.getElementById('drag-zone-etalonnage');
-	var nbEtalonnages = document.getElementById('nbEtalonnages');
-	
-	var drag_zone_etalonnage1 = document.getElementById('nbEtalonnages');
+    var dragZone       = document.getElementById('drag-zone-etalonnage');
+    var nbEtalonnages = document.getElementById('nbEtalonnages');
+    
+    var drag_zone_etalonnage1 = document.getElementById('nbEtalonnages');
 
 }(jQuery);
