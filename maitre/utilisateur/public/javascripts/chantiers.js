@@ -22,6 +22,7 @@ var majInfosChantier = function(idChantier){
                 }
                 ungrey("zone-button");
                 ungrey("results-button");
+                 webGL_MicMac("/chantiers?getFichier=toto&typeFichier=nuagePly&idChantier="+idChantier,"Restriction");
                 document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
             case "9":  //comme Bernard. Cazeneuve. Mdr lol.
                 ungrey("mise-button");
@@ -29,7 +30,7 @@ var majInfosChantier = function(idChantier){
                 break;
         }
         document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+mesBesoins.residus+' px.</div>'; //màj des résidus
-        document.getElementById("deleteButton".onclick="javascript: supprimerChantier('"+mesBesoins._id+"')"; //màj du bouton de suppression
+        document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+mesBesoins._id+"')"; //màj du bouton de suppression
     });
 }
 
@@ -39,7 +40,7 @@ var chantiers = function($) {
      // Changement d'id de chantier dans le select
 	$("#idChantier").change(function(e){
 			majInfosChantier($("#idChantier").val());
-            importPly($("#idChantier").val());
+            
             
 	})
 
@@ -47,8 +48,6 @@ var chantiers = function($) {
 
 function importPly (idChantier) {
     ungrey("zone-button");
-
-    webGL_MicMac("/chantiers?getFichier=toto&typeFichier=nuagePly&idChantier="+idChantier,"Restriction");
         
 }
 
