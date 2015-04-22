@@ -23,7 +23,11 @@ exports.inscription = function (IP,PORT,res) {
 			        operationnel: 1
 			      });
 			eclave.save(function (err) {
-			  if (err) console.log('error');
+			  if (err)
+			  {
+				  console.log('error');
+					res.status(400).end();
+			  }
 			  res.status(204).end();
 			});
 		}else{

@@ -13,8 +13,13 @@ exports.inscription = function(resExpress,callbackAffichage){
 	// envoi d'une requete http auprès du maitre
 	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/inscriptionEsclave?port="+config_esclave.esclave_port,function callback(response){
 		  response.setEncoding('utf8');
-		  callbackAffichage(resExpress,response);
-	})	
+		  
+		  if (response.statusCode == 204)INSCRIT=true;
+		  callbackAffichage(resExpress,response);// Vue
+
+	}).on('error', function(e) {
+		  console.log("Got error: " + e.message);// Logs à insérer
+		});	
 }
 
 // Desinscription auprès du maitre
@@ -22,8 +27,12 @@ exports.desinscription = function(resExpress,callbackAffichage){
 	// envoi d'une requete http auprès du maitre
 	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/desinscriptionEsclave",function callback(response){
 		  response.setEncoding('utf8');
-		  callbackAffichage(resExpress,response);
-	})	
+		  if (response.statusCode == 204)INSCRIT=false;
+		  callbackAffichage(resExpress,response); // Vue
+		  console.log("desincrit!!!!");
+	}).on('error', function(e) {
+		  console.log("Got error: " + e.message);// Logs à insérer
+		});	
 }
 
 // Renvoie un code retour au maitre
@@ -69,12 +78,12 @@ exports.pageHTML = function(res,msg){
 	string += "<table width=\"50%\" border=\"1\"><tr><td>esclave</td><td>"+ip.address()+":"+config_esclave.esclave_port+"</td>";
 	string += "<tr><td colspan=\"2\" align=\"right\"><strong>"+msg+"</strong></td></tr>"
 	if (INSCRIT)
-		string  += "<tr><td>inscription</td><td>inscrit auprès de </td>";
+		string  += "<tr><td>inscription</td><td>inscrit auprès de "+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"</td>";
 	else string += "<tr><td>inscription</td><td>non inscrit</td>";
 	string += "<tr><td>activité</td><td>"+ACTIVITE_ESCLAVE+"</td>";
 	string += "<tr><td>actions</td><td><a href=\"/inscription\">inscription</a></td>";
 	string += "<tr><td></td><td><a href=\"/desinscription\">desinscription</a></td>";
 	string += "</body></html>"
 	
-	res.end(string);
+	res.status(200).end(string);
 }
