@@ -44,6 +44,18 @@ animate();
 function init() {
 
 	container = document.getElementById( div );
+	
+		var canvas = document.getElementById( 'canvas' );
+	console.log(canvas);
+	if (canvas==null) {
+		canvas = document.createElement('canvas');
+		canvas.id     = "canvas";
+	};
+	
+	
+	
+	container.appendChild(canvas);
+	console.log(canvas);
 	// var context = container.getContext();
 
   // do some drawing
@@ -99,7 +111,7 @@ addShadowedLight( 0.5, 1, -1, 0xffaa00, 1 );
 
 // renderer
 
-renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer = new THREE.WebGLRenderer( { antialias: true ,canvas:canvas} );
 renderer.setClearColor( scene.fog.color );
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( document.getElementById(div).offsetWidth, document.getElementById(div).offsetHeight );
