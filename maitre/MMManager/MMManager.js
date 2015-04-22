@@ -23,7 +23,7 @@ var app = express();
 
 // Inscription de l'esclave aupres du maitre
 app.get('/inscriptionEsclave', function(req, res) {
-	comportementsMMM.inscription("http://"+req.connection.remoteAddress+":"+req.query.port,res,function(){
+	comportementsMMM.inscription(req.connection.remoteAddress,req.query.port,res,function(){
 				
 		});
 });
@@ -68,6 +68,13 @@ app.get('/testEnvoiJob', function(req, res) {
 
 });
 
+// Fonction de test pour l'envoi de job à l'esclave
+app.get('/testLaunch', function(req, res) {
+	comportementsMMM.launchNewFirstJobs () ;
+	res.status(200).end("coucouc");
+});
+
+
 // Code retour de l'esclave
 app.get('/retourEsclave', function(req, res) {
 	console.log("L esclave "+req.connection.remoteAddress+" me renvoie "+req.query.codeRetour);
@@ -78,6 +85,6 @@ app.listen(parseInt(config.MMManager_esclave));
 // ---------------- Réception des notifications du module métier
 server.on('notification',function(message,data){
 	// Regarder dans jobs les mises à jours pour récupérer les jobs non assignés
-		comportementsMMM.findJobs () ;
+		comportementsMMM.launchJobs () ;
 	
 }); // End server.on
