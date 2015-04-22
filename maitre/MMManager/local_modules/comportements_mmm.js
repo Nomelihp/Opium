@@ -92,6 +92,7 @@ var launchNextJobChantier=function(job){
 	});
 }
 
+
 /*
  * Reception du résultat envoyé par un esclave
  * req : Request réceptionnée par express
