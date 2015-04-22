@@ -3,8 +3,8 @@ var majInfosChantier = function(idChantier){
     infosChantier(idChantier,function(req){
         var mesBesoins = JSON.parse(req.responseText);
         // Pour mettre à jour l'interface...
-        onPageOpen(mesBesoins);
-        switch(mesBesoins.etat) {
+        onPageOpen(mesBesoins); //pour le resumé des paramètres
+        switch(mesBesoins.etat) { //pour savoir quels boutons griser
             case "6":
                 ungrey("mise-button");
                 if(mesBesoins.residus > 1) {
@@ -22,14 +22,14 @@ var majInfosChantier = function(idChantier){
                 }
                 ungrey("zone-button");
                 ungrey("results-button");
-                document.getElementById("nuage").disabled = "disabled";
-
+                document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
             case "9":  //comme Bernard. Cazeneuve. Mdr lol.
                 ungrey("mise-button");
                 danger("mise");
                 break;
         }
-        document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+mesBesoins.residus+' px.</div>'
+        document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+mesBesoins.residus+' px.</div>'; //màj des résidus
+        document.getElementById("deleteButton".onclick="javascript: supprimerChantier('"+mesBesoins._id+"')"; //màj du bouton de suppression
     });
 }
 
@@ -111,4 +111,8 @@ function toWarning(id) {
     button.className = button.className.replace("success","warning");
     
     return true;
+}
+
+function supprimerChantier(idChantier) {
+
 }

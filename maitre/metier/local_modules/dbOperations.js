@@ -1,7 +1,7 @@
 
 // Fonction pour traduire les champs de jobs en JSON
-exports.toJSON=function(id_chantier, commande, etat, erreur){
-  var jsonString = "{\"id_chantier\":\""+id_chantier+"\",\"commande\":\""+commande+"\",\"etat\":\""+etat+"\",\"erreur\":\""+erreur+"\"}";
+exports.toJSON=function(id_chantier, commande, etat, erreur, login, ordre_execution){
+  var jsonString = "{\"id_chantier\":\""+id_chantier+"\",\"commande\":\""+commande+"\",\"etat\":\""+etat+"\",\"erreur\":\""+erreur+"\",\"login\":\""+login+"\",\"ordre_execution\":\""+ordre_execution+"\"}";
   return JSON.parse(jsonString);
 }
 
@@ -16,11 +16,11 @@ exports.toListeImages = function(jsonBesoin){
 
 // Fonction pour extraire la liste des images
 exports.toListeImagesEtalonnage = function(jsonBesoin){
-  var liste_images=[];
+  var liste_images2=[];
   for(var i=0;i<jsonBesoin.etalonnage[0].liste_images.length;i++){
-    liste_images.push(jsonBesoin.etalonnage[0].liste_images[i].nom);
+    liste_images2.push(jsonBesoin.etalonnage[0].liste_images[i]);
   }
-  return liste_images;
+  return liste_images2;
 }
 
 // Verifier si un élément existe dans un tableau

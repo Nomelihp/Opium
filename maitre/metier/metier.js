@@ -23,11 +23,12 @@ var Besoin;
 console.log('avant la notif');
 server.on('notification',function(message, data){
   console.log('notif recue');
+  // Calcul des points de liaison + mise en place + calibration + AperiCloud
   model.besoins.find({ etat: '2' }, function(err, besoin) {
     if (err) throw err;
     console.log('notification reçue');
     for(var i=0; i<besoin.length; i++){
-      model.besoins.findByIdAndUpdate(besoin[i]._id, { etat: '3' }, function(err, besoin) {
+      model.besoins.findByIdAndUpdate(besoin[i]._id, { etat: '4' }, function(err, besoin) {
         if (err) throw err;
 
         // we have the updated user returned to us
@@ -36,6 +37,11 @@ server.on('notification',function(message, data){
       Besoin = new model.besoins(besoin[i]);
       noyau_metier.besoin2jobs(Besoin);
     }
+  });
+  // Apperiement dense
+  model.besoins.find({etat:'8'}, function(err, besoin){
+    if(err) console.log('erreur: recherche dans la BD des elements avec etat=8');
+
   });
 
 });

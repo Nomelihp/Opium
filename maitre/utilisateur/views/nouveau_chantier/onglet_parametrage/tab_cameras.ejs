@@ -94,14 +94,15 @@
                                 <div class="tab">
                                     <label>
                                         Focale réelle
-                                        <input type="number" class="inline-input" id="focale_reelle" min="0" disabled /> mm
+                                        <!-- regex is here to force input to be a float. I'm affraid it does not really work.-->
+                                        <input type="number" type="text" pattern="?[0-9]*\.?[0-9]+$" class="inline-input" id="focale_reelle" min="2" max="500" disabled /> mm
                                     </label>
                                     <br/>
                                     <label>
                                         Dimensions
-                                        <input type="number" class="inline-input" id="dim_1" min="0" disabled />
+                                        <input type="text" pattern="?[0-9]*\.?[0-9]+$" class="inline-input" id="dim_1" min="0" disabled />
                                         ×
-                                        <input type="number" class="inline-input" id="dim_2" min="0" disabled /> mm
+                                        <input type="text" pattern="?[0-9]*\.?[0-9]+$" class="inline-input" id="dim_2" min="0" disabled /> mm
                                     </label>
                                 </div>
                             </div>

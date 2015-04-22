@@ -5,7 +5,7 @@ var modele  = require('../../model/mongo_config');
 var Besoins = modele.besoins;
 
 // JSON de correspondance entre le type de fichier demandé et le chemin relatif dans un chantier MICMAC
-var tabCorrespondanceFichiers = {"nuagePly":"Ori-Malt-TrucMuche/AperiCloudTrucMuche.ply","fichier2":"Ori-Malt-TrucMuche/machin.xml"};
+var tabCorrespondanceFichiers = {"nuagePly":"AperiCloud_MEP.ply","fichier2":"Ori-Malt-TrucMuche/machin.xml"};
 
 
 /* GET home page. */
@@ -15,9 +15,13 @@ router.get('/', function(req, res, next) {
 	if (req.query.getFichier)
 	{
 		console.log(req.query.typeFichier);
-			var cheminFichier = params.repertoire_donnees+req.query.idChantier+"/"+params.login+"/"+tabCorrespondanceFichiers[req.query.typeFichier];
-			res.render('chantiers',cheminFichier);
+			var cheminFichier = params.repertoire_donnees+params.login+"/"+req.query.idChantier+"/"+tabCorrespondanceFichiers[req.query.typeFichier];
+			 res.download(cheminFichier,tabCorrespondanceFichiers[req.query.typeFichier]);
 			console.log(cheminFichier);		
+			// http://localhost:3000/chantiers?getFichier=toto&typeFichier=nuagePly&idChantier=55374e343f5c1ba016f875d0
+			// ENOENT, stat 'C:\Users\Hippolyte\Documents\GitHub\Opium\maitre\utilisateur\img_micmac\55374e343f5c1ba016f875d0\localuser\AperiCloud_MEP.ply'
+
+
 	}
 	else
 	{
