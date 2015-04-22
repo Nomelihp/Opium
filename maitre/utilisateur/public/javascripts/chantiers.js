@@ -1,23 +1,36 @@
 // Fonction de mise à jour des informations de chantier
 var majInfosChantier = function(idChantier){
-	infosChantier(idChantier,function(req){
-		var mesBesoins = JSON.parse(req.responseText);
+    infosChantier(idChantier,function(req){
+        var mesBesoins = JSON.parse(req.responseText);
         // Pour mettre à jour l'interface...
         onPageOpen(mesBesoins);
         switch(mesBesoins.etat) {
             case "6":
-                ungrey("produits-button");
-            case "8":
+                ungrey("mise-button");
+                if(mesBesoins.residus > 1) {
+                    toWarning("mise");
+                }
                 ungrey("zone-button");
+                ungrey("results-button");
                 break;
             case "7":
-                toDanger("produits");
-                break;
-            case "9":
-                toDanger("mise");
+                toDanger(results);
+            case "8":
+                ungrey("mise-button");
+                if(mesBesoins.residus > 1) {
+                    toWarning("mise");
+                }
+                ungrey("zone-button");
+                ungrey("results-button");
+                document.getElementById("nuage").disabled = "disabled";
+
+            case "9":  //comme Bernard. Cazeneuve. Mdr lol.
+                ungrey("mise-button");
+                danger("mise");
                 break;
         }
-	});
+        document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+mesBesoins.residus+' px.</div>'
+    });
 }
 
 // Fonction principale pour lancer les écoutes
@@ -29,6 +42,7 @@ var chantiers = function($) {
             importPly($("#idChantier").val());
             
 	})
+
 }(jQuery);
 
 function importPly (idChantier) {
@@ -98,5 +112,3 @@ function toWarning(id) {
     
     return true;
 }
-
-var test = ungrey("produits-button");

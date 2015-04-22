@@ -1,5 +1,6 @@
 {
   "maitre_ip":"127.0.0.1",
   "maitre_port":"9207",
-  "esclave_port":"9208"
+  "esclave_port":"9208",
+  "img_micmac_esclave":"../maitre/utilisateur/"
 }

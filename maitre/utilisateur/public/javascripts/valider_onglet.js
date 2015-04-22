@@ -107,6 +107,18 @@ function valider_onglet(id) {
                 if(idelement=="standard" && el[l].checked){etaljson.type_auto_etalonnage="standard"}
                 if(idelement=="fisheye" && el[l].checked){etaljson.type_auto_etalonnage="fisheye"}
                 if(idelement=="fraserbasic" && el[l].checked){etaljson.type_auto_etalonnage="fraserbasic"}
+				//Nouvelle image
+				if(idelement=="js-upload-files2"){
+					var listImCal = [];
+					var uploadFiles2 = document.getElementById('js-upload-files2').files;
+					if(uploadFiles2.length!=0){
+						for(var j=0;j<uploadFiles2.length;j++){
+						importeFichier(uploadFiles2[j]);
+						listImCal.push(uploadFiles2[j].name);
+						}
+					}
+					etaljson.liste_images = listImCal;
+				}
 				//ListeImages
                 if(idelement=="choix" && el[l].checked){
 					var listImCal = [];
@@ -120,6 +132,7 @@ function valider_onglet(id) {
 					}
 					etaljson.liste_images = listImCal;
 				}
+				
 				//Infos Capteur
                 if(idelement=="infoCapteurCb" && el[l].checked){
                     var capteurjson={};
@@ -284,6 +297,5 @@ var majInfosChantier = function(idChantier){
 		var mesBesoins = JSON.parse(req.responseText);
         // Pour mettre à jour l'interface...
         onPageOpen(mesBesoins);
-		console.log("Ca fait qqch 2");
 	});
 }
