@@ -11,7 +11,7 @@ var INSCRIT 	 	 = false;
 // Inscription auprès du maitre
 exports.inscription = function(resExpress,callbackAffichage){
 	// envoi d'une requete http auprès du maitre
-	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/inscriptionEsclave?port="+config_esclave.esclave_port,function callback(response){
+	http.get({host:config_esclave.maitre_ip, port:config_esclave.maitre_port, path:"/inscriptionEsclave?port="+config_esclave.esclave_port, agent:false},function callback(response){
 		  response.setEncoding('utf8');
 		  
 		  if (response.statusCode == 204)INSCRIT=true;
@@ -25,7 +25,7 @@ exports.inscription = function(resExpress,callbackAffichage){
 // Desinscription auprès du maitre
 exports.desinscription = function(resExpress,callbackAffichage){
 	// envoi d'une requete http auprès du maitre
-	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/desinscriptionEsclave",function callback(response){
+	http.get({host:config_esclave.maitre_ip, port:config_esclave.maitre_port, path:"/desinscriptionEsclave", agent:false},function callback(response){
 		  response.setEncoding('utf8');
 		  if (response.statusCode == 204)INSCRIT=false;
 		  callbackAffichage(resExpress,response); // Vue
