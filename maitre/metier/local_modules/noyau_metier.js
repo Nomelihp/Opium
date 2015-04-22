@@ -123,7 +123,7 @@ exports.besoin2jobs = function(jsonBesoin){
   // Persister dans la BD
   var job;
   for(var i=0 ; i<commandes.length; i++){
-    job = new model.jobs(dbOperations.toJSON(jsonBesoin._id, commandes[i], 0, ''));
+    job = new model.jobs(dbOperations.toJSON(jsonBesoin._id, commandes[i], 0, '',config.login,(i+1).toString()));
     job.save(function(err, job){
       if(err) throw err;
       console.log(job);
