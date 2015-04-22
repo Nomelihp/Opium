@@ -1,23 +1,48 @@
 var express = require('express');
 var router = express.Router();
 var params = require('../../config.json');
-
 var modele  = require('../../model/mongo_config');
 var Besoins = modele.besoins;
+
+// JSON de correspondance entre le type de fichier demandé et le chemin relatif dans un chantier MICMAC
+var tabCorrespondanceFichiers = {"nuagePly":"AperiCloud_MEP.ply","fichier2":"Ori-Malt-TrucMuche/machin.xml"};
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	// Récupération des chantiers de l'utilisateur
-	Besoins.find({ login: params.login }, function(err, besoins) {
-		if (err) throw err;
-		
-		// On cree le tableau de besoins pour la vue
-		besoinsVue = [];
-		for (var i=0;i<besoins.length;i++)besoinsVue.push(new Besoins(besoins[i]));
-		
-		res.render('chantiers', { title: 'Mes Chantiers', chantiers:besoinsVue});
-	});
+
+	// Demande de fichier : nécessite idChantier et typeFichier
+	if (req.query.getFichier)
+	{
+		console.log(req.query.typeFichier);
+			var cheminFichier = params.repertoire_donnees+params.login+"/"+req.query.idChantier+"/"+tabCorrespondanceFichiers[req.query.typeFichier];
+			 res.download(cheminFichier,tabCorrespondanceFichiers[req.query.typeFichier]);
+			console.log(cheminFichier);		
+			// http://localhost:3000/chantiers?getFichier=toto&typeFichier=nuagePly&idChantier=55374e343f5c1ba016f875d0
+			// ENOENT, stat 'C:\Users\Hippolyte\Documents\GitHub\Opium\maitre\utilisateur\img_micmac\55374e343f5c1ba016f875d0\localuser\AperiCloud_MEP.ply'
+
+
+	}
+	else
+	{
+		console.log('else');	
+		// Récupération des chantiers de l'utilisateur
+		Besoins.find({ login: params.login }, function(err, besoins) {
+			if (err) throw err;
+			
+			// On cree le tableau de besoins pour la vue
+			besoinsVue = [];
+			for (var i=0;i<besoins.length;i++)besoinsVue.push(new Besoins(besoins[i]));
+			
+			res.render('chantiers', { title: 'Mes Chantiers', chantiers:besoinsVue});
+		});
+	}
+
+	/*res.send('../result_micmac/'+params.login+'/'+params._id+'/AperiCloud_MEP.ply');*/
+	/*if (paramsbody._id){
+
+	//../result_micmac/localuser/55361c5d72f6bcfc01dea967/AperiCloud_MEP.ply
+	}*/
 	
 })
 .post('/',function(req, res, next) {
@@ -32,6 +57,7 @@ router.get('/', function(req, res, next) {
 		})
 		
 	}
+
 })
 
 module.exports = router;
