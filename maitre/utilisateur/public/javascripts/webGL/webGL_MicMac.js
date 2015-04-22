@@ -44,6 +44,10 @@ animate();
 function init() {
 
 	container = document.getElementById( div );
+	// var context = container.getContext();
+
+  // do some drawing
+  
 //--------------- Camera------
 	camera = new THREE.PerspectiveCamera( 60, document.getElementById(div).offsetWidth / document.getElementById(div).offsetHeight, 1, 1000 );
 	camera.position.z = 4;
@@ -80,7 +84,7 @@ console.log(mesh.geometry);
 } );
 
 
-loader.load( './'+file );
+loader.load( file );
 
 // Lights
 
@@ -248,32 +252,35 @@ function envoyerJSON(){
 	if (listMasque2D.length<3) { 
 		alert("Vous devez selectionner un minimum de 3 points")
 	} else{
-		var text = '{ "_id":"'+$("#idChantier").val()+'"';
+		
+
+var text = '{ "_id":"'+$("#idChantier").val()+'"';
 		text +=  ',"masque3D":{"SelectionInfo" : { "Item" : ';
 
-		text = text+ '{"ModelViewMatrix": [';
+		text = text+ '{"ModelViewMatrix": "';
 		text= text+camera.matrix.elements[0];
 		for (var i = 1; i < 16; i++) {
-			text= text+', '+camera.matrix.elements[i];
+			text= text+' '+camera.matrix.elements[i];
 		};
 
-		text= text+'], "ProjMatrix" : [';
+		text= text+'", "ProjMatrix" : "';
 		text= text+camera.projectionMatrix.elements[0];
 		for (var i = 1; i < 16; i++) {
-			text= text+', '+camera.projectionMatrix.elements[i];
+			text= text+' '+camera.projectionMatrix.elements[i];
 		};
 
-		text= text+'], "glViewport" : [';
-		text= text+0+", "+0+", "+rectBox.width+", "+rectBox.height+'], ';
+		text= text+'", "glViewport" : "';
+		text= text+0+" "+0+" "+rectBox.width+" "+rectBox.height+'", ';
 
 		text= text + '"Pt" : [';
-		text= text+' ['+listMasque2D[0].x+','+listMasque2D[0].y+']';
+		text= text+' "'+listMasque2D[0].x+' '+listMasque2D[0].y+'"';
 		for (var i = 1; i < listMasque2D.length; i++) {
-			text= text+' ,['+listMasque2D[i].x+','+listMasque2D[i].y+']';
+			text= text+' ,"'+listMasque2D[i].x+' '+listMasque2D[i].y+'"';
 		};
 		text= text+'],"Mode" : "1"}}}}';
 
 
+		
 		
 
 		
