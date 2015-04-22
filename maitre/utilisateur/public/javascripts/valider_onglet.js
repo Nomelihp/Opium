@@ -14,8 +14,6 @@ function recupereExif()
              if(req.status == 200)
              {
                   infosExif = JSON.parse(req.responseText);
-				  //console.log(infosExif);
-				  //console.log(infosExif[0]);
              }
           }
         };
@@ -113,7 +111,7 @@ function valider_onglet(id) {
 					var uploadFiles2 = document.getElementById('js-upload-files2').files;
 					if(uploadFiles2.length!=0){
 						for(var j=0;j<uploadFiles2.length;j++){
-						importeFichier(uploadFiles2[j]);
+						importeFichier2(uploadFiles2[j]);
 						listImCal.push(uploadFiles2[j].name);
 						}
 					}
@@ -226,6 +224,7 @@ function lancer_calcul() {
 		alert("Entrez un nom de chantier");
 	}
 	else{
+		console.log(infosExif);
 		if(infosExif){
 			if(infosExif.length < 2){alert("Importez au moins deux images");}
 			else{

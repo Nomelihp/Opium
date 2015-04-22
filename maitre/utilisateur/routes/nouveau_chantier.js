@@ -34,6 +34,9 @@ router.get('/', function(req, res, next) {
 .post('/',function(req, res, next) {
 	// parametres envoyés par le client sous forme de JSON
 	var params   = req.body;
+	
+	console.log(params);
+	
 	params.login = "localuser";
 	// chantier existant : on met à jour le document correspondant
 	if (params._id)
