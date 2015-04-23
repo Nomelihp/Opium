@@ -25,6 +25,12 @@ function onPageOpen(besoins) {
         myTable = ajout(myTable,"Nom","NON DÉFINI","red");
     }
 
+    //ajout nom
+    var commentaire = besoins.commentaire;
+    if(commentaire) {
+        myTable = ajout(myTable,"Commentaire",commentaire);
+    }
+
     //ajout date
     myTable = ajout(myTable,"Projet créé le",besoins.date); //À CONVERTIR EN QUELQUE CHOSE DE LISIBLE
 
