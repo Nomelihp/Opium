@@ -19,13 +19,9 @@ function onPageOpen(besoins) {
     
     //ajout nom
     var nom = besoins.nom;
-    if(nom) {
-        myTable = ajout(myTable,"Nom",nom);
-    } else {
-        myTable = ajout(myTable,"Nom","NON DÉFINI","red");
-    }
+    myTable = (nom)? ajout(myTable,"Nom",nom) : ajout(myTable,"Nom","NON DÉFINI","red");
 
-    //ajout nom
+    //ajout commentaire
     var commentaire = besoins.commentaire;
     if(commentaire) {
         myTable = ajout(myTable,"Commentaire",commentaire);
@@ -94,11 +90,8 @@ function onPageOpen(besoins) {
     }
 
     //ajout masque (2D/3D). Si pas encore défini, 3D par défaut.
-    if(besoins.masque=="22D") {
-        myTable = ajout(myTable,"Masque","Deux masques 2D");
-    } else {
-        myTable = ajout(myTable,"Masque","Un masque 3D");
-    }
+       myTable = ajout(myTable,"Masque", (besoins.masque=="22D")?"Deux masques 2D":"Un masque 3D");
+
 
     //ajout nombre points liaison
     switch(besoins.nombre_points_liaison) {
@@ -117,18 +110,11 @@ function onPageOpen(besoins) {
     }
 
     //ajout mise à l'échelle. Non par défaut.
-    if(besoins.mise_a_echelle == "1") {
-        myTable = ajout(myTable,"Mise à l'échelle","Oui");
-    } else {
-        myTable = ajout(myTable,"Mise à l'échelle","Non");
-    }
+    myTable = ajout(myTable,"Mise à l'échelle",(besoins.mise_a_echelle == "1")?"Oui":"Non");
+
 
     //ajout basculement. Non par défaut.
-    if(besoins.basculement == "1") {
-        myTable = ajout(myTable,"Basculement","Oui");
-    } else {
-        myTable = ajout(myTable,"Basculement","Non");
-    }
+    myTable = ajout(myTable,"Basculement",(besoins.basculement == "1")?"Oui":"Non");
 
     myTable += "</tbody></table></div>";
   
@@ -196,26 +182,16 @@ function onPageOpen(besoins) {
                 var focale = etalonnage.capteur.focale_reelle;
                 myEtalon +=
                 "\t\t<tr>\n"+
-                    "\t\t\t<td>Focale capteur</td>\n";                
-                
-                if(focale) {
-                    myEtalon += "\t\t\t<td>"+focale+"</td>\n";
-                } else {
-                    myEtalon += "\t\t\t<td>Auto</td>\n";  
-                }
-                myEtalon += "\t\t</tr>\n";
+                    "\t\t\t<td>Focale capteur</td>\n" +           
+					"\t\t\t<td>"+((focale)?focale:"Auto")+"</td>\n"+
+				"\t\t</tr>\n";
 
                 var dimensions = etalonnage.capteur.dimensions;
                 myEtalon +=
                 "\t\t<tr>\n"+
-                    "\t\t\t<td>Dimensions capteur</td>\n";                
-
-                if(dimensions[0]) {
-                    myEtalon += "\t\t\t<td>"+dimensions[0]+"×"+dimensions[1]+"</td>\n";   
-                } else {
-                    myEtalon += "\t\t\t<td>Auto</td>\n"; 
-                }
-                myEtalon += "\t\t</tr>\n";
+                    "\t\t\t<td>Dimensions capteur</td>\n"+             
+					"\t\t\t<td>"+((dimensions[0])?dimensions[0]+"×"+dimensions[1]:"Auto")+"</td>\n" +
+				"\t\t</tr>\n";
             } else {
                 myEtalon +=
                 "\t\t<tr>\n"+
@@ -285,14 +261,8 @@ function onPageOpen(besoins) {
 }
 
 function ajout(myTable, parametre, valeur, couleur) {
-    var style;
-    
-    if(!couleur) {
-        style = "";
-    } else {
-        style = " style='color: "+couleur+";'";
-    }
-    
+    var style = (couleur) ? " style='color: "+couleur+";'" : "";
+
     myTable += "<tr>\n\t<td>"+parametre+"</td>\n\t<td"+style+">"+valeur+"</td>\n</tr>\n";
     return myTable;
 }
