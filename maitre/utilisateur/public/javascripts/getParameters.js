@@ -44,13 +44,16 @@ function onPageOpen(besoins) {
         case "3":
         case "4":
         case "5":
-            myTable = ajout(myTable,"État","Calculs en cours");
+            myTable = ajout(myTable,"État","Calculs de mise en place en cours");
             break;
         case "6":
             myTable = ajout(myTable,"État","Mise en place terminée avec succès. En attente de saisie de masque.","green");
             break;
         case "7":
             myTable = ajout(myTable,"État","ÉCHEC DE LA MISE EN PLACE","red");
+            break;
+        case "10":
+			myTable = ajout(myTable,"État","Calculs finaux en cours");
             break;
         case "8":
             myTable = ajout(myTable,"État","Calculs terminés avec succès","green");
