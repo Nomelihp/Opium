@@ -19,12 +19,9 @@ function onPageOpen(besoins) {
     
     //ajout nom
     var nom = besoins.nom;
-    myTable = ajout(myTable,"Nom",nom);
-    } else {
-        myTable = ajout(myTable,"Nom","NON DÉFINI","red");
-    }
+    myTable = (nom)? ajout(myTable,"Nom",nom) : ajout(myTable,"Nom","NON DÉFINI","red");
 
-    //ajout nom
+    //ajout commentaire
     var commentaire = besoins.commentaire;
     if(commentaire) {
         myTable = ajout(myTable,"Commentaire",commentaire);
