@@ -3,7 +3,7 @@ var router = express.Router();
 var params = require('../../config.json');
 var modele  = require('../../model/mongo_config');
 var Besoins = modele.besoins;
-var zipFichier = require('./ResultZip');
+
 
 // JSON de correspondance entre le type de fichier demandé et le chemin relatif dans un chantier MICMAC
 var tabCorrespondanceFichiers = {"position":"AperiCloud_MEP.ply","nuage":"C3DC_QuickMac.ply","calibration":"Calibration.zip","liaison":"PointLiaison.zip","orientation":"Orientation.zip"};
