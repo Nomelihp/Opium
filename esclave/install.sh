@@ -3,13 +3,12 @@
 # il faudra ajouter une variable cheminInstallation pour copier micmac au bon endroit avec Opium
 # du style /opt/opium/micmac
 
-
 #Prérequis : make, libx11-dev
 
 if [ "$(whoami)" != "root" ];
 then
-	echo "Veuillez lancer ce script en root (en utilisant sudo, par exemple)."
-	exit -1
+  echo "Veuillez lancer ce script en root (en utilisant sudo, par exemple)."
+  exit -1
 fi
 
 #vérification des prérequis
@@ -29,6 +28,35 @@ if [ "" == "$PKG_OK" ]; then
 fi
 
 cd softs_linux
+
+#La partie discussion avec l'utilisateur
+isThereMicMac=""
+doYouWantToUseYourOwnMicMac=""
+
+while [ "N" != "$isThereMicMac" ] && [ "O" != "$isThereMicMac" ]; do
+  echo ""
+  echo "MicMac est-il déjà installé sur cet ordinateur ? {O/N}"
+  read isThereMicMac
+done
+
+if [ "O" == "$isThereMicMac" ];
+then
+  while [ "N" != "$doYouWantToUseYourOwnMicMac" ] && [ "O" != "$doYouWantToUseYourOwnMicMac" ]; do
+    echo "Voulez-vous utiliser le MicMac datant du 23 avril 2015 de ce paquet ? {O/N}"
+    read doYouWantToUseYourOwnMicMac
+  done
+  
+  if [ "O" = "$doYouWantToUseYourOwnMicMac" ]; then
+    echo "Quel est le chemin absolu vers le dossier bin de MicMac {exemple /home/user/Micmac/bin} ?"
+    read micMacPath 
+  fi   
+fi
+
+echo "Quelle est l'adresse IP de l'ordinateur maître ? {ex: 135.65.65.3, laissez vide si le maître est sur le même ordinateur}"
+read ipMaitre
+if [ "" == "$ipMaitre" ]; then
+  ipMaitre="127.0.0.1" #localhost
+fi
 
 #cmake
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' cmake|grep "install ok installed")
@@ -120,46 +148,8 @@ if [ "" == "$PKG_OK" ]; then
   cd ..
 fi
 
-lif [ "$(whoami)" != "root" ];
-then
-	echo "Veuillez lancer ce script en root (en utilisant sudo, par exemple)."
-	exit -1
-fi
-
-chmod -R 777 *
-
 #MicMac
-isThereMicMac=""
-doYouWantToUseYourOwnMicMac=""
-
-while [ "N" != "$isThereMicMac" ] && [ "O" != "$isThereMicMac" ]; do
-  echo ""
-  echo "MicMac est-il déjà installé sur cet ordinateur ? {O/N}"
-  read isThereMicMac
-done
-
-if [ "O" == "$isThereMicMac" ];
-then
-  $doYouWantToUseYourOwnMicMac=""
-  while [ "N" != "$doYouWantToUseYourOwnMicMac" ] && [ "O" != "$doYouWantToUseYourOwnMicMac" ]; do
-    echo "Voulez-vous utiliser le MicMac datant du 23 avril 2015 de ce paquet ? {O/N}"
-    read doYouWantToUseYourOwnMicMac
-  done
-  
-  if [ "O" = "$doYouWantToUseYourOwnMicMac" ]; then
-    echo "Quel est le chemin absolu vers le dossier bin de MicMac {exemple /home/user/Micmac/bin} ?"
-    read micMacPath 
-  fi   
-fi
-
-echo "Quelle est l'adresse IP de l'ordinateur maître ? {ex: 135.65.65.3, laissez vide si le maître est sur le même ordinateur}"
-read ipMaitre
-if [ "" == "$ipMaitre" ]; then
-  ipMaitre="127.0.0.1" #localhost
-fi
-
-
-if [ "N" == "$doYouWantToUseYourOwnMicMac" ] || [ "N" == "$isThereMicMac" ]; then
+if [ "O" != "$doYouWantToUseYourOwnMicMac" ]; then
   # pour que le cmake passe, il faut changer à la main le fichier 
   tar xzvf micmac.tar.gz
   cp HG_defines.h micmac/include/general/
@@ -173,11 +163,11 @@ if [ "N" == "$doYouWantToUseYourOwnMicMac" ] || [ "N" == "$isThereMicMac" ]; the
   make install -j$NBRP
   cd ../..
 
-  micMacPath = $(pwd)/micmac/bin/
+  micMacPath=$(pwd)/micmac/bin/
 
   # ajout du chemin d'installation de MicMac au PATH
   echo "# ajout du chemin d installation de MicMac au PATH" >> ~/.bashrc
-  echo PATH='$PATH':$micMacPath >> ~/.bashrc
+  echo PATH='$PATH':micMacPath >> ~/.bashrc
 fi
 
 cd ..
@@ -189,3 +179,5 @@ echo "{" >> $(pwd)/config_esclave.json
   echo \"img_micmac_esclave\":\"$(pwd)/img_micmac\" >> $(pwd)/config_esclave.json
   echo "}" >> $(pwd)/config_esclave.json
 echo Merci, vous pouvez lancer \"lancement.bat\"
+
+chmod -R 777 *
