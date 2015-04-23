@@ -40,8 +40,11 @@ app.get('/desinscription', function(req, res) {
 
 // Réquête de demande de job lancée par le maitre
 app.post('/recoitJob', function(req, res) {
+	// On veut de l'IP v4
+	var IP = (req.connection.remoteAddress === '::' ? '::ffff:' : '') + '127.0.0.1';
+	
 	// On vérifie que la requête a bien été initiée par le maitre
-	if (req.connection.remoteAddress == config.maitre_ip)
+	if (IP == config.maitre_ip)
 	{
 		comportements.lanceJob(req, res);
 	}
