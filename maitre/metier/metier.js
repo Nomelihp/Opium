@@ -27,7 +27,7 @@ server.on('notification',function(message, data){
   console.log('notification reçue de l\'utilisateur');
   // Calcul des points de liaison + mise en place + calibration + AperiCloud
   model.besoins.find({ etat: '2' }, function(err, besoin) {
-    if (err) console.log('[ERROR: metier[model.besoins.find({ etat: \'2\' }] probleme lors de la rcerche dans la BD des besoins avec etat:2]);
+    if (err) console.log('[ERROR: metier[model.besoins.find({ etat: \'2\' }] probleme lors de la rcerche dans la BD des besoins avec etat:2]');
     for(var i=0; i<besoin.length; i++){
       model.besoins.findByIdAndUpdate(besoin[i]._id, { etat: '4' }, function(err, besoin) {
         if (err) console.log('Erreur lors de la mise à jour du champs etat dans esclave');
@@ -51,7 +51,7 @@ server.on('notification',function(message, data){
 
       Besoin2 = new model.besoins(besoin2[i]);
       fs.writeFile(config.repertoire_donnees+"/"+config.login+"/"+Besoin2._id+"/AperiCloud_MEP_selectionInfo.xml",js2xml("SelectionInfo",Besoin2.masque3D.SelectionInfo),function(err){
-        if(err) console.log('Erreur dans l\'enregistrement du fichier masque');
+        if(err) console.log('[ERREUR: Erreur dans l\'enregistrement du fichier masque]');
         console.log('enregistrement du fichier maque réussit !');
       });
       }
