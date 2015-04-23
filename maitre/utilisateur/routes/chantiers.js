@@ -6,8 +6,9 @@ var specialRmDir= require("./local_modules/rmdir_recursif.js");
 
 var Besoins = modele.besoins;
 
+
 // JSON de correspondance entre le type de fichier demandé et le chemin relatif dans un chantier MICMAC
-var tabCorrespondanceFichiers = {"position":"AperiCloud_MEP.ply","nuage":"C3DC_QuickMac.ply","calibration":"Ori-calib/AutoCal180.xml"};
+var tabCorrespondanceFichiers = {"position":"AperiCloud_MEP.ply","nuage":"C3DC_QuickMac.ply","calibration":"Calibration.zip","liaison":"PointLiaison.zip","orientation":"Orientation.zip"};
 
 
 /* GET home page. */
@@ -16,12 +17,10 @@ router.get('/', function(req, res, next) {
 	// Demande de fichier : nécessite idChantier et typeFichier
 	if (req.query.getFichier)
 	{	
-			console.log("[info : Utilisateur / chantiers / get / ] recuperation de fichier "+req.query.typeFichier);
-
-			var cheminFichier = config.repertoire_donnees+config.login+"/"+req.query.idChantier+"/"+tabCorrespondanceFichiers[req.query.typeFichier];
-			 res.download(cheminFichier,tabCorrespondanceFichiers[req.query.typeFichier]);
-			console.log(cheminFichier);		
-			
+		// Code a executer
+		console.log("[info : Utilisateur / chantiers / get / ] recuperation de fichier "+req.query.typeFichier);
+		var cheminFichier = params.repertoire_donnees+params.login+"/"+req.query.idChantier+"/"+tabCorrespondanceFichiers[req.query.typeFichier];
+		res.download(cheminFichier,tabCorrespondanceFichiers[req.query.typeFichier]);
 	}
 	else
 	{

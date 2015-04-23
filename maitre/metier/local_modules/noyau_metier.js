@@ -144,11 +144,11 @@ exports.appariement_dense=function(jsonBesoin){
     taille_nuage = "BigMac";
   }
 
-  commandes_appariement.push(config.repertoire_micmac+"mm3d PIMs "+taille_nuage+" AperiCloud_MEP_selectionInfo.xml");
-  commandes_appariement.push(config.repertoire_micmac+"mm3d");
+  commandes_appariement.push(config.repertoire_micmac+"mm3d PIMs "+taille_nuage+" Masq3D=AperiCloud_MEP_selectionInfo.xml");
+  commandes_appariement.push(config.repertoire_micmac+"mm3d Pims2Ply "+taille_nuage);
   // Commande pour générer le fichier du masque à partir du JSON
-  for(var k=0;k<commandes.length;k++){
-    job2 = new model.jobs(dbOperations.toJSON(jsonBesoin._id,commandes_appariement[k],0,'',config.login,(10+i).toString));
+  for(var k=0;k<commandes_appariement.length;k++){
+    job2 = new model.jobs(dbOperations.toJSON(jsonBesoin._id,commandes_appariement[k],0,'',config.login,(k+1).toString()));
     job2.save(function(err,job2){
       if(err) throw console.log('Erreur lors de l\'enregistrement de la commande d\'appariement dans la BD. Verifiez que le serveur de la BD est allumé et que les pramètres d\'accès sont bons');
       console.log('Enregistrement du job de l\'appariement dense dans la DB réussit !')

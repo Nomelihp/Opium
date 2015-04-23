@@ -16,7 +16,6 @@ function recupereExif()
              if(req.status == 200)
              {
                   infosExif = JSON.parse(req.responseText);
-				  console.log(infosExif);
              }
           }
         };
@@ -40,7 +39,6 @@ function recupereExif2()
 				 if(req.status == 200)
 				 {
 					  infosExif = JSON.parse(req.responseText);
-					  console.log(infosExif);
 					  tempsAffichage = "1";
 				 }
 			  }
@@ -267,7 +265,6 @@ function lancer_calcul() {
 			alert("Entrez un nom de chantier");
 		}
 		else{
-			console.log(infosExif);
 			if(infosExif){
 				if(infosExif.length < 2){alert("Importez au moins deux images");}
 				else{

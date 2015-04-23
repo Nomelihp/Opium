@@ -6,7 +6,6 @@ var majInfosChantier = function(idChantier){
         // Pour mettre à jour l'interface...
         onPageOpen(mesBesoins); //pour le resumé des paramètres
         majChantier(mesBesoins);
-        // document.getElementById("position").onclick="javascript: returnProduit(position,'"+mesBesoins._id+"')";
 
     });
 }
@@ -20,6 +19,8 @@ var chantiers = function($) {
         returnProduit('position',id); //màj des boutons de téléchargement
         returnProduit('nuage',id);
         returnProduit('calibration',id);
+        returnProduit('liaison',id);
+        returnProduit('orientation',id);
         majInfosChantier(id);
     });
     // Clic sur suppression de chantier
@@ -160,3 +161,4 @@ function majChantier(besoins) {
 	document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">'+ ((besoins.residus) ? besoins.residus : "L'affichage des résidus n'est pas géré par cette version de MicMac.") + '</div>'; //màj des résidus
     document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+besoins._id+"')"; //màj du bouton de suppression
 }
+

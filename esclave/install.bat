@@ -1,7 +1,7 @@
 @echo off
 title INSTALL ESCLAVE
 set chemin=%CD:\=/%
-set cheminMicMac=%chemin%\soft\micmac\bin
+set cheminMicMac=%chemin%\softs_windows\micmac\bin
 set /p VarQuestion= MicMac est-il installe sur cet ordinateur {O/N} ? 
 if %VarQuestion%== O ( 
 	set /p VarQuestion= Voulez-vous utiliser le MicMac datant du 23 avril 2015 de ce paquet  {O/N} ?
