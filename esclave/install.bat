@@ -20,6 +20,6 @@ echo { >> %CD%\config_esclave.json
  echo "maitre_port":"9207", >> %CD%\config_esclave.json
  echo "esclave_port":"9208", >> %CD%\config_esclave.json
  echo "repertoire_micmac":"%cheminMicMac%", >> %CD%\config_esclave.json
- echo "img_micmac_esclave":"%chemin%/img_micmac" >> %CD%\config_esclave.json
+ echo "img_micmac_esclave":"%chemin%/img_micmac/" >> %CD%\config_esclave.json
  echo } >> %CD%\config_esclave.json
 echo Merci, vous pouvez lancer "lancement.bat"
