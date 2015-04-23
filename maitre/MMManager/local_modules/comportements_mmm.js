@@ -19,10 +19,10 @@ var client = messenger.createSpeaker(parseInt(config.metier));
  * */
 exports.inscription = function (IP_brute,PORT,res) {
 	console.log("[info : MMM / inscription] : inscription de l esclave "+IP_brute+":"+PORT);
-	
+
 	// On veut de l'IP v4
 	var IP = (IP_brute === '::' ? '::ffff:' : '') + '127.0.0.1';
-	
+
 	Esclave.find({ ip: IP }, function(err, esclaves) {
 		if (err)console.log("[ERREUR : MMM / inscription] : pb lors de la verification en base de l existence de l esclave "+IP_brute+"[mongo tourne?]");
 		else if (esclaves.length==0) {
@@ -39,7 +39,7 @@ exports.inscription = function (IP_brute,PORT,res) {
 					console.log("[ERREUR : MMM / inscription] : pb lors de l inscription "+IP_brute+" de l esclave "+IP_brute+"[mongo tourne?]");
 					res.status(400).end();
 				}
-				else 
+				else
 				{
 					console.log("[info : MMM / inscription] : esclave "+IP_brute+" enregistre!");
 					res.status(204).end();
@@ -50,7 +50,7 @@ exports.inscription = function (IP_brute,PORT,res) {
 			console.log("[info : MMM / inscription] : l esclave "+IP_brute+" est deja inscrit, mais c est pas grave");
 			res.status(204).end();
 		};
-		
+
 	});
 }
 
@@ -62,10 +62,10 @@ exports.inscription = function (IP_brute,PORT,res) {
 */
 exports.desinscription = function(IP_brute,res){
 	console.log("[info : MMM / desinscription] : desinscription de l esclave "+IP_brute);
-	
+
 	// On veut de l'IP v4
 	var IP = (IP_brute === '::' ? '::ffff:' : '') + '127.0.0.1';
-	
+
 	// find the user with id 4
 	Esclave.findOneAndRemove({ ip: IP }, function(err) {
 			if (err)
@@ -87,7 +87,7 @@ exports.desinscription = function(IP_brute,res){
 */
 exports.examine_esclaves = function () {
   var Esclave;
-  
+
   var hosts = [];
   console.log('[info : MMManager / examine_esclaves] Examen des esclaves... ');
   model.esclaves.find({},function(err,esclave){
@@ -260,5 +260,3 @@ exports.launchNewFirstJobs=function() {
 		}
 	});
 }
-
-
