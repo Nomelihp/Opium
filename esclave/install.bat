@@ -11,7 +11,7 @@ if %VarQuestion%== O (
 )
 
 
-set /p IPmaitre= Quelle est l'adresse IP du l'ordinateur maitre  {ex: 135.65.65.3, 127.0.0.1 si le maitre est sur le meme ordinateur} ?
+set /p IPmaitre= Quelle est l'adresse IP de l'ordinateur maitre  {ex: 135.65.65.3, 127.0.0.1 si le maitre est sur le meme ordinateur} ?
 echo { > %CD%\redem.txt
  echo "maitre_ip":"%IPmaitre%", >> %CD%\config_esclave.json
  echo "maitre_port":"9207", >> %CD%\config_esclave.json
