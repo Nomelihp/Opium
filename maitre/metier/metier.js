@@ -65,6 +65,8 @@ server.on('notification',function(message, data){
   var flag_erreur = 0;
   var Besoin3;
   var Job3;
+  var erreur_job
+
 
   model.besoins.find({etat:'4'},function(error2,besoin3){
   
@@ -76,8 +78,9 @@ server.on('notification',function(message, data){
       
       if(error3) console.log('[ERROR= metier[model.jobs.find({id_chantier:Besoin3._id}]] = Probleme lors de la recherche des jobs avec id_chantier [Vérifiez la connexion à votre BD]');
         
-        var flag_reussi = 1;
-        var flag_erreur = 0;
+        flag_reussi = 1;
+        flag_erreur = 0;
+        erreur_job='';
 
       for(var m=0;m<job2.length;m++){
         Job3 = new model.jobs(job2[m]);
@@ -85,6 +88,7 @@ server.on('notification',function(message, data){
           flag_reussi = 0;
         if(Job3.etat=='3'){
           flag_ereeur = 1;
+          erreur_job=Job3.erreur;
           break;}
 
       }
@@ -96,7 +100,7 @@ server.on('notification',function(message, data){
 
     }
     if(flag_erreur == 1){
-      model.besoins.findByIdAndUpdate(Besoin3._id,{etat:'7'},function(error5){
+      model.besoins.findByIdAndUpdate(Besoin3._id,$and[{etat:'7'},{message_erreur:erreur_job}],function(error5){
         if(error5) console.log('[ERROR= metier[model.besoins.findByIdAndUpdate(Besoin3._id,{etat=\'7\'}]] = Probleme lors de la mise à jour de l\'etat à 7 [Vérifiez la connexion à votre BD]');
 
       });
