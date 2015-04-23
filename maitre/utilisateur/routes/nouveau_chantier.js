@@ -27,8 +27,8 @@ var notificationMetier = function(params){
 
 // ------------  Renvoi de l'interface pour la saisie d'un nouveau chantier   ------------
 router.get('/', function(req, res, next) {
-
-  res.render('nouveau_chantier', { title: 'Nouveau Chantier' });
+	console.log("[info : Utilisateur / nouveau_chantier / get / ]");
+	res.render('nouveau_chantier', { title: 'Nouveau Chantier' });
 })
 // ------------  Réception des éléments du formulaire    ------------
 .post('/',function(req, res, next) {
@@ -41,25 +41,33 @@ router.get('/', function(req, res, next) {
         // Cas d'une demande d'Exif
         if (params.demandeExif)
         {
-
+			console.log("[info : Utilisateur / nouveau_chantier / post / ] : recup exif chantier "+req.body._id);
             // on attaque la base pour envoyer les métadonnées exif
             Besoins.findById(req.body._id, function(err, b) {
-                var bes = new Besoins(b);
-                if(bes.liste_images)
-                    res.status(200).send(bes.liste_images)
-                else res.status(200).send("")
+                if (err)
+                {
+					console.log("[ERREUR : Utilisateur / nouveau_chantier / post / ] : recup besoin [mongo tourne?]");
+					res.status(500).send("");
+                }
+                else
+                {
+					var bes = new Besoins(b);
+					if(bes.liste_images)
+						res.status(200).send(bes.liste_images);
+					else res.status(200).send("");
+				}
             })
 
         }
         // Cas d'une mise à jour de chantier
         else
         {
+			console.log("[info : Utilisateur / nouveau_chantier / post / ] : mise à jour du chantier "+req.body._id);
             var id = params._id;
             delete params._id;// on enleve l'id pour ne pas l'insérer dans les champs à updater
 
             Besoins.findByIdAndUpdate(id, params, function(err, besoin) {
-            if (err) throw err;
-              // LOGS  A INSERER
+				if (err) console.log("[ERREUR : Utilisateur / nouveau_chantier / post / ] : mise a jour chantier [mongo tourne?]");
             });
 
             notificationMetier(params);
@@ -70,9 +78,10 @@ router.get('/', function(req, res, next) {
     // Nouveau chantier
     else
     {
+		console.log("[info : Utilisateur / nouveau_chantier / post / ] : nouveau chantier");
         var besoin = new Besoins(params);
         besoin.save(function(err, doc, num){
-            // LOGS  A INSERER
+            if (err) console.log("[ERREUR : Utilisateur / nouveau_chantier / post / ] : creation du nouveau chantier [mongo tourne?]");
         });
 
 

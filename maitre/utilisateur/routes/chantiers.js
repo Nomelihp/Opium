@@ -13,28 +13,30 @@ router.get('/', function(req, res, next) {
 
 	// Demande de fichier : nécessite idChantier et typeFichier
 	if (req.query.getFichier)
-	{
-		console.log(req.query.typeFichier);
+	{	
+			console.log("[info : Utilisateur / chantiers / get / ] recuperation de fichier "+req.query.typeFichier);
+
 			var cheminFichier = params.repertoire_donnees+params.login+"/"+req.query.idChantier+"/"+tabCorrespondanceFichiers[req.query.typeFichier];
 			 res.download(cheminFichier,tabCorrespondanceFichiers[req.query.typeFichier]);
 			console.log(cheminFichier);		
 			// http://localhost:3000/chantiers?getFichier=toto&typeFichier=nuagePly&idChantier=55374e343f5c1ba016f875d0
 			// ENOENT, stat 'C:\Users\Hippolyte\Documents\GitHub\Opium\maitre\utilisateur\img_micmac\55374e343f5c1ba016f875d0\localuser\AperiCloud_MEP.ply'
-
-
 	}
 	else
 	{
-		console.log('else');	
+
+		console.log("[info : Utilisateur / chantiers / get / ] recuperation des chantiers de l utilisateur "+params.login);
 		// Récupération des chantiers de l'utilisateur
 		Besoins.find({ login: params.login }, function(err, besoins) {
-			if (err) throw err;
-			
-			// On cree le tableau de besoins pour la vue
-			besoinsVue = [];
-			for (var i=0;i<besoins.length;i++)besoinsVue.push(new Besoins(besoins[i]));
-			
-			res.render('chantiers', { title: 'Mes Chantiers', chantiers:besoinsVue});
+			if (err)console.log("[ERREUR : Utilisateur / chantiers / get / ] pb recup chantiers bd [mongo tourne?]");
+			else
+			{
+				// On cree le tableau de besoins pour la vue
+				besoinsVue = [];
+				for (var i=0;i<besoins.length;i++)besoinsVue.push(new Besoins(besoins[i]));
+				
+				res.render('chantiers', { title: 'Mes Chantiers', chantiers:besoinsVue});
+			}
 		});
 	}
 
