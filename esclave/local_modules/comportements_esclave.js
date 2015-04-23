@@ -9,18 +9,24 @@ var ACTIVITE_ESCLAVE = "DETENDU";// "DETENDU" ou "AFOND"
 var INSCRIT 	 	 = false;
 
 /* Inscrit l esclave aupres du maitre
+ * ihm : boolean, indique si une page html doit etre renvoyee en http
  * resExpress : resultat http via express
  * callbackAffichage : fonction d affichage a appeler
  * test OK
  * */
-exports.inscription = function(resExpress,callbackAffichage){
+exports.inscription = function(ihm,resExpress,callbackAffichage){
 	console.log("[info : esclave / inscription] : inscription de l esclave aupres du maitre "+config_esclave.maitre_ip+":"+config_esclave.maitre_port);
 	// envoi d'une requete http auprès du maitre
 	http.get({host:config_esclave.maitre_ip, port:config_esclave.maitre_port, path:"/inscriptionEsclave?port="+config_esclave.esclave_port, agent:false},function callback(response){
 		  response.setEncoding('utf8');
 		  
-		  if (response.statusCode == 204)INSCRIT=true;
-		  callbackAffichage(resExpress,response);// Vue
+		  if (response.statusCode == 204)
+		  {
+			  console.log("[info : esclave / inscription] : inscription OK");
+			  INSCRIT=true;
+		  }
+		  else console.log("[ERREUR : esclave / inscription] : pb d'inscription [esclave deja inscrit?]");
+		  if (ihm)callbackAffichage(resExpress,response);// Vue
 
 	}).on('error', function(e) {
 		  console.log("[ERREUR : esclave / inscription] Pb lors de l envoi de la requette http d inscription au maitre [maitre lancé?, pb reseau?]");

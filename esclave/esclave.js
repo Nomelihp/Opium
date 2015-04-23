@@ -8,6 +8,9 @@ var ip 			  = require('ip');
 var app 		  = express();
 
 
+// On inscrit l'esclave aupres du maitre
+comportements.inscription(false);
+
 // parse application/json
 app.use(bodyParser.json())
 
@@ -20,16 +23,16 @@ app.get('/', function(req, res) {
     comportements.pageHTML(res,"");
 });
 
-// Inscription de l'esclave aupres du maitre (requete lancée depuis l'esclave)
+// Inscription manuelle de l'esclave aupres du maitre (requete lancée sur l'esclave par l'utilisateur)
 app.get('/inscription', function(req, res) {
 	
-	comportements.inscription(res,function(resExpress,responseHttpGet){
+	comportements.inscription(true,res,function(resExpress,responseHttpGet){
 			if (responseHttpGet.statusCode == 204) comportements.pageHTML(resExpress,"inscription ok");
 			else if (responseHttpGet.statusCode == 400) comportements.pageHTML(resExpress,"pb d'inscription (déjà inscrit??)");
 	}); 
 });
 
-// Desinscription de l'esclave aupres du maitre
+// Desinscription manuelle de l'esclave aupres du maitre (requete lancee sur l'esclave par l'utilisateur)
 app.get('/desinscription', function(req, res) {
 	
 	comportements.desinscription(res,function(resExpress,responseHttpGet){
