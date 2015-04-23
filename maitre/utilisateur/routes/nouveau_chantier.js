@@ -15,13 +15,11 @@ var module_metier = messenger.createSpeaker(parseInt(params.metier));
 var notificationMetier = function(params){
     if (params.etat)// On vérifie qu'il y a bien un état dans les données envoyées
     {
-        if (params.etat == 2) // On vérifie qu'il s'agit du code correspondant à la saisie terminée dans l'interface nouveau_chantier
-        {
-            setTimeout(function(){
-                module_metier.request('notification', {boulot:"oui"}, function(data){
-            });
-        }, 2000);
-        }
+			setTimeout(function(){
+				console.log("[info : Utilisateur / nouveau_chantier / notificationMetier / ] : notification métier");
+				module_metier.request('notification', {boulot:"oui"}, function(data){
+			});
+		}, 2000);
     }
 }
 
