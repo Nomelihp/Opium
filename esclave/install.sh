@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# il faudra ajouter une variable cheminInstallation pour copier micmac au bon endroit avec Opium
-# du style /opt/opium/micmac
-
 #Prérequis : make, libx11-dev
 
 if [ "$(whoami)" != "root" ];

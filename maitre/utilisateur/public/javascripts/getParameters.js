@@ -118,7 +118,7 @@ function onPageOpen(besoins) {
 
     myTable += "</tbody></table></div>";
   
-    var etalonnage = besoins.etalonnage[0];
+    var etalonnage = (besoins.etalonnage)?besoins.etalonnages[0]:false;
     if(etalonnage) { //if exists
         
         myEtalon +=

@@ -67,6 +67,7 @@ function grey(id) {
     var parentDiv = element.parentNode.parentNode.parentNode;
 
     element.disabled = "disabled";
+    console.log(element);
     parentDiv.className += " greyed-out";
     
     return true;
