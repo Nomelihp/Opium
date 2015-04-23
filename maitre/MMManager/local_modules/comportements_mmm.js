@@ -2,8 +2,9 @@ var model = require('../../model/mongo_config');
 var http  = require('http');
 var ping  = require('ping');
 var messenger = require('messenger');
-var config        = require('../../config.json');
+var config    = require('../../config.json');
 
+var utils 	  = require('./utils');
 
 // Modeles mongoose
 var Esclave	=	model.esclaves;
@@ -18,13 +19,12 @@ var client = messenger.createSpeaker(parseInt(config.metier));
  * test OK
  * */
 exports.inscription = function (IP_brute,PORT,res) {
-	console.log("[info : MMM / inscription] : inscription de l esclave "+IP_brute+":"+PORT);
-
 	// On veut de l'IP v4
-	var IP = (IP_brute === '::' ? '::ffff:' : '') + '127.0.0.1';
+	var IP = utils.toIpV4(IP_brute);
+	console.log("[info : MMM / inscription] : inscription de l esclave "+IP+":"+PORT);
 
 	Esclave.find({ ip: IP }, function(err, esclaves) {
-		if (err)console.log("[ERREUR : MMM / inscription] : pb lors de la verification en base de l existence de l esclave "+IP_brute+"[mongo tourne?]");
+		if (err)console.log("[ERREUR : MMM / inscription] : pb lors de la verification en base de l existence de l esclave "+IP+"[mongo tourne?]");
 		else if (esclaves.length==0) {
 
 			var eclave = new Esclave({
@@ -36,12 +36,12 @@ exports.inscription = function (IP_brute,PORT,res) {
 			eclave.save(function (err) {
 				if (err)
 				{
-					console.log("[ERREUR : MMM / inscription] : pb lors de l inscription "+IP_brute+" de l esclave "+IP_brute+"[mongo tourne?]");
+					console.log("[ERREUR : MMM / inscription] : pb lors de l inscription "+IP+" de l esclave "+IP+"[mongo tourne?]");
 					res.status(400).end();
 				}
 				else
 				{
-					console.log("[info : MMM / inscription] : esclave "+IP_brute+" enregistre!");
+					console.log("[info : MMM / inscription] : esclave "+IP+" enregistre!");
 					res.status(204).end();
 				}
 			});
@@ -50,7 +50,7 @@ exports.inscription = function (IP_brute,PORT,res) {
 			// L'esclave existe, on le repasse en operationnel
 			var esclave = new model.esclaves(esclaves[0]);
 			Esclave.findByIdAndUpdate(esclave.id,{operationnel:1},function(err2){
-					console.log("[info : MMM / inscription] : l esclave "+IP_brute+" est deja inscrit, mais c est pas grave, etat passe a operationnel");
+					console.log("[info : MMM / inscription] : l esclave "+IP+" est deja inscrit, mais c est pas grave, etat passe a operationnel");
 					res.status(204).end();
 			});
 		};
@@ -65,16 +65,15 @@ exports.inscription = function (IP_brute,PORT,res) {
 	* test ok
 */
 exports.desinscription = function(IP_brute,res){
-	console.log("[info : MMM / desinscription] : desinscription de l esclave "+IP_brute);
-
 	// On veut de l'IP v4
-	var IP = (IP_brute === '::' ? '::ffff:' : '') + '127.0.0.1';
+	var IP = utils.toIpV4(IP_brute);
+	console.log("[info : MMM / desinscription] : desinscription de l esclave "+IP);
 
 	// find the user with id 4
 	Esclave.findOneAndRemove({ ip: IP }, function(err) {
 			if (err)
 			{
-				console.log("[ERREUR : MMM / desinscription] : pb lors de la suppression de l esclave "+IP_brute+" en base[mongo tourne?]");
+				console.log("[ERREUR : MMM / desinscription] : pb lors de la suppression de l esclave "+IP+" en base[mongo tourne?]");
 				res.status(400).end();
 			}
 			else

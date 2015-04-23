@@ -6,7 +6,7 @@ var config		  = require('./config_esclave');
 var ip 			  = require('ip');
 
 var app 		  = express();
-
+var utils 	 	  = require('./local_modules/utils');
 
 // On inscrit l'esclave aupres du maitre
 comportements.inscription(false);
@@ -43,11 +43,9 @@ app.get('/desinscription', function(req, res) {
 
 // Réquête de demande de job lancée par le maitre
 app.post('/recoitJob', function(req, res) {
-	// On veut de l'IP v4
-	var IP = (req.connection.remoteAddress === '::' ? '::ffff:' : '') + '127.0.0.1';
-	
+
 	// On vérifie que la requête a bien été initiée par le maitre
-	if (IP == config.maitre_ip)
+	if (utils.toIpV4(req.connection.remoteAddress) == config.maitre_ip)
 	{
 		comportements.lanceJob(req, res);
 	}

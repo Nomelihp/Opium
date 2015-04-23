@@ -4,6 +4,8 @@ var sys  = require('sys');
 var exec = require('child_process').exec;
 var config_esclave = require('../config_esclave')
 
+var utils 	  = require('./utils');
+
 // Indiquent l'état d'inscription et l'activité en cours de l'esclave
 var ACTIVITE_ESCLAVE = "DETENDU";// "DETENDU" ou "AFOND"
 var INSCRIT 	 	 = false;
