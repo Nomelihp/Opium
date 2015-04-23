@@ -6,7 +6,6 @@ var majInfosChantier = function(idChantier){
         // Pour mettre à jour l'interface...
         onPageOpen(mesBesoins); //pour le resumé des paramètres
         majChantier(mesBesoins);
-        // document.getElementById("position").onclick="javascript: returnProduit(position,'"+mesBesoins._id+"')";
 
     });
 }
@@ -20,8 +19,12 @@ var chantiers = function($) {
         returnProduit('position',id); //màj des boutons de téléchargement
         returnProduit('nuage',id);
         returnProduit('calibration',id);
+        returnProduit('liaison',id);
+        returnProduit('orientation',id);
         majInfosChantier(id);
-    })
+    });
+    // Clic sur suppression de chantier
+    $("#deleteButton").click(supprimerChantier);
 
 }(jQuery);
 
@@ -64,7 +67,7 @@ function grey(id) {
     var parentDiv = element.parentNode.parentNode.parentNode;
 
     element.disabled = "disabled";
-    parentDiv.className = parentDiv.className+" greyed-out";
+    parentDiv.className += " greyed-out";
     
     return true;
 }
@@ -91,8 +94,27 @@ function toWarning(id) {
     return true;
 }
 
-function supprimerChantier(idChantier) {
+// Supprime le chantier ouvert
+function supprimerChantier() {
+	var idChantier = $("#idChantier").val();
+	var nomChantier= $("#nomChantier_"+idChantier).html();
+	if (idChantier == "")alert("choisir un chantier dans la liste");
+	else if (confirm("Suppression du chantier "+nomChantier+" ?"))
+	{
+	// Demande au serveur le besoin en json correspondant à l'id
+		var req = new XMLHttpRequest();    
+		req.open('POST','/chantiers',true);
+		
+		req.onreadystatechange = function (aEvt) {
 
+			if (req.readyState == "4" && req.status == "200"){// Suppression ok
+				  location.reload(); 
+			}
+		};
+		// On envoie l'id chantier et la demande de besoin
+		req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		req.send(JSON.stringify({"_id":idChantier,"suppressionChantier":"oui"}));
+	}
 }
 
 function returnProduit (id_form,idChantier) {
@@ -135,7 +157,8 @@ function majChantier(besoins) {
             toDanger("produits");
             break;
     }
-
-    document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+besoins.residus+' px.</div>'; //màj des résidus
+	
+	document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">'+ ((besoins.residus) ? besoins.residus : "L'affichage des résidus n'est pas géré par cette version de MicMac.") + '</div>'; //màj des résidus
     document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+besoins._id+"')"; //màj du bouton de suppression
 }
+
