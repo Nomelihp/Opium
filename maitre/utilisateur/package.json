@@ -15,7 +15,6 @@
     "serve-favicon": "~2.2.0",
     "messenger": "~0.0.9",
     "multer": "~0.1.8",
-    "exif2" : "~0.0.1",
-    "archiver": "~0.14.3"
+    "exif2" : "~0.0.1"
   }
 }

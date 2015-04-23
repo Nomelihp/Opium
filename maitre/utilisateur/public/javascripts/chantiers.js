@@ -6,7 +6,7 @@ var majInfosChantier = function(idChantier){
         // Pour mettre à jour l'interface...
         onPageOpen(mesBesoins); //pour le resumé des paramètres
         majChantier(mesBesoins);
-        // document.getElementById("position").onclick="javascript: returnProduit(position,'"+mesBesoins._id+"')";
+        
        
     });
 }
@@ -20,6 +20,8 @@ var chantiers = function($) {
         returnProduit('position',id); //màj des boutons de téléchargement
         returnProduit('nuage',id);
         returnProduit('calibration',id);
+        returnProduit('liaison',id);
+        returnProduit('orientation',id);
         majInfosChantier(id);
     })
 
@@ -121,3 +123,4 @@ function majChantier(besoins) {
     document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+besoins.residus+' px.</div>'; //màj des résidus
     document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+besoins._id+"')"; //màj du bouton de suppression    
 }
+var toto =ungrey("produits-button");
