@@ -98,7 +98,11 @@ function valider_onglet(id) {
 		else{
 		//On renvoit la date de création du chantier
 			var date1 = new Date();
-			var date2 = date1.getDate() + "-" + date1.getMonth() + "-" + date1.getFullYear()
+			var month = date1.getMonth()+1;
+			if(month < 10) {
+				month = "0"+month;
+			}
+			var date2 = date1.getDate() + "-" + month + "-" + date1.getFullYear();
 			formjson.date = date2;
 		//On met l'état "En attente de l'utilisateur"
 			formjson.etat = "1";
