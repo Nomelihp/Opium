@@ -23,6 +23,8 @@ if [ "" == "$PKG_OK" ]; then
   exit 2
 fi
 
+cd softs_linux
+
 #cmake
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' cmake|grep "install ok installed")
 echo Checking for cmake: $PKG_OK
@@ -31,8 +33,8 @@ if [ "" == "$PKG_OK" ]; then
   tar xzvf cmake-3.2.2-Linux-x86_64.tar.gz
   
   # ajout du chemin d'installation de cmake au PATH
-   echo "# ajout du chemin d installation de cmake au PATH" >> ~/.bashrc
-   echo PATH='$PATH':$(pwd)/cmake-3.2.2-Linux-x86_64/bin >> ~/.bashrc
+  echo "# ajout du chemin d installation de cmake au PATH" >> ~/.bashrc
+  echo PATH='$PATH':$(pwd)/cmake-3.2.2-Linux-x86_64/bin >> ~/.bashrc
 fi
 
 
@@ -44,8 +46,8 @@ if [ "" == "$PKG_OK" ]; then
   tar xzvf node-v0.12.2-linux-x64.tar.gz
   
   # ajout du chemin d'installation de nodejs au PATH
-   echo "# ajout du chemin d installation de nodejs au PATH" >> ~/.bashrc
-   echo PATH='$PATH':$(pwd)/node-v0.12.2-linux-x64/bin >> ~/.bashrc
+  echo "# ajout du chemin d installation de nodejs au PATH" >> ~/.bashrc
+  echo PATH='$PATH':$(pwd)/node-v0.12.2-linux-x64/bin >> ~/.bashrc
 fi
 
 # ImageMagick
@@ -162,6 +164,7 @@ if [doYouWantToUseYourOwnMicMac="N"]||[isMicMac="N"]; then
   echo PATH='$PATH':$micMacPath >> ~/.bashrc
 fi
 
+cd ..
 echo "{" >> $(pwd)/config_esclave.json
   echo \"maitre_ip\":\"$ipMaitre\", >> $(pwd)/config_esclave.json
   echo \"maitre_port\":\"9207\", >> $(pwd)/config_esclave.json
