@@ -191,7 +191,7 @@ var envoieUnJob = function (esclave,job) {
 					if (res.statusCode == 400)
 					{
 						Jobs.findByIdAndUpdate(job.id, {etat:"3"}, function(err, e) {// Etat job => fini avec erreur
-							console.log("[ERREUR : MMM / envoieUnJob]L esclave a renvoye tout de suite une erreur sur l execution de la commande "+job.commande+"[commande ok?]");
+							console.log("[ERREUR : MMM / envoieUnJob]L esclave ne semble pas disponible [allume?]");
 						});
 					}
 					else if (res.statusCode == 204)
