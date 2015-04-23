@@ -4,9 +4,8 @@ var majInfosChantier = function(idChantier){
 
         var mesBesoins = JSON.parse(req.responseText);
         // Pour mettre à jour l'interface...
-        onPageOpen(mesBesoins); //pour le resumé des paramètres
         majChantier(mesBesoins);
-
+        onPageOpen(mesBesoins); //pour le resumé des paramètres
     });
 }
 
