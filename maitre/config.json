@@ -6,7 +6,7 @@
 	"mongodb_port":"27017",
 	"mongodb_db_name":"opium",
 	"mongodb_ip":"127.0.0.1",
-	"repertoire_donnees":"./utilisateur/img_micmac/",
+	"repertoire_donnees":"./img_micmac/",
 	"repertoire_micmac":"",
 	"repertoire_mongodb":"",
 	"login":"localuser"

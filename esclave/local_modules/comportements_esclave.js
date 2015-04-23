@@ -75,7 +75,7 @@ retourJob = function(idEsclave,idJob,codeRetour,msgErreur){
 	*test OK
 */
 exports.lanceJob = function (req, res){
-	console.log("[info : esclave / lanceJob] : lancement du job "+req.body.idJob);
+	console.log("[info : esclave / lanceJob] : lancement du job "+req.body.idJob+" du chantier "+req.body.idChantier);
 	
 	if (ACTIVITE_ESCLAVE == "DETENDU")
 	{
