@@ -267,7 +267,7 @@ function envoyerJSON(){
 		
 
 var text = '{ "_id":"'+$("#idChantier").val()+'"';
-		text +=  ',etat:"10"';// Etat correspondant à la saisie de masque OK
+		text +=  ',"etat":"10"';// Etat correspondant à la saisie de masque OK
 		text +=  ',"masque3D":{"SelectionInfo" : { "Item" : ';
 
 		text = text+ '{"ModelViewMatrix": "';
