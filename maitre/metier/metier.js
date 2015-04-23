@@ -45,7 +45,7 @@ server.on('notification',function(message, data){
     }
   });
   // Appariement dense
-  model.besoins.find({etat:'8'}, function(err, besoin2){
+  model.besoins.find({etat:'6'}, function(err, besoin2){
     if(err) console.log('erreur dans recherche dans la BD des elements avec etat=8');
     for(var k=0;k<besoin2.length;k++){
 
@@ -90,7 +90,7 @@ server.on('notification',function(message, data){
         if(Job3.etat=='0' || Job3.etat=='1')
           flag_reussi = 0;
         if(Job3.etat=='3'){
-          flag_ereeur = 1;
+          flag_erreur = 1;
           erreur_job=Job3.erreur;
           break;}
 
@@ -99,6 +99,14 @@ server.on('notification',function(message, data){
     if(flag_reussi == 1){
       model.besoins.findByIdAndUpdate(Besoin3._id,{etat:'6'},function(error4){
         if(error4) console.log('[ERROR= metier[model.besoins.findByIdAndUpdate(Besoin3._id,{etat=\'6\'}]] = Probleme lors de la mise à jour de l\'etat à 6 [Vérifiez la connexion à votre BD]');
+
+        fs.exists(config.repertoire_donnees+"/"+Besoin3.login+"/"+Besoin3._id+"/Ori-MEP/Residu.xml",function(exists){
+          if(!exits){
+            model.besoins.findByIdAndUpdate(Besoin3._id,{residus:''},function(error5){
+
+            });
+          }
+        });
       });
 
     }

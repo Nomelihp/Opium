@@ -70,6 +70,9 @@ function valider_onglet(id) {
     //Onglet courrant(celui à valider), initialisé au premier onglet au premier appel
     var ongletCourant = $("#ongletCourant").val();
     
+    //On récupère l'idChantier de la page
+    var idChantier = $("#idChantier").val();
+    
     // Si on valide l'onglet 2, on récupère les métadonnées des images importées
     if (ongletCourant == "on_click2")
     {
@@ -77,9 +80,7 @@ function valider_onglet(id) {
     }
     else
     {
-    
-        //On récupère l'idChantier de la page
-        var idChantier = $("#idChantier").val();
+   
         
         var getinfo = ["nom", "commentaire"]
         var getinfochecked = ["typestatue", "typefacade"]

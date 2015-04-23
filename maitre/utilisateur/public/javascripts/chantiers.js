@@ -6,8 +6,7 @@ var majInfosChantier = function(idChantier){
         // Pour mettre à jour l'interface...
         onPageOpen(mesBesoins); //pour le resumé des paramètres
         majChantier(mesBesoins);
-        
-       
+
     });
 }
 
@@ -23,7 +22,9 @@ var chantiers = function($) {
         returnProduit('liaison',id);
         returnProduit('orientation',id);
         majInfosChantier(id);
-    })
+    });
+    // Clic sur suppression de chantier
+    $("#deleteButton").click(supprimerChantier);
 
 }(jQuery);
 
@@ -57,6 +58,16 @@ function ungrey(id) {
 
     element.disabled = "";
     parentDiv.className = parentDiv.className.replace(" greyed-out","");
+
+    return true;
+}
+
+function grey(id) {
+	var element = document.getElementById(id);
+    var parentDiv = element.parentNode.parentNode.parentNode;
+
+    element.disabled = "disabled";
+    parentDiv.className += " greyed-out";
     
     return true;
 }
@@ -65,10 +76,10 @@ function ungrey(id) {
 function toDanger(id) {
     var element = document.getElementById(id);
     var button = element.children[0].children[0].children[0];
-    
+
     element.className = element.className.replace("success","danger");
     button.className = button.className.replace("success","danger");
-    
+
     return true;
 }
 
@@ -76,15 +87,34 @@ function toDanger(id) {
 function toWarning(id) {
     var element = document.getElementById(id);
     var button = element.children[0].children[0].children[0];
-    
+
     element.className = element.className.replace("success","warning");
     button.className = button.className.replace("success","warning");
-    
+
     return true;
 }
 
-function supprimerChantier(idChantier) {
+// Supprime le chantier ouvert
+function supprimerChantier() {
+	var idChantier = $("#idChantier").val();
+	var nomChantier= $("#nomChantier_"+idChantier).html();
+	if (idChantier == "")alert("choisir un chantier dans la liste");
+	else if (confirm("Suppression du chantier "+nomChantier+" ?"))
+	{
+	// Demande au serveur le besoin en json correspondant à l'id
+		var req = new XMLHttpRequest();    
+		req.open('POST','/chantiers',true);
+		
+		req.onreadystatechange = function (aEvt) {
 
+			if (req.readyState == "4" && req.status == "200"){// Suppression ok
+				  location.reload(); 
+			}
+		};
+		// On envoie l'id chantier et la demande de besoin
+		req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		req.send(JSON.stringify({"_id":idChantier,"suppressionChantier":"oui"}));
+	}
 }
 
 function returnProduit (id_form,idChantier) {
@@ -93,6 +123,9 @@ function returnProduit (id_form,idChantier) {
 
 function majChantier(besoins) {
     ungrey("config-button");
+    grey("mise-button");
+    grey("zone-button");
+    grey("produits-button");
     switch(besoins.etat) { //pour savoir quels boutons griser
         case "6":
             ungrey("mise-button");
@@ -101,26 +134,31 @@ function majChantier(besoins) {
             }
             ungrey("zone-button");
             ungrey("produits-button");
+            plusMoins("zone");
+            webGL_MicMac("/chantiers?getFichier=yes&typeFichier=nuagePly&idChantier="+besoins._id,"Restriction");
+            document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
             break;
         case "7":
-            toDanger(results);
+			ungrey("mise-button");
+            toDanger("mise");
+            break;
         case "8":
-            plusMoins("zone");
             ungrey("mise-button");
-            if(bsoins.residus > 1) {
+            if(besoins.residus > 1) {
                 toWarning("mise");
             }
-            ungrey("zone-button");
             ungrey("produits-button");
-            webGL_MicMac("/chantiers?getFichier=yes&typeFichier=nuagePly&idChantier="+idChantier,"Restriction");
-            document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
+            break;
         case "9":  //comme Bernard. Cazeneuve. Mdr lol.
             ungrey("mise-button");
-            danger("mise");
+            if(besoins.residus > 1) {
+                toWarning("mise");
+            }
+            toDanger("produits");
             break;
     }
-               
-    document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+besoins.residus+' px.</div>'; //màj des résidus
-    document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+besoins._id+"')"; //màj du bouton de suppression    
+	
+	document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">'+ ((besoins.residus) ? besoins.residus : "L'affichage des résidus n'est pas géré par cette version de MicMac.") + '</div>'; //màj des résidus
+    document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+besoins._id+"')"; //màj du bouton de suppression
 }
 var toto =ungrey("produits-button");
