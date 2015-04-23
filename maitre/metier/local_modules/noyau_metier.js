@@ -41,23 +41,23 @@ exports.besoin2jobs = function(jsonBesoin){
       if(jsonBesoin.etalonnage[i].type_auto_etalonnage == "standard"){
         if(liste_images_etalonnage.length == 0){
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd "+liste_images.join(" |")+" Out=MEP "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd \'"+liste_images.join("|")+"\' Out=MEP "+"@ExitOnBrkp");
         }else if(dbOperations.inArray(liste_images_etalonnage[0],liste_images)){
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd "+liste_images_etalonnage.join(" |")+" Out=Calib "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd \'"+liste_images_etalonnage.join("|")+"\' Out=Calib "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd "+liste_images.join(" |")+" InCal=Calib Out=MEP "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd \'"+liste_images.join("|")+"\' InCal=Calib Out=MEP "+"@ExitOnBrkp");
 
         }else{
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images_etalonnage.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
-          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd "+liste_images_etalonnage.join(" |")+" Out=Calib "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images_etalonnage.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd \'"+liste_images_etalonnage.join("|")+"\' Out=Calib "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
-          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd "+liste_images.join(" |")+" InCal=Calib Out=MEP "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas RadialStd \'"+liste_images.join("|")+"\' InCal=Calib Out=MEP "+"@ExitOnBrkp");
 
         }
 
@@ -65,57 +65,57 @@ exports.besoin2jobs = function(jsonBesoin){
       }else if(jsonBesoin.etalonnage[i].type_auto_etalonnage == "fisheye"){
         if(liste_images_etalonnage.length == 0){
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapas FihEyeBasic "+liste_images.join(" |")+" Out=MEP "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FihEyeBasic \'"+liste_images.join("|")+"\' Out=MEP "+"@ExitOnBrkp");
         }else if(dbOperations.inArray(liste_images_etalonnage[0],liste_images)){
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapas FihEyeBasic "+liste_images_etalonnage.join(" |")+" Out=Calib "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FihEyeBasic \'"+liste_images_etalonnage.join("|")+"\' Out=Calib "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapas FihEyeBasic "+liste_images.join(" |")+" InCal=Calib Out=MEP "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FihEyeBasic \'"+liste_images.join("|")+"\' InCal=Calib Out=MEP "+"@ExitOnBrkp");
 
         }else{
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images_etalonnage.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
-          commandes.push(config.repertoire_micmac+"mm3d Tapas FishEyeBasic "+liste_images_etalonnage.join(" |")+" Out=Calib "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images_etalonnage.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FishEyeBasic \'"+liste_images_etalonnage.join("|")+"\' Out=Calib "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
-          commandes.push(config.repertoire_micmac+"mm3d Tapas FishEyeBasic "+liste_images.join(" |")+" InCal=Calib Out=MEP "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FishEyeBasic \'"+liste_images.join("|")+"\' InCal=Calib Out=MEP "+"@ExitOnBrkp");
         }
 
       }else if(jsonBesoin.etalonnage[i].type_auto_etalonnage == "fraserbasic"){
         if(liste_images_etalonnage.length == 0){
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic "+liste_images.join(" |")+" Out=MEP "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic \'"+liste_images.join("|")+"\' Out=MEP "+"@ExitOnBrkp");
         }else if(dbOperations.inArray(liste_images_etalonnage[0],liste_images)){
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic "+liste_images_etalonnage.join(" |")+" Out=Calib "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic \'"+liste_images_etalonnage.join("|")+"\' Out=Calib "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic "+liste_images.join(" |")+" InCal=Calib Out=MEP "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic \'"+liste_images.join("|")+"\' InCal=Calib Out=MEP "+"@ExitOnBrkp");
 
         }else{
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images_etalonnage.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
-          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic "+liste_images_etalonnage.join(" |")+" Out=Calib "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images_etalonnage.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic \'"+liste_images_etalonnage.join("|")+"\' Out=Calib "+"@ExitOnBrkp");
 
-          commandes.push(config.repertoire_micmac+"mm3d Tapioca All "+liste_images.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
-          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic "+liste_images.join(" |")+" InCal=Calib Out=MEP "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapioca All \'"+liste_images.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+          commandes.push(config.repertoire_micmac+"mm3d Tapas FraserBasic \'"+liste_images.join("|")+"\' InCal=Calib Out=MEP "+"@ExitOnBrkp");
         }
       }
     }
     // Fichier de calibration
     /** ATTENTION ICI IL FAUT QU'UN DOSSIER SOIT CREER DANS UTILISATEUR **/
     else{
-      commandes.push(config.repertoire_micmac+"mm3d Tapioca All RadialStd "+liste_images.join(" |")+" "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
-      commandes.push(config.repertoire_micmac+"mm3d Tapas "+jsonBesoin.type_auto_etalonage+" "+liste_images.join(" |")+" InCal=Calib Out=MEP "+"@ExitOnBrkp");
+      commandes.push(config.repertoire_micmac+"mm3d Tapioca All RadialStd \'"+liste_images.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
+      commandes.push(config.repertoire_micmac+"mm3d Tapas "+jsonBesoin.type_auto_etalonage+" \'"+liste_images.join("|")+"\' InCal=Calib Out=MEP "+"@ExitOnBrkp");
     }
 
     // Commande pour le calcul d'un nuage de points
-    commandes.push(config.repertoire_micmac+"mm3d AperiCloud "+liste_images.join(" |")+" MEP");
+    commandes.push(config.repertoire_micmac+"mm3d AperiCloud \'"+liste_images.join("|")+"\' MEP");
 
 
   }

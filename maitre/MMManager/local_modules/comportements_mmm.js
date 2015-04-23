@@ -1,11 +1,15 @@
 var model = require('../../model/mongo_config');
 var http  = require('http');
 var ping  = require('ping');
+var messenger = require('messenger');
+var config        = require('../../config.json');
+
 
 // Modeles mongoose
 var Esclave	=	model.esclaves;
 var Jobs	=	model.jobs;
 
+var client = messenger.createSpeaker(parseInt(config.metier));
 
 /* Inscrit un esclave
  * IP : Adresse IP de l'esclave
@@ -126,6 +130,11 @@ var launchNextJobChantier=function(job){
 		else
 		{
 			console.log("[info : MMM / launchNextJobChantier] : plus de job sur le chantier "+job.id_chantier);
+			// Notifier l'utilisateur
+                        setTimeout(function(){
+                          client.request('notification', {boulot:"oui"}, function(data){
+                          });
+                         }, 2000);
 		}
 	});
 }
@@ -185,7 +194,7 @@ var envoieUnJob = function (esclave,job) {
 		else
 		{
 			// On envoie la requete contenant le job
-			var postData = JSON.stringify({"idJob":job.id,"idChantier":job.id_chantier,"login":job.login,"commande": job.commande+">>"+job.id+"","idEsclave":esclave.id});
+			var postData = JSON.stringify({"idJob":job.id,"idChantier":job.id_chantier,"login":job.login,"commande": job.commande,"idEsclave":esclave.id});
 			var options = {method: 'POST',hostname: esclave.ip,port: parseInt(esclave.port),path: '/recoitJob', agent:false,headers: {'Content-Type': 'application/json'}};
 			var req = http.request(options,function(res){
 					if (res.statusCode == 400)

@@ -10,7 +10,6 @@ var comportementsMMM = require('./local_modules/comportements_mmm');
 // Ecoute des notifications de boulot à faire
 var server = messenger.createListener(parseInt(config.MMManager_metier));
 
-
 //  ----------------  Ecoute esclaves   ---------------- 
 var app = express();
 
