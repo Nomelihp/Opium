@@ -83,16 +83,27 @@ exports.lanceJob = function (req, res){
 		console.log("[info : esclave / lanceJob] : commande = "+"cd "+config_esclave.img_micmac_esclave+"/"+req.body.login+"/"+req.body.idChantier+"/;"+req.body.commande);
 		// Lancement de la commande recue depuis le repertoire du chantier
 		exec("cd "+config_esclave.img_micmac_esclave+"/"+req.body.login+"/"+req.body.idChantier+"/;"+req.body.commande, function (error, stdout, stderr) {
-			
+			 
+    
+    if (error !== null) {
+      
+    }
 			ACTIVITE_ESCLAVE = "DETENDU";
 			// Correspond à un exit != 0
 			if (error != null) {
+				console.log("---------------------------------------------------------------------------------------------------");
 				console.log("[ERREUR : esclave / lanceJob] : pb commande sur job "+req.body.idJob+"["+req.body.commande+" ok??]");
+				console.log('exec error: ' + error);
+				console.log("---------------------------------------------------------------------------------------------------");
 				retourJob(req.body.idEsclave,req.body.idJob,3,stderr); // code retour : fini avec erreur
 			}
 			else
 			{
+				console.log("---------------------------------------------------------------------------------------------------");
 				console.log("[info : esclave / lanceJob] : commande ok ("+req.body.commande+")");
+				console.log('stdout: ' + stdout);
+				console.log('stderr: ' + stderr);
+				console.log("---------------------------------------------------------------------------------------------------");
 				retourJob(req.body.idEsclave,req.body.idJob,2,stderr); // code retour : fini avec succes
 			}
 			
