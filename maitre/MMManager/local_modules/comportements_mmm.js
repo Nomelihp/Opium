@@ -47,8 +47,8 @@ exports.inscription = function (IP_brute,PORT,res) {
 			});
 		}
 		else{
-			console.log("[ERREUR : MMM / inscription] : l esclave "+IP_brute+" est deja inscrit");
-			res.status(400).end();
+			console.log("[info : MMM / inscription] : l esclave "+IP_brute+" est deja inscrit, mais c est pas grave");
+			res.status(204).end();
 		};
 		
 	});
