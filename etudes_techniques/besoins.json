@@ -4,7 +4,7 @@ chantier
   login: "blabla",
   nom: "bla",
   date: "JJ-MM-YYYY"
-  etat: 1:En attente de l'utilisateur, 2: Validé par l'utilisateur (à l'issue de l'interface nouveau_chantier) 3: prêt à être pris en charge par le module métier 4:Traduit en commandes, 5:calculs lancés, 6:Calcul terminé avec succès, 7:Echec, 8: Saisie masque, 9: Echec mise en place,
+  etat: 0: Chantier enregistré, 1:En attente de l'utilisateur, 2: Validé par l'utilisateur (à l'issue de l'interface nouveau_chantier) 3: prêt à être pris en charge par le module métier 4:Traduit en commandes, 5:Mise en place terminée avec succès, 6:Mise en place terminée avec succès, en attente de saisie masque, 7:Echec de la mise en place, 10: Calculs finaux en cours (à lancer par métier), 8: Calculs terminés avec succès, 9: Echec calcul final,
   commentaires: "lablablabla",
   type: "statue" OU "facade",
   liste_images: [{nom:"rien.JPG",exif:{}},{nom:"nimportekoi.RAW",exif:{}}],
