@@ -8,8 +8,13 @@ var config_esclave = require('../config_esclave')
 var ACTIVITE_ESCLAVE = "DETENDU";// "DETENDU" ou "AFOND"
 var INSCRIT 	 	 = false;
 
-// Inscription auprès du maitre
+/* Inscrit l esclave aupres du maitre
+ * resExpress : resultat http via express
+ * callbackAffichage : fonction d affichage a appeler
+ * test OK
+ * */
 exports.inscription = function(resExpress,callbackAffichage){
+	console.log("[info : esclave / inscription] : inscription de l esclave aupres du maitre "+config_esclave.maitre_ip+":"+config_esclave.maitre_port);
 	// envoi d'une requete http auprès du maitre
 	http.get({host:config_esclave.maitre_ip, port:config_esclave.maitre_port, path:"/inscriptionEsclave?port="+config_esclave.esclave_port, agent:false},function callback(response){
 		  response.setEncoding('utf8');
@@ -18,12 +23,17 @@ exports.inscription = function(resExpress,callbackAffichage){
 		  callbackAffichage(resExpress,response);// Vue
 
 	}).on('error', function(e) {
-		  console.log("Got error: " + e.message);// Logs à insérer
+		  console.log("[ERREUR : esclave / inscription] Pb lors de l envoi de la requette http d inscription au maitre [maitre lancé?, pb reseau?]");
 		});	
 }
 
-// Desinscription auprès du maitre
+/* Desinscrit l esclave aupres du maitre
+ * resExpress : resultat http via express
+ * callbackAffichage : fonction d affichage a appeler
+ * test OK
+ * */
 exports.desinscription = function(resExpress,callbackAffichage){
+	console.log("[info : esclave / desinscription] : desinscription de l esclave aupres du maitre "+config_esclave.maitre_ip+":"+config_esclave.maitre_port);
 	// envoi d'une requete http auprès du maitre
 	http.get({host:config_esclave.maitre_ip, port:config_esclave.maitre_port, path:"/desinscriptionEsclave", agent:false},function callback(response){
 		  response.setEncoding('utf8');
@@ -31,19 +41,31 @@ exports.desinscription = function(resExpress,callbackAffichage){
 		  callbackAffichage(resExpress,response); // Vue
 		  console.log("desincrit!!!!");
 	}).on('error', function(e) {
-		  console.log("Got error: " + e.message);// Logs à insérer
+		  console.log("[ERREUR : esclave / desinscription] Pb lors de l envoi de la requette http de desincription au maitre [maitre lancé?, pb reseau?]");
 		});	
 }
 
-// Renvoie un code retour au maitre
+/* Renvoie un code retour d execution de job au maitre
+	*idEsclave identifiant de l esclave
+	*idJob identifiant du job
+	*codeRetour code de retour à envoyer au maitre
+	*test OK
+*/
 retourJob = function(idEsclave,idJob,codeRetour){
+	console.log("[info : esclave / retourJob] : envoi du code retour "+codeRetour+" au maitre");
 	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/retourEsclave?idJob="+idJob+"&codeRetour="+codeRetour+"&idEsclave="+idEsclave,function (response){
 		;
 	});
 }
 
-// Lance un job à partir d'une requete
+/* Lance un job à partir d une requete
+	*req Requete http via express
+	*res Resultat http via express
+	*test OK
+*/
 exports.lanceJob = function (req, res){
+	console.log("[info : esclave / lanceJob] : lancement du job "+req.body.idJob);
+	
 	if (ACTIVITE_ESCLAVE == "DETENDU")
 	{
 		ACTIVITE_ESCLAVE = "AFOND";
@@ -54,10 +76,14 @@ exports.lanceJob = function (req, res){
 			ACTIVITE_ESCLAVE = "DETENDU";
 			// Correspond à un exit != 0
 			if (error != null) {
+				console.log("[ERREUR : esclave / lanceJob] : pb commande sur job "+req.body.idJob+"["+req.body.commande+" ok??]");
 				retourJob(req.body.idEsclave,req.body.idJob,3); // code retour : fini avec erreur
-				//LOGS A INSERER
 			}
-			else retourJob(req.body.idEsclave,req.body.idJob,2); // code retour : fini avec succes
+			else
+			{
+				console.log("[info : esclave / lanceJob] : commande ok ("+req.body.commande+")");
+				retourJob(req.body.idEsclave,req.body.idJob,2); // code retour : fini avec succes
+			}
 			
 		});
 		res.status(204).end();// retour requete http ok (le code de retour de resultat sera envoyé plus tard)
@@ -67,7 +93,11 @@ exports.lanceJob = function (req, res){
 
 
 
-// Renvoie un contenu html pour l'adminsitration de l'esclave
+/*
+	*  Renvoie un contenu html pour l'adminsitration de l'esclave
+	* res resultat http via express
+	* msg message à insérer a la page
+*/
 exports.pageHTML = function(res,msg){
 	
 	res.setHeader('Content-Type', 'text/html');
