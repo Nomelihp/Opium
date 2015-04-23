@@ -45,7 +45,7 @@ server.on('notification',function(message, data){
     }
   });
   // Appariement dense
-  model.besoins.find({etat:'8'}, function(err, besoin2){
+  model.besoins.find({etat:'6'}, function(err, besoin2){
     if(err) console.log('erreur dans recherche dans la BD des elements avec etat=8');
     for(var k=0;k<besoin2.length;k++){
 
@@ -90,7 +90,7 @@ server.on('notification',function(message, data){
         if(Job3.etat=='0' || Job3.etat=='1')
           flag_reussi = 0;
         if(Job3.etat=='3'){
-          flag_ereeur = 1;
+          flag_erreur = 1;
           erreur_job=Job3.erreur;
           break;}
 

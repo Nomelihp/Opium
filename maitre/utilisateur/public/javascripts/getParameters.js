@@ -36,28 +36,27 @@ function onPageOpen(besoins) {
 
     //ajout etat du calcul
     switch(besoins.etat) {
+        default:
+        case "0":
+			myTable = ajout(myTable,"État","Paramétrage incomplet","red");
         case "1":
-            myTable = ajout(myTable,"État","En attente de l'utilisateur","blue");
-            break;
         case "2":
-            myTable = ajout(myTable,"État","Calcul en cours");
-            break;
         case "3":
         case "4":
         case "5":
-            myTable = ajout(myTable,"État","Calculs lancés");
+            myTable = ajout(myTable,"État","Calculs en cours");
             break;
         case "6":
-            myTable = ajout(myTable,"État","Calculs terminés avec succès","green");
+            myTable = ajout(myTable,"État","Mise en place terminée avec succès. En attente de saisie de masque.","green");
             break;
         case "7":
-            myTable = ajout(myTable,"État","ÉCHEC","red");
+            myTable = ajout(myTable,"État","ÉCHEC DE LA MISE EN PLACE","red");
             break;
         case "8":
-            myTable = ajout(myTable,"État","Saisie masque","blue");
+            myTable = ajout(myTable,"État","Calculs terminés avec succès","green");
             break;
         case "9":
-            myTable = ajout(myTable,"État","ÉCHEC DE LA MISE EN PLACE","red");
+            myTable = ajout(myTable,"État","ÉCHEC DES CALCULS","red");
             break;
     }
 

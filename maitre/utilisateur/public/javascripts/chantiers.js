@@ -59,6 +59,16 @@ function ungrey(id) {
     return true;
 }
 
+function grey(id) {
+	var element = document.getElementById(id);
+    var parentDiv = element.parentNode.parentNode.parentNode;
+
+    element.disabled = "disabled";
+    parentDiv.className = parentDiv.className+" greyed-out";
+    
+    return true;
+}
+
 //change la couleur du panel "id" pour le passer à rouge
 function toDanger(id) {
     var element = document.getElementById(id);
@@ -91,6 +101,9 @@ function returnProduit (id_form,idChantier) {
 
 function majChantier(besoins) {
     ungrey("config-button");
+    grey("mise-button");
+    grey("zone-button");
+    grey("produits-button");
     switch(besoins.etat) { //pour savoir quels boutons griser
         case "6":
             ungrey("mise-button");
@@ -99,22 +112,27 @@ function majChantier(besoins) {
             }
             ungrey("zone-button");
             ungrey("produits-button");
+            plusMoins("zone");
+            webGL_MicMac("/chantiers?getFichier=yes&typeFichier=nuagePly&idChantier="+besoins._id,"Restriction");
+            document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
             break;
         case "7":
-            toDanger(results);
+			ungrey("mise-button");
+            toDanger("mise");
+            break;
         case "8":
-            plusMoins("zone");
             ungrey("mise-button");
-            if(bsoins.residus > 1) {
+            if(besoins.residus > 1) {
                 toWarning("mise");
             }
-            ungrey("zone-button");
             ungrey("produits-button");
-            webGL_MicMac("/chantiers?getFichier=yes&typeFichier=nuagePly&idChantier="+idChantier,"Restriction");
-            document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
+            break;
         case "9":  //comme Bernard. Cazeneuve. Mdr lol.
             ungrey("mise-button");
-            danger("mise");
+            if(besoins.residus > 1) {
+                toWarning("mise");
+            }
+            toDanger("produits");
             break;
     }
 
