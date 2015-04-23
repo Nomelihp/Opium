@@ -27,16 +27,19 @@ server.on('notification',function(message, data){
   console.log('notification reçue de l\'utilisateur');
   // Calcul des points de liaison + mise en place + calibration + AperiCloud
   model.besoins.find({ etat: '2' }, function(err, besoin) {
-    if (err) console.log('probleme lors de la rcerche dans la BD des besoins avec etat=2');
+    if (err) console.log('[ERROR: metier[model.besoins.find({ etat: \'2\' }] probleme lors de la rcerche dans la BD des besoins avec etat:2]);
     for(var i=0; i<besoin.length; i++){
       model.besoins.findByIdAndUpdate(besoin[i]._id, { etat: '4' }, function(err, besoin) {
         if (err) console.log('Erreur lors de la mise à jour du champs etat dans esclave');
+        console.log('[info: metier[model.besoins.findByIdAndUpdate(besoin[i]._id, { etat: \'4\' }]: mise à jour du champs etat:4 de besoin réussi]')
 
         });
       Besoin = new model.besoins(besoin[i]);
       noyau_metier.besoin2jobs(Besoin);
+      console.log('[info: metier[noyau_metier.besoin2jobs]: Le besoin '+Besoin._id+' traduit en jobs avec succès]');
       setTimeout(function(){
         client.request('notification', {boulot:"oui"}, function(data){
+        console.log('[info: metier[client.request]: Notification envoyée à MMManager]');
       });
     }, 2000);
     }
