@@ -90,7 +90,7 @@ server.on('notification',function(message, data){
         if(Job3.etat=='0' || Job3.etat=='1')
           flag_reussi = 0;
         if(Job3.etat=='3'){
-          flag_ereeur = 1;
+          flag_erreur = 1;
           erreur_job=Job3.erreur;
           break;}
 
