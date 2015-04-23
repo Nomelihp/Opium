@@ -110,9 +110,9 @@ server.on('notification',function(message, data){
     for(var k=0;k<besoin2.length;k++){
 
       Besoin2 = new model.besoins(besoin2[k]);
-      fs.writeFile(config.repertoire_donnees+"/"+config.login+"/"+Besoin2._id+"/AperiCloud_MEP_selectionInfo.xml",js2xml("SelectionInfo",Besoin2.masque3D.SelectionInfo),function(err){
+      fs.writeFile(config.repertoire_donnees+config.login+"/"+Besoin2._id+"/AperiCloud_MEP_selectionInfo.xml",js2xml("SelectionInfo",Besoin2.masque3D.SelectionInfo),function(err){
         if(err) console.log('[ERREUR: Erreur dans l\'enregistrement du fichier masque]');
-        console.log('enregistrement du fichier masque réussit !');
+        console.log('enregistrement du fichier masque réussit !'+config.repertoire_donnees+'/'+config.login+'/'+Besoin2._id+'/AperiCloud_MEP_selectionInfo.xml');
       });
 
         noyau_metier.appariement_dense(Besoin2);
