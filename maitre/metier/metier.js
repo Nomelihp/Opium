@@ -45,26 +45,7 @@ server.on('notification',function(message, data){
     }, 2000);
     }
   });
-  // Appariement dense
-  model.besoins.find({etat:'6'}, function(err, besoin2){
-    if(err) console.log('erreur dans recherche dans la BD des elements avec etat=8');
-    for(var k=0;k<besoin2.length;k++){
 
-      Besoin2 = new model.besoins(besoin2[k]);
-      fs.writeFile(config.repertoire_donnees+"/"+config.login+"/"+Besoin2._id+"/AperiCloud_MEP_selectionInfo.xml",js2xml("SelectionInfo",Besoin2.masque3D.SelectionInfo),function(err){
-        if(err) console.log('[ERREUR: Erreur dans l\'enregistrement du fichier masque]');
-        console.log('enregistrement du fichier masque réussit !');
-      });
-      
-        noyau_metier.appariement_dense(Besoin2);
-        setTimeout(function(){
-          client.request('notification', {boulot:"oui"}, function(data){
-            console.log('[info: metier.js: Notification Envoyée a l u tilsiateur pour l appriement sense]');
-          
-          });
-         }, 2000);
-      }
-  });
   // remontée d'information
   var flag_reussi = 1;
   var flag_erreur = 0;
@@ -74,15 +55,15 @@ server.on('notification',function(message, data){
 
 
   model.besoins.find({etat:'4'},function(error2,besoin3){
-  
+
   if(error2) console.log('[ERROR= metier[model.besoins.find({etat:\'4\'},...]] = Probleme lors de la recherche des besoins avec etat = 4 [Vérifiez la connexion à votre BD]');
 
   for (var l=0;l<besoin3.length;l++){
     Besoin3 = new model.besoins(besoin3[l]);
     model.jobs.find({id_chantier:Besoin3._id},function(error3,job2){
-      
+
       if(error3) console.log('[ERROR= metier[model.jobs.find({id_chantier:Besoin3._id}]] = Probleme lors de la recherche des jobs avec id_chantier [Vérifiez la connexion à votre BD]');
-        
+
         flag_reussi = 1;
         flag_erreur = 0;
         erreur_job='';
@@ -123,5 +104,25 @@ server.on('notification',function(message, data){
 
   });
 
+  // Appariement dense
+  model.besoins.find({etat:'10'}, function(err, besoin2){
+    if(err) console.log('erreur dans recherche dans la BD des elements avec etat=8');
+    for(var k=0;k<besoin2.length;k++){
+
+      Besoin2 = new model.besoins(besoin2[k]);
+      fs.writeFile(config.repertoire_donnees+"/"+config.login+"/"+Besoin2._id+"/AperiCloud_MEP_selectionInfo.xml",js2xml("SelectionInfo",Besoin2.masque3D.SelectionInfo),function(err){
+        if(err) console.log('[ERREUR: Erreur dans l\'enregistrement du fichier masque]');
+        console.log('enregistrement du fichier masque réussit !');
+      });
+
+        noyau_metier.appariement_dense(Besoin2);
+        setTimeout(function(){
+          client.request('notification', {boulot:"oui"}, function(data){
+            console.log('[info: metier.js: Notification Envoyée a l u tilsiateur pour l appriement sense]');
+
+          });
+         }, 2000);
+      }
+  });
 
 });
