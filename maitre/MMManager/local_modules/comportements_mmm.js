@@ -135,7 +135,7 @@ var launchNextJobChantier=function(job){
  * Reception du résultat envoyé par un esclave
  * req : Request réceptionnée par express
  * res : res d'express
- * test OK sauf test code retour avant lancement chantier suivant
+ * test OK
  * */
 exports.recoitResultat = function (req, res) {
 	console.log("[info : MMM / recoitResultat] : reception du resultat de  "+req.connection.remoteAddress+", code retour = "+req.query.codeRetour);
@@ -147,8 +147,8 @@ exports.recoitResultat = function (req, res) {
 			res.status(400).end("");// retour http pb
 		}
 		else
-		{	// Mise à jour de l'état du job
-			Jobs.findByIdAndUpdate(req.query.idJob, {etat:""+req.query.codeRetour}, function(err, j) {
+		{	// Mise à jour de l'état du job et du msg d'erreur
+			Jobs.findByIdAndUpdate(req.query.idJob, {etat:""+req.query.codeRetour,erreur:req.query.msgErreur}, function(err, j) {
 					var zeJob = new Jobs(j);
 					if (err)
 					{
