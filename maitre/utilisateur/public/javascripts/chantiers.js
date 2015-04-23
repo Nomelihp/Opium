@@ -7,7 +7,7 @@ var majInfosChantier = function(idChantier){
         onPageOpen(mesBesoins); //pour le resumé des paramètres
         majChantier(mesBesoins);
         // document.getElementById("position").onclick="javascript: returnProduit(position,'"+mesBesoins._id+"')";
-       
+
     });
 }
 
@@ -55,7 +55,7 @@ function ungrey(id) {
 
     element.disabled = "";
     parentDiv.className = parentDiv.className.replace(" greyed-out","");
-    
+
     return true;
 }
 
@@ -63,10 +63,10 @@ function ungrey(id) {
 function toDanger(id) {
     var element = document.getElementById(id);
     var button = element.children[0].children[0].children[0];
-    
+
     element.className = element.className.replace("success","danger");
     button.className = button.className.replace("success","danger");
-    
+
     return true;
 }
 
@@ -74,10 +74,10 @@ function toDanger(id) {
 function toWarning(id) {
     var element = document.getElementById(id);
     var button = element.children[0].children[0].children[0];
-    
+
     element.className = element.className.replace("success","warning");
     button.className = button.className.replace("success","warning");
-    
+
     return true;
 }
 
@@ -117,7 +117,7 @@ function majChantier(besoins) {
             danger("mise");
             break;
     }
-               
+
     document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">Résidus : '+besoins.residus+' px.</div>'; //màj des résidus
-    document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+besoins._id+"')"; //màj du bouton de suppression    
+    document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+besoins._id+"')"; //màj du bouton de suppression
 }
