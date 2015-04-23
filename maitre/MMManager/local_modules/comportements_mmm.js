@@ -13,28 +13,36 @@ var Jobs	=	model.jobs;
  * test OK
  * */
 exports.inscription = function (IP_brute,PORT,res) {
+	console.log("[info : MMM / inscription] : inscription de l esclave "+IP_brute+":"+PORT);
 	
 	// On veut de l'IP v4
 	var IP = (IP_brute === '::' ? '::ffff:' : '') + '127.0.0.1';
 	
 	Esclave.find({ ip: IP }, function(err, esclaves) {
-		if (esclaves.length==0) {
+		if (err)console.log("[ERREUR : MMM / inscription] : pb lors de la verification en base de l existence de l esclave "+IP_brute+"[mongo tourne?]");
+		else if (esclaves.length==0) {
 
 			var eclave = new Esclave({
 			        ip:IP,
 			        port:PORT,
 			        operationnel: 1
 			      });
+			// Enregistrement de l'esclave
 			eclave.save(function (err) {
-			  if (err)
-			  {
-				  console.log('error');
+				if (err)
+				{
+					console.log("[ERREUR : MMM / inscription] : pb lors de l inscription "+IP_brute+" de l esclave "+IP_brute+"[mongo tourne?]");
 					res.status(400).end();
-			  }
-			  res.status(204).end();
+				}
+				else 
+				{
+					console.log("[info : MMM / inscription] : esclave "+IP_brute+" enregistre!");
+					res.status(204).end();
+				}
 			});
-		}else{
-			console.log("esclave déjà inscrit !");
+		}
+		else{
+			console.log("[ERREUR : MMM / inscription] : l esclave "+IP_brute+" est deja inscrit");
 			res.status(400).end();
 		};
 		
@@ -48,16 +56,24 @@ exports.inscription = function (IP_brute,PORT,res) {
 	* test ok
 */
 exports.desinscription = function(IP_brute,res){
+	console.log("[info : MMM / desinscription] : desinscription de l esclave "+IP_brute);
 	
 	// On veut de l'IP v4
 	var IP = (IP_brute === '::' ? '::ffff:' : '') + '127.0.0.1';
 	
 	// find the user with id 4
 	Esclave.findOneAndRemove({ ip: IP }, function(err) {
-		  if (err)res.status(400).end();
-		  // Logs à insérer
-		  console.log("Desinscription esclave "+IP+" OK");
-		  res.status(204).end();
+			if (err)
+			{
+				console.log("[ERREUR : MMM / desinscription] : pb lors de la suppression de l esclave "+IP_brute+" en base[mongo tourne?]");
+				res.status(400).end();
+			}
+			else
+			{
+				// Logs à insérer
+				console.log("[info : MMM / desinscription] : Desinscription esclave "+IP+" OK");
+				res.status(204).end();
+			}
 	});
 }
 
@@ -74,20 +90,18 @@ var examine_esclaves = function () {
  * test OK
  * */
 var launchNextJobChantier=function(job){
+	console.log("[info : MMM / launchNextJobChantier] : lancement du job suivant "+job.id+" sur le chantier "+job.id_chantier);
 	var ordreSuivant = parseInt(job.ordre_execution)+1;
-	console.log("ordre suivant = "+ordreSuivant);
 	// On recherche le prochain job à lancer
 	Jobs.find({ id_chantier:job.id_chantier,ordre_execution:""+ordreSuivant },function (err, j) {
-		
-		if(j.length > 0)
+		if (err)console.log("[ERREUR : MMM / launchNextJobChantier] : probleme a la recuperation du job d ordre "+ordreSuivant+" sur le chantier "+job.id_chantier+"[mongo tourne?]");
+		else if(j.length > 0)
 		{
-			console.log("attribution du suivant ...");
 			attribue(new Jobs(j[0]));
 		}
 		else
 		{
-				;// Logs à insérer
-				// Chantier terminé
+			console.log("[info : MMM / launchNextJobChantier] : plus de job sur le chantier "+job.id_chantier);
 		}
 	});
 }
@@ -100,12 +114,12 @@ var launchNextJobChantier=function(job){
  * test OK sauf test code retour avant lancement chantier suivant
  * */
 exports.recoitResultat = function (req, res) {
-	console.log("L esclave "+req.connection.remoteAddress+" me renvoie "+req.query.codeRetour);
+	console.log("[info : MMM / recoitResultat] : reception du resultat de  "+req.connection.remoteAddress+", code retour = "+req.query.codeRetour);
 	// Libération de l'esclave
 	Esclave.findByIdAndUpdate(req.query.idEsclave, {operationnel:1}, function(err, e) {
 		if (err)
 		{
-			// Logs à insérer
+			console.log("[ERREUR : MMM / recoitResultat] : probleme lors de la liberation de l esclave "+req.connection.remoteAddress+"[mongo tourne?]");
 			res.status(400).end("");// retour http pb
 		}
 		else
@@ -114,21 +128,23 @@ exports.recoitResultat = function (req, res) {
 					var zeJob = new Jobs(j);
 					if (err)
 					{
-						// Logs à insérer
+						console.log("[ERREUR : MMM / recoitResultat] : probleme lors du changement d etat du job "+zeJob.id+"[mongo tourne?]");
 						res.status(400).end("");// retour http pb
 					}
 					// On lance la prochaine commande du chantier
 					else if (req.query.codeRetour == 2)
 					{
-						console.log("Lancement du job suivant "+req.query.idJob+" "+zeJob.id);
 						launchNextJobChantier(zeJob);
 						res.status(200).end("");// retour http ok
 					}
-					else res.status(200).end("");
+					else
+					{
+						console.log("[ERREUR : MMM / recoitResultat] : l esclave a renvoye un code d erreur lors de l execution de la commande "+zeJob.commande+"[diagnostic chantier mm3d?]");
+						res.status(200).end("");
+					}
 			});
 		}
 	});
-	
 }
 
 
@@ -138,34 +154,41 @@ exports.recoitResultat = function (req, res) {
 	 *test ok
 */
 var envoieUnJob = function (esclave,job) {
+	console.log("[info : MMM / envoieUnJob] : envoi du job "+job.id+" a l esclave "+esclave.ip);
 	// On passe l'état de l'esclave à occupé
 	Esclave.findByIdAndUpdate(esclave.id, {operationnel:2}, function(err, e) {
-		// On envoie la requete contenant le job
-		var postData = JSON.stringify({"idJob":job.id,"idChantier":job.id_chantier,"login":job.login,"commande": job.commande,"idEsclave":esclave.id});
-		var options = {method: 'POST',hostname: esclave.ip,port: parseInt(esclave.port),path: '/recoitJob', agent:false,headers: {'Content-Type': 'application/json'}};
-		var req = http.request(options,function(res){
-				if (res.statusCode == 400)
-				{
-					Jobs.findByIdAndUpdate(job.id, {etat:"3"}, function(err, e) {// Etat job => fini avec erreur
-						// Logs à insérer
-						console.log("Probleme lors de l'affectation du job "+job.id+" à "+esclave.ip);
-					});
+		if (err)console.log("[ERREUR : MMM / envoieUnJob] : probleme lors du changement d etat de l esclave "+esclave.ip+"[mongo tourne?]");
+		else
+		{
+			// On envoie la requete contenant le job
+			var postData = JSON.stringify({"idJob":job.id,"idChantier":job.id_chantier,"login":job.login,"commande": job.commande,"idEsclave":esclave.id});
+			var options = {method: 'POST',hostname: esclave.ip,port: parseInt(esclave.port),path: '/recoitJob', agent:false,headers: {'Content-Type': 'application/json'}};
+			var req = http.request(options,function(res){
+					if (res.statusCode == 400)
+					{
+						Jobs.findByIdAndUpdate(job.id, {etat:"3"}, function(err, e) {// Etat job => fini avec erreur
+							console.log("[ERREUR : MMM / envoieUnJob]L esclave a renvoye tout de suite une erreur sur l execution de la commande "+job.commande+"[commande ok?]");
+						});
+					}
+					else if (res.statusCode == 204)
+					{
+						console.log("[info : MMM / envoieUnJob] Commmande "+job.id+" en cours d execution par l esclave "+esclave.ip);
+						Jobs.findByIdAndUpdate(job.id, {etat:"1"}, function(err, e) {// Etat job => assigné
+								if (err)
+									console.log("[ERREUR : MMM / envoieUnJob] Pb mise à jour etat job [mongo tourne?]");
+								else
+									console.log("[info : MMM / envoieUnJob] Commmande "+job.id+" en cours d execution par l esclave "+esclave.ip);
+						});
+					}
 				}
-				else if (res.statusCode == 204)
-				{
-					Jobs.findByIdAndUpdate(job.id, {etat:"1"}, function(err, e) {// Etat job => assigné
-							// Logs à insérer
-							console.log("Job "+job.id+" assigné à "+esclave.ip);
-					});
-				}
-			}
-		);
-		req.on('error', function(err) {
-		  //;console.log('problem', err);
-		});
+			);
+			req.on('error', function(err) {
+				console.log("[ERREUR : MMM / envoieUnJob] Pb lors de l envoi de la requette http a l esclave [esclave lancé?, pb reseau?]");
+			});
 
-		req.write(postData);
-		req.end();
+			req.write(postData);
+			req.end();
+		}
 	});
 }
 
@@ -175,15 +198,13 @@ var envoieUnJob = function (esclave,job) {
 	* test ok
 */
 var attribue = function(job){
-
+	console.log("[info : MMM / attribue] : Recherche d 'un esclave pour le job "+job.id);
 	// Recherche d'esclaves disponibles
 	Esclave.find({ operationnel: 1 },function (err, e) {
-			if (e.length > 0)
+			if (err)console.log("[ERREUR : MMM / attribue] : Pb lors de la recherche d un esclave [mongo tourne?]");
+			else if (e.length > 0)
 			{
-				if (err) return console.error(err); // Logs à INSERER
-
 				var esclave= new Esclave(e[0]);
-				console.log("envoi du job "+job.id+" a "+esclave.ip);
 				envoieUnJob(esclave,job);
 			}
 	});
@@ -194,16 +215,18 @@ var attribue = function(job){
  * test ok
 */
 exports.launchNewFirstJobs=function() {
+	console.log("[info : MMM / launchNewFirstJobs] : Lancement des nouveaux jobs d ordre 1");
 	// Recherche des nouveaux jobs non assignés, tri par id
 	Jobs.find({ etat: "0",ordre_execution:"1" }).sort({"_id":1}).exec(function (err, jobs) {
-		if (err) return console.error(err); // LOGS A INSERER
-
-		// Parcours des jobs résultats
-		for (var i = 0; i < jobs.length; i++)
+		if (err) console.log("[ERREUR : MMM / launchNewFirstJobs] : pb lors de la recherche de jobs a executer [mongo tourne]");
+		else
 		{
-			console.log("Attribution job "+i+" ...");
-			attribue(new Jobs(jobs[i]));
-		} 
+			// Parcours des jobs résultats
+			for (var i = 0; i < jobs.length; i++)
+			{
+				attribue(new Jobs(jobs[i]));
+			}
+		}
 	});
 }
 
