@@ -48,8 +48,12 @@ app.post('/recoitJob', function(req, res) {
 	{
 		comportements.lanceJob(req, res);
 	}
-	else res.status(400).end();// retour requete http pb
-	
+	else
+	{
+		console.log("[ERREUR : esclave / app.post : recoitJob] : requete de lancement de job envoye par un inconnu! [pas bien]");
+		res.status(400).end();// retour requete http pb
+	}
+
 });
 
 app.listen(parseInt(config.esclave_port)); 
