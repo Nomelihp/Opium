@@ -74,7 +74,7 @@ exports.lanceJob = function (req, res){
 	if (ACTIVITE_ESCLAVE == "DETENDU")
 	{
 		ACTIVITE_ESCLAVE = "AFOND";
-		
+		console.log("[info : esclave / lanceJob] : commande = "+"cd "+config_esclave.img_micmac_esclave+"/"+req.body.login+"/"+req.body.idChantier+"/;"+req.body.commande);
 		// Lancement de la commande recue depuis le repertoire du chantier
 		exec("cd "+config_esclave.img_micmac_esclave+"/"+req.body.login+"/"+req.body.idChantier+"/;"+req.body.commande, function (error, stdout, stderr) {
 			
