@@ -93,7 +93,11 @@ exports.lanceJob = function (req, res){
 		});
 		res.status(204).end();// retour requete http ok (le code de retour de resultat sera envoyé plus tard)
 	}
-	else res.status(400).end();// retour requete http pb
+	else
+	{
+		console.log("[ERREUR : esclave / lanceJob] : l esclave est occupe [le maitre devrait le savoir?]");
+		res.status(400).end();// retour requete http pb
+	}
 }
 
 
