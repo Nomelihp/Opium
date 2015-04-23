@@ -45,17 +45,22 @@ exports.desinscription = function(resExpress,callbackAffichage){
 		});	
 }
 
-/* Renvoie un code retour d execution de job au maitre
+/* Renvoie un code retour d execution de job et le message d erreur au maitre
 	*idEsclave identifiant de l esclave
 	*idJob identifiant du job
 	*codeRetour code de retour à envoyer au maitre
+	*msgErreur flux de message d erreur a envoyer (non envoyé sur cette version)
 	*test OK
 */
-retourJob = function(idEsclave,idJob,codeRetour){
-	console.log("[info : esclave / retourJob] : envoi du code retour "+codeRetour+" au maitre");
-	http.get("http://"+config_esclave.maitre_ip+":"+config_esclave.maitre_port+"/retourEsclave?idJob="+idJob+"&codeRetour="+codeRetour+"&idEsclave="+idEsclave,function (response){
-		;
-	});
+retourJob = function(idEsclave,idJob,codeRetour,msgErreur){
+	http.get({host:config_esclave.maitre_ip, port:config_esclave.maitre_port, path:"/retourEsclave?idJob="+idJob+"&codeRetour="+codeRetour+"&idEsclave="+idEsclave, agent:false},function (response){
+		if (response.statusCode == 200)
+			console.log("[info : esclave / retourJob] Le maitre a bien recu le retour de commande");
+		else
+			console.log("[ERREUR : esclave / retourJob] Le maitre semble avoir eu un soucis dans la reception du retour de job [regarder logs du maitre]");
+	}).on('error', function(e) {
+		  console.log("[ERREUR : esclave / retourJob] Pb lors de l envoi de la requette http de retour de job au maitre [maitre lancé?, pb reseau?]");
+		});	
 }
 
 /* Lance un job à partir d une requete
@@ -77,12 +82,12 @@ exports.lanceJob = function (req, res){
 			// Correspond à un exit != 0
 			if (error != null) {
 				console.log("[ERREUR : esclave / lanceJob] : pb commande sur job "+req.body.idJob+"["+req.body.commande+" ok??]");
-				retourJob(req.body.idEsclave,req.body.idJob,3); // code retour : fini avec erreur
+				retourJob(req.body.idEsclave,req.body.idJob,3,stderr); // code retour : fini avec erreur
 			}
 			else
 			{
 				console.log("[info : esclave / lanceJob] : commande ok ("+req.body.commande+")");
-				retourJob(req.body.idEsclave,req.body.idJob,2); // code retour : fini avec succes
+				retourJob(req.body.idEsclave,req.body.idJob,2,stderr); // code retour : fini avec succes
 			}
 			
 		});
