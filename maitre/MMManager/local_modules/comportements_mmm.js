@@ -185,7 +185,7 @@ var envoieUnJob = function (esclave,job) {
 		else
 		{
 			// On envoie la requete contenant le job
-			var postData = JSON.stringify({"idJob":job.id,"idChantier":job.id_chantier,"login":job.login,"commande": job.commande,"idEsclave":esclave.id});
+			var postData = JSON.stringify({"idJob":job.id,"idChantier":job.id_chantier,"login":job.login,"commande": job.commande+">>"+job.id+"","idEsclave":esclave.id});
 			var options = {method: 'POST',hostname: esclave.ip,port: parseInt(esclave.port),path: '/recoitJob', agent:false,headers: {'Content-Type': 'application/json'}};
 			var req = http.request(options,function(res){
 					if (res.statusCode == 400)
