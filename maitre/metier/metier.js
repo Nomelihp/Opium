@@ -99,6 +99,14 @@ server.on('notification',function(message, data){
     if(flag_reussi == 1){
       model.besoins.findByIdAndUpdate(Besoin3._id,{etat:'6'},function(error4){
         if(error4) console.log('[ERROR= metier[model.besoins.findByIdAndUpdate(Besoin3._id,{etat=\'6\'}]] = Probleme lors de la mise à jour de l\'etat à 6 [Vérifiez la connexion à votre BD]');
+
+        fs.exists(config.repertoire_donnees+"/"+Besoin3.login+"/"+Besoin3._id+"/Ori-MEP/Residu.xml",function(exists){
+          if(!exits){
+            model.besoins.findByIdAndUpdate(Besoin3._id,{residus:''},function(error5){
+
+            });
+          }
+        });
       });
 
     }
