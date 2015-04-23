@@ -66,9 +66,8 @@ router.get('/', function(req, res, next) {
 
             Besoins.findByIdAndUpdate(id, params, function(err, besoin) {
 				if (err) console.log("[ERREUR : Utilisateur / nouveau_chantier / post / ] : mise a jour chantier [mongo tourne?]");
+				else notificationMetier(params);
             });
-
-            notificationMetier(params);
 
             res.send("{}");
         }
