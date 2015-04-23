@@ -138,14 +138,14 @@ exports.appariement_dense=function(jsonBesoin){
   var taille_nuage;
   if(jsonBesoin.taille_nuage=='1'){
     taille_nuage = "QuickMac";
-  }else if(jsonBesoin.taille_nuage=='1'){
+  }else if(jsonBesoin.taille_nuage=='2'){
     taille_nuage = "MicMac"
   }else{
     taille_nuage = "BigMac";
   }
 
-  commandes_appariement.push(config.repertoire_micmac+"mm3d PIMs "+taille_nuage+" Masq3D=AperiCloud_MEP_selectionInfo.xml");
-  commandes_appariement.push(config.repertoire_micmac+"mm3d Pims2Ply "+taille_nuage);
+  commandes_appariement.push(config.repertoire_micmac+"mm3d PIMs "+taille_nuage+" Masq3D=AperiCloud_MEP_selectionInfo.xml @ExitOnBrkp");
+  commandes_appariement.push(config.repertoire_micmac+"mm3d Pims2Ply "+taille_nuage+" @ExitOnBrkp");
   // Commande pour générer le fichier du masque à partir du JSON
   for(var k=0;k<commandes_appariement.length;k++){
     job2 = new model.jobs(dbOperations.toJSON(jsonBesoin._id,commandes_appariement[k],0,'',config.login,(k+1).toString()));
