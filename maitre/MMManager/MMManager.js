@@ -9,7 +9,6 @@ var comportementsMMM = require('./local_modules/comportements_mmm');
 
 // Ecoute des notifications de boulot à faire
 var server = messenger.createListener(parseInt(config.MMManager_metier));
-var client = messenger.createSpeaker(parseInt(config.metier));
 
 //  ----------------  Ecoute esclaves   ---------------- 
 var app = express();
@@ -88,11 +87,5 @@ server.on('notification',function(message,data){
 	comportementsMMM.examine_esclaves();
 	// Regarder dans jobs les mises à jours pour récupérer les jobs non assignés
 	comportementsMMM.launchNewFirstJobs () ;
-        // Notifier le module métier
-        setTimeout(function(){
-                client.request('notification', {boulot:"oui"}, function(data){
-            });
-        }, 2000);
-        
 	
 });
