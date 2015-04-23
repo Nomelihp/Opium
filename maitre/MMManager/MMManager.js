@@ -84,7 +84,9 @@ app.listen(parseInt(config.MMManager_esclave));
 
 // ---------------- Réception des notifications du module métier    ---------------- 
 server.on('notification',function(message,data){
+	// On vérifie que les esclaves répondent...
+	comportementsMMM.examine_esclaves();
 	// Regarder dans jobs les mises à jours pour récupérer les jobs non assignés
-		comportementsMMM.launchNewFirstJobs () ;
+	comportementsMMM.launchNewFirstJobs () ;
 	
 });

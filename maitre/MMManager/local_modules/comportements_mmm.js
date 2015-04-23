@@ -1,5 +1,6 @@
 var model = require('../../model/mongo_config');
 var http  = require('http');
+var ping  = require('ping');
 
 // Modeles mongoose
 var Esclave	=	model.esclaves;
@@ -80,8 +81,31 @@ exports.desinscription = function(IP_brute,res){
 /*
 	*Examine les esclaves inscrits et teste si ils répondent... Si ce n'est pas le cas, les désinscrit
 */
-var examine_esclaves = function () {
-		return true;
+exports.examine_esclaves = function () {
+  var Esclave;
+  
+  var hosts = [];
+  console.log('[info : MMManager / examine_esclaves] Examen des esclaves... ');
+  model.esclaves.find({},function(err,esclave){
+    if (err) console.log('[ERREUR : MMManager / examine_esclaves] BD! model.esclaves.find ne marche pas [mongo tourne?]');
+    for(var i=0;i<esclave.length;i++){
+      Esclave = new model.esclaves(esclave[i]);
+      hosts.push(Esclave.ip);
+    }
+    hosts.forEach(function(host){
+    ping.sys.probe(host, function(isAlive){
+      if(!isAlive){
+        console.log('[info MMManager / examine_esclaves] Attention! Esclave '+Esclave._id+' mort');
+        model.esclaves.findByIdAndUpdate(Esclave._id,{operationnel:'0'},function(err2){
+          if(err2) console.log('[ERREUR MMManager / examine_esclaves] lors de la mise à jour du flag operationnel à 0 dans model.esclaves[mongo tourne?]');
+        });
+      }else{
+        console.log('[info MMManager / examine_esclaves] Esclave '+Esclave.ip+' répond à mes pings il est vivant');
+      }
+      });
+  });
+  });
+
 }
 
 
