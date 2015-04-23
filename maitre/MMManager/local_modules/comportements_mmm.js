@@ -47,8 +47,12 @@ exports.inscription = function (IP_brute,PORT,res) {
 			});
 		}
 		else{
-			console.log("[info : MMM / inscription] : l esclave "+IP_brute+" est deja inscrit, mais c est pas grave");
-			res.status(204).end();
+			// L'esclave existe, on le repasse en operationnel
+			var esclave = new model.esclaves(esclaves[0]);
+			Esclave.findByIdAndUpdate(esclave.id,{operationnel:1},function(err2){
+					console.log("[info : MMM / inscription] : l esclave "+IP_brute+" est deja inscrit, mais c est pas grave, etat passe a operationnel");
+					res.status(204).end();
+			});
 		};
 
 	});
