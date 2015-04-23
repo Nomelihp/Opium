@@ -53,14 +53,39 @@ router.get('/', function(req, res, next) {
 	
 	if ((params._id) && (params.demandeBesoin))// Demande de renvoi besoin en JSON
 	{
+		console.log("[info : Utilisateur / chantiers / post / ] recuperation du chantier "+params._id);
 		// on attaque la base pour envoyer les métadonnées exif
 		Besoins.findById(req.body._id, function(err, b) {
-			var bes = new Besoins(b); 
-			res.status(200).json(bes).end();
+			if (err)
+			{
+				console.log("[ERREUR : Utilisateur / chantiers / post / ] Probleme recup besoin bd[mongo tourne?]");
+				res.status(400).json({}).end();
+			}
+			else
+			{
+				var bes = new Besoins(b); 
+				res.status(200).json(bes).end();
+			}
 		})
 		
 	}
-
+	else if ((params._id) && (params.suppressionChantier))// Suppression de chantier
+	{
+		console.log("[info : Utilisateur / chantiers / post / ] suppression du chantier "+params._id);
+		
+		Besoins.findOneAndRemove({ _id : params._id }, function(err) {
+				if (err)
+				{
+					console.log("[ERREUR : Utilisateur / chantiers / post / ] Probleme recup besoin bd[mongo tourne?]");
+					res.status(400).end();
+				}
+				else
+				{
+				  console.log("[info : Utilisateur / chantiers / post / ] Suppression chantier "+params._id+ " ok");
+				  res.status(200).end();
+				}
+		});
+	}
 })
 
 module.exports = router;

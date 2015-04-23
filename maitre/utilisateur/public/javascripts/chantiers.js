@@ -21,7 +21,9 @@ var chantiers = function($) {
         returnProduit('nuage',id);
         returnProduit('calibration',id);
         majInfosChantier(id);
-    })
+    });
+    // Clic sur suppression de chantier
+    $("#deleteButton").click(supprimerChantier);
 
 }(jQuery);
 
@@ -91,8 +93,27 @@ function toWarning(id) {
     return true;
 }
 
-function supprimerChantier(idChantier) {
+// Supprime le chantier ouvert
+function supprimerChantier() {
+	var idChantier = $("#idChantier").val();
+	var nomChantier= $("#nomChantier_"+idChantier).html();
+	if (idChantier == "")alert("choisir un chantier dans la liste");
+	else if (confirm("Suppression du chantier "+nomChantier+" ?"))
+	{
+	// Demande au serveur le besoin en json correspondant à l'id
+		var req = new XMLHttpRequest();    
+		req.open('POST','/chantiers',true);
+		
+		req.onreadystatechange = function (aEvt) {
 
+			if (req.readyState == "4" && req.status == "200"){// Suppression ok
+				  location.reload(); 
+			}
+		};
+		// On envoie l'id chantier et la demande de besoin
+		req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		req.send(JSON.stringify({"_id":idChantier,"suppressionChantier":"oui"}));
+	}
 }
 
 function returnProduit (id_form,idChantier) {
