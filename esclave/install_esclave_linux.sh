@@ -1,17 +1,22 @@
-#!/bin/sh
+#!/bin/bash
 
 # il faudra ajouter une variable cheminInstallation pour copier micmac au bon endroit avec Opium
 # du style /opt/opium/micmac
 
-# faire une version autonome avec versions telechargees plutot que apt-get install
 
 #Prérequis : make, libx11-dev
 
+if [ "$(whoami)" != "root" ];
+then
+	echo "Veuillez lancer ce script en root (en utilisant sudo, par exemple)."
+	exit -1
+fi
 
 #vérification des prérequis
-PKG_OK=$(dpkg-query -W --showformat='${Status}\n' make|grep "install ok installed")
-echo Checking for make: $PKG_OK
-if [ "" == "$PKG_OK" ]; then
+PKG_OK=$(dpkg-query -W --showformat='${Status}\n' make | grep "install ok installed")
+echo "Checking for make: $PKG_OK"
+if [ "" == "$PKG_OK" ];
+then
   echo "make not found. Exiting."
   exit 1
 fi
@@ -115,23 +120,33 @@ if [ "" == "$PKG_OK" ]; then
   cd ..
 fi
 
+lif [ "$(whoami)" != "root" ];
+then
+	echo "Veuillez lancer ce script en root (en utilisant sudo, par exemple)."
+	exit -1
+fi
+
+chmod -R 777 *
+
 #MicMac
 isThereMicMac=""
 doYouWantToUseYourOwnMicMac=""
-while [isThereMicMac!="N"]&&[isThereMicMac!="O"]; do
-  echo "\nMicMac est-il déjà installé sur cet ordinateur ? {O/N}"
+
+while [ "N" != "$isThereMicMac" ] && [ "O" != "$isThereMicMac" ]; do
+  echo ""
+  echo "MicMac est-il déjà installé sur cet ordinateur ? {O/N}"
   read isThereMicMac
 done
 
-if [isThereMicMac=="O"]
+if [ "O" == "$isThereMicMac" ];
 then
   $doYouWantToUseYourOwnMicMac=""
-  while [doYouWantToUseYourOwnMicMac!="N"]&&[doYouWantToUseYourOwnMicMac!="O"]; do
+  while [ "N" != "$doYouWantToUseYourOwnMicMac" ] && [ "O" != "$doYouWantToUseYourOwnMicMac" ]; do
     echo "Voulez-vous utiliser le MicMac datant du 23 avril 2015 de ce paquet ? {O/N}"
     read doYouWantToUseYourOwnMicMac
   done
   
-  if[doYouWantToUseYourOwnMicMac=="O"]; then
+  if [ "O" = "$doYouWantToUseYourOwnMicMac" ]; then
     echo "Quel est le chemin absolu vers le dossier bin de MicMac {exemple /home/user/Micmac/bin} ?"
     read micMacPath 
   fi   
@@ -139,11 +154,12 @@ fi
 
 echo "Quelle est l'adresse IP de l'ordinateur maître ? {ex: 135.65.65.3, laissez vide si le maître est sur le même ordinateur}"
 read ipMaitre
-if [ipMaitre==""]; then
+if [ "" == "$ipMaitre" ]; then
   ipMaitre="127.0.0.1" #localhost
 fi
 
-if [doYouWantToUseYourOwnMicMac="N"]||[isMicMac="N"]; then
+
+if [ "N" == "$doYouWantToUseYourOwnMicMac" ] || [ "N" == "$isThereMicMac" ]; then
   # pour que le cmake passe, il faut changer à la main le fichier 
   tar xzvf micmac.tar.gz
   cp HG_defines.h micmac/include/general/
