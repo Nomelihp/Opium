@@ -4,7 +4,7 @@ title INSTALL ESCLAVE
 set cheminMicMac=%CD%\soft\micmac\bin
 set /p VarQuestion= MicMac est-il installe sur cet ordinateur {O/N} ? 
 if %VarQuestion%== O ( 
-	set /p VarQuestion= Voulez-vous utiliser le MicMac datant du 3 avril 2015 de ce paquet  {O/N} ?
+	set /p VarQuestion= Voulez-vous utiliser le MicMac datant du 23 avril 2015 de ce paquet  {O/N} ?
 	if %VarQuestion%== N (
 		set /p cheminMicMac= Quel est le chemin absolu vers le dossier bin de MicMac  {exemple c:\chemin\MicMac\bin\} ?
  	)
