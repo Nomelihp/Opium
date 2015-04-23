@@ -399,3 +399,20 @@ footer {
 	color:#4D4D4D;
 }
 
+.tutorieltitre {
+    font-family: 'Roboto', sans-serif;
+    font-size: 200%;
+}
+
+.tutoriel {
+    font-family: 'Roboto', sans-serif;
+    font-size: 150%;
+}
+
+.tutoriel .fa {
+	font-size: 100%;
+}
+
+.tutorielmarge {
+    margin-left: 50px;
+}
