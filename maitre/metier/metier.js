@@ -45,7 +45,7 @@ server.on('notification',function(message, data){
     }
   });
   // Appariement dense
-  model.besoins.find({etat:'8'}, function(err, besoin2){
+  model.besoins.find({etat:'6'}, function(err, besoin2){
     if(err) console.log('erreur dans recherche dans la BD des elements avec etat=8');
     for(var k=0;k<besoin2.length;k++){
 
