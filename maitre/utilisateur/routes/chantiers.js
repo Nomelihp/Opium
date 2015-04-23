@@ -31,6 +31,7 @@ router.get('/', function(req, res, next) {
 			if (err)console.log("[ERREUR : Utilisateur / chantiers / get / ] pb recup chantiers bd [mongo tourne?]");
 			else
 			{
+				console.log("[info : Utilisateur / chantiers / get / ] envoi des chantiers");
 				// On cree le tableau de besoins pour la vue
 				besoinsVue = [];
 				for (var i=0;i<besoins.length;i++)besoinsVue.push(new Besoins(besoins[i]));
