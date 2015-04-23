@@ -145,9 +145,9 @@ fi
 
 if [doYouWantToUseYourOwnMicMac="N"]||[isMicMac="N"]; then
   # pour que le cmake passe, il faut changer à la main le fichier 
-  tar xzvf culture3d-79da8a32b46a.tar.gz
-  cp HG_defines.h culture3d-79da8a32b46a/include/general/
-  cd culture3d-79da8a32b46a/
+  tar xzvf micmac.tar.gz
+  cp HG_defines.h micmac/include/general/
+  cd micmac/
 
   mkdir build
   cd build
@@ -157,7 +157,7 @@ if [doYouWantToUseYourOwnMicMac="N"]||[isMicMac="N"]; then
   make install -j$NBRP
   cd ../..
 
-  micMacPath = $(pwd)/culture3d-79da8a32b46a/bin/
+  micMacPath = $(pwd)/micmac/bin/
 
   # ajout du chemin d'installation de MicMac au PATH
   echo "# ajout du chemin d installation de MicMac au PATH" >> ~/.bashrc
