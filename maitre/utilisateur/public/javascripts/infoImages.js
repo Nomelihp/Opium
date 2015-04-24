@@ -27,7 +27,6 @@ function nomsImages(besoins) {
 
 function nomsBalises(besoins) {
     var myListe = "";
-    console.log("exifKeys",myExifKeys);
     myListe += "<option value=''>Sélectionnez une balise</option>";
     for(var i=0; i<myExifKeys.length; i++){
         myListe += "<option value='"+myExifKeys[i]+"'>"+myExifKeys[i]+"</option>";
