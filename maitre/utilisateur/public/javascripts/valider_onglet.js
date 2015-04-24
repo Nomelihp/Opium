@@ -2,8 +2,6 @@
 var infosExif = null;
 var tempsAffichage = "1";
 
-
-
 // Récupère les informations exif des images du chantier auprès du serveur
 function recupereExif()
 {
@@ -98,10 +96,7 @@ function valider_onglet(id) {
 		//On renvoit la date de création du chantier
 			var date1 = new Date();
 			var month = date1.getMonth()+1;
-			if(month < 10) {
-				month = "0"+month;
-			}
-			var date2 = date1.getDate() + "-" + month + "-" + date1.getFullYear();
+			var date2 = date1.getDate() + "-" + ((month<10)?"":"0") + month + "-" + date1.getFullYear();
 			formjson.date = date2;
 		//On met l'état "En attente de l'utilisateur"
 			formjson.etat = "1";

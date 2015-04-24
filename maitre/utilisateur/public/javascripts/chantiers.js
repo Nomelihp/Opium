@@ -4,9 +4,8 @@ var majInfosChantier = function(idChantier){
 
         var mesBesoins = JSON.parse(req.responseText);
         // Pour mettre à jour l'interface...
-        onPageOpen(mesBesoins); //pour le resumé des paramètres
         majChantier(mesBesoins);
-
+        onPageOpen(mesBesoins); //pour le resumé des paramètres
     });
 }
 
@@ -67,6 +66,7 @@ function grey(id) {
     var parentDiv = element.parentNode.parentNode.parentNode;
 
     element.disabled = "disabled";
+    console.log(element);
     parentDiv.className += " greyed-out";
     
     return true;
