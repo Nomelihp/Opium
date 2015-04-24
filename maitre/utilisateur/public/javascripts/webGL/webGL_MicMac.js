@@ -11,11 +11,9 @@
 		<script src="js/OrbitControls.js"></script>
 		<script src="js/CanvasRenderer.js"></script>
 	
-	Pour intégrer la saisie d'un masque 3D ajouter les balises suivantes :
-
-		<input type="radio" id="saisieMasqButton1+le nom de la div contenant le webGL" name="saisieMasqButton"  value="1"> Oui<br>
-		<input type="radio" id="saisieMasqButton2+le nom de la div contenant le webGL"  name="saisieMasqButton"   value="2" checked> Non<br>
-		<button id="submitMasq+le nom de la div contenant le webGL" >Masque terminé</button>
+	<button id="saisieMasqId" >Saisir le masque</button>
+	<button id="resetMasqId" >Recommencer</button>
+	<button id="submitMasqId" >Envoyer le masque</button>
 */
 
 
@@ -309,25 +307,7 @@ var text = '{ "_id":"'+$("#idChantier").val()+'"';
 		  }
 		};
 		req.send(text); 
-			
-
-
 		
-		
-		
-		
-		/*var form = document.createElement("form");
-    	var	input = document.createElement("input");
-
-		form.action = "test.html";
-		form.method = "post"
-
-		input.name = "masqXml";
-		input.value = text;
-		form.appendChild(input);
-
-		document.body.appendChild(form);
-		form.submit();*/
 
 
 	}
