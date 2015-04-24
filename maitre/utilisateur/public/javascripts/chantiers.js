@@ -175,7 +175,3 @@ function majChantier(besoins) {
 	document.getElementById("residusChantier").innerHTML = '<div class="panel panel-default panel-body">'+ ((besoins.residus) ? besoins.residus : "L'affichage des résidus n'est pas géré par cette version de MicMac.") + '</div>'; //màj des résidus
     document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+besoins._id+"')"; //màj du bouton de suppression
 }
-
-ungrey("mise-button");
-toWarning("mise");
-ungrey("produits-button");
