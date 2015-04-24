@@ -8,6 +8,9 @@ then
   exit -1
 fi
 
+echo "Pour quel utilisateur ce programme doit-il être installé ?"
+read user
+
 cd softs_linux
 
 # ExifTool
@@ -30,18 +33,14 @@ if [ "" == "$PKG_OK" ]; then
   tar xzvf mongodb-linux-x86_64-3.0.2.tar.gz
 
   # ajout du chemin d'installation de MongoDB au PATH
-  echo "# ajout du chemin d installation de MongoDB au PATH" >> ~/.bash_profile
-  echo PATH="$PATH:$(pwd)/mongodb-linux-x86_64-3.0.2/bin" >> ~/.profile
-  PATH="$PATH:$(pwd)/mongodb-linux-x86_64-3.0.2/bin"
-  export PATH
+  echo "# ajout du chemin d installation de MongoDB au PATH" >> "/home/$user/.bashrc"
+  echo PATH="$PATH:$(pwd)/mongodb-linux-x86_64-3.0.2/bin" >> "/home/$user/.bashrc"
 fi
 if [ ! -d "/data/db" ]; then #creates folder if not existing already
   mkdir /data
   mkdir /data/db
   chmod -R 777 /data/db
 fi
-
-
 
 #node.js
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' nodejs|grep "install ok installed")
@@ -51,9 +50,8 @@ if [ "" == "$PKG_OK" ]; then
   tar xzvf node-v0.12.2-linux-x64.tar.gz
   
   # ajout du chemin d'installation de nodejs au PATH
-  echo "# ajout du chemin d installation de nodejs au PATH" >> ~/.bashrc
-  echo PATH="$PATH:$(pwd)/node-v0.12.2-linux-x64/bin" >> ~/.bashrc
-  export PATH="$PATH:$(pwd)/node-v0.12.2-linux-x64/bin"
+  echo "# ajout du chemin d installation de nodejs au PATH" >> "/home/$user/.bashrc"
+  echo PATH="$PATH:$(pwd)/node-v0.12.2-linux-x64/bin" >> "/home/$user/.bashrc"
 fi
 
 chmod -R 777 *
