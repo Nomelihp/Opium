@@ -120,6 +120,7 @@ server.on('notification',function(message, data){
       });
 
         noyau_metier.appariement_dense(Besoin2);
+        // Ajouter finit avec succes ou erreur
         
         setTimeout(function(){
           client.request('notification', {boulot:"oui"}, function(data){
