@@ -133,9 +133,11 @@ exports.besoin2jobs = function(jsonBesoin){
 }
 
 exports.appariement_dense=function(jsonBesoin){
+  var liste_images=[];
   var job2;
   var commandes_appariement = [];
   var taille_nuage;
+  liste_images=dbOperations.toListeImages(jsonBesoin);
   if(jsonBesoin.taille_nuage=='1'){
     taille_nuage = "QuickMac";
   }else if(jsonBesoin.taille_nuage=='2'){
@@ -144,7 +146,7 @@ exports.appariement_dense=function(jsonBesoin){
     taille_nuage = "BigMac";
   }
 
-  commandes_appariement.push(config.repertoire_micmac+"mm3d PIMs "+taille_nuage+" Masq3D=AperiCloud_MEP_selectionInfo.xml @ExitOnBrkp");
+  commandes_appariement.push(config.repertoire_micmac+"mm3d PIMs "+taille_nuage+" \'"+liste_images.join('|')+"\' MEP Masq3D=AperiCloud_MEP_selectionInfo.xml @ExitOnBrkp");
   commandes_appariement.push(config.repertoire_micmac+"mm3d Pims2Ply "+taille_nuage+" @ExitOnBrkp");
   // Commande pour générer le fichier du masque à partir du JSON
   for(var k=0;k<commandes_appariement.length;k++){

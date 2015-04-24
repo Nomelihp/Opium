@@ -5,6 +5,7 @@ var model = require('../model/mongo_config');
 var noyau_metier = require('./local_modules/noyau_metier');
 var js2xml = require('js2xmlparser');
 var config = require('../config.json');
+var zip = require('./local_modules/ResultZip');
 
 // Chemin vers le répertoire des données
 var repertoire_donnees = json.repertoire_donnees;
@@ -99,7 +100,10 @@ server.on('notification',function(message, data){
 
       });
 
-    }
+    } 
+    zip.zipFiles(config.repertoire_donnees+Besoin3.login+"/"+Besoin3._id,"calibration");
+    zip.zipFiles(config.repertoire_donnees+Besoin3.login+"/"+Besoin3._id,"orientation");
+    zip.zipFiles(config.repertoire_donnees+Besoin3.login+"/"+Besoin3._id,"liaison");
   }
 
   });
@@ -112,10 +116,17 @@ server.on('notification',function(message, data){
       Besoin2 = new model.besoins(besoin2[k]);
       fs.writeFile(config.repertoire_donnees+config.login+"/"+Besoin2._id+"/AperiCloud_MEP_selectionInfo.xml",js2xml("SelectionInfo",Besoin2.masque3D.SelectionInfo),function(err){
         if(err) console.log('[ERREUR: Erreur dans l\'enregistrement du fichier masque]');
-        console.log('enregistrement du fichier masque réussit !'+config.repertoire_donnees+'/'+config.login+'/'+Besoin2._id+'/AperiCloud_MEP_selectionInfo.xml');
+        console.log('enregistrement du fichier masque réussit !'+config.repertoire_donnees+config.login+'/'+Besoin2._id+'/AperiCloud_MEP_selectionInfo.xml');
       });
 
         noyau_metier.appariement_dense(Besoin2);
+        // Ajouter finit avec succes ou erreur
+        model.besoins.findByIdAndUpdate(Besoin2._id,{etat:'8'},function(error6){
+          if(error6) console.log('[ERROR= metier[model.besoins.findByIdAndUpdate(Besoin3._id,{etat=\'8\'}]] = Probleme lors de la mise à jour de l\'etat à 7 [Vérifiez la connexion à votre BD]');
+
+
+        });
+        
         setTimeout(function(){
           client.request('notification', {boulot:"oui"}, function(data){
             console.log('[info: metier.js: Notification Envoyée a l u tilsiateur pour l appriement sense]');
