@@ -22,31 +22,6 @@ function recupereExif()
         req.send(JSON.stringify({"_id":$("#idChantier").val(),"demandeExif":"oui"}));
 }
 
-// Récupère les informations exif des images du chantier auprès du serveur
-function recupereExif2()
-{
-	if(infosExif == null){
-		//Etat en attente de réponse
-		tempsAffichage = "0";
-		//on attend que les fichiers soient créés
-			var req = new XMLHttpRequest();    
-			req.open('POST','/nouveau_chantier',true);
-
-			req.onreadystatechange = function (aEvt) {
-			  if (req.readyState == 4) {
-				 if(req.status == 200)
-				 {
-					  infosExif = JSON.parse(req.responseText);
-					  tempsAffichage = "1";
-				 }
-			  }
-			};
-			// On envoie l'id chantier et la demande d'exif
-			req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-			req.send(JSON.stringify({"_id":$("#idChantier").val(),"demandeExif":"oui"}));
-		}
-}
-
 // Valide un onglet en envoyant les paramètres du formulaire et en affichant l'onglet suivant
 function valider_onglet(id) {
     
@@ -249,19 +224,13 @@ function valider_onglet(id) {
 
 function lancer_calcul() {
 
-	//Test InfoExif
-	recupereExif2();
-	//Tests de validation
-	if(tempsAffichage=="0"){//Il faut attendre la réponse du serveur
-		alert("Veuillez importer des images ou patientez quelques secondes avant de rappuyer sur le bouton");
-	}
-	else{
 		if(document.getElementById("nom").value == ""){
 			alert("Entrez un nom de chantier");
 		}
 		else{
-			if(infosExif){
-				if(infosExif.length < 2){alert("Importez au moins deux images");}
+		//Test du nombre d'images
+			if(nbFichiers > 0){
+				if(nbFichiers < 2){alert("Importez au moins deux images");}
 				else{
 					if((document.getElementById("dim_1").value != "" && document.getElementById("dim_2").value == "") || (document.getElementById("dim_1").value == "" && document.getElementById("dim_2").value != "")){
 					alert("Rentrez 2 dimensions pour la caméra");
@@ -295,8 +264,7 @@ function lancer_calcul() {
 					}
 				}
 			}
-			else{alert("Importez au moins deux images");}
-		}
+			else{alert("Pas d'images importées");}
 	}
 }
 
