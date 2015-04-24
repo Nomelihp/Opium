@@ -8,7 +8,7 @@ var tabExtensions =  ["JPG","JPEG","jpg","jpeg","cr2","CR2","arw","ARW","TIF","T
 var nomsFichierInseres = [];
 // Nombre de fichiers importés
 var nbFichiers= 0;
-var nbFichiers2= 0;
+var nbFichiersCalib= 0;
 
 // Ajoute un fichier à la liste du bas, indique import en cours et lance l'upload
 var importeFichier = function(fichier) {
@@ -69,7 +69,7 @@ var importeFichier = function(fichier) {
 
 // Pour importer les images pour calibration
 var importeFichier2 = function(fichier) {
-	var numFichier = nbFichiers2++;
+	var numFichier = nbFichiersCalib++;
 	var tabExtension = fichier.name.split(".");
 	var extension 	 = tabExtension[tabExtension.length - 1];
 	

@@ -5,11 +5,15 @@ var nomCalibration = "Calibration.zip"; //Nom du zip de la Calibration
 var nomOrientation = "Orientation.zip"; //Nom du zip de l'Orientation
 
 
-exports.zipFiles = function (chemin_du_chantier) {
+/**
+* Fonction qui génère les zip à partir des réultats
+* Elle prend en paramètres le chemin vers le cahtniers
+*/
+exports.zipFiles = function (chemin_du_chantier,typeFichier) {
 
 
 
-	switch(req.query.typeFichier) { 
+	switch(typeFichier) { 
 			//---------------Points de liaison------------
         case "liaison":
         	var outputPointLiaison = fs.createWriteStream(chemin_du_chantier + '/' + nomPointLiaison);//__dirname est l'emplacement du module courant
