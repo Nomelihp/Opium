@@ -8,6 +8,9 @@ then
   exit -1
 fi
 
+echo "Pour quel utilisateur ce programme doit-il être installé ?"
+read user
+
 #vérification des prérequis
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' make | grep "install ok installed")
 echo "Checking for make: $PKG_OK"
@@ -63,8 +66,8 @@ if [ "" == "$PKG_OK" ]; then
   tar xzvf cmake-3.2.2-Linux-x86_64.tar.gz
   
   # ajout du chemin d'installation de cmake au PATH
-  echo "# ajout du chemin d installation de cmake au PATH" >> ~/.bashrc
-  echo PATH='$PATH':$(pwd)/cmake-3.2.2-Linux-x86_64/bin >> ~/.bashrc
+  echo "# ajout du chemin d installation de cmake au PATH" >> "/home/$user/.bashrc"
+  echo PATH='$PATH':$(pwd)/cmake-3.2.2-Linux-x86_64/bin >> "/home/$user/.bashrc"
 fi
 
 
@@ -76,8 +79,8 @@ if [ "" == "$PKG_OK" ]; then
   tar xzvf node-v0.12.2-linux-x64.tar.gz
   
   # ajout du chemin d'installation de nodejs au PATH
-  echo "# ajout du chemin d installation de nodejs au PATH" >> ~/.bashrc
-  echo PATH='$PATH':$(pwd)/node-v0.12.2-linux-x64/bin >> ~/.bashrc
+  echo "# ajout du chemin d installation de nodejs au PATH" >> "/home/$user/.bashrc"
+  echo PATH='$PATH':$(pwd)/node-v0.12.2-linux-x64/bin >> "/home/$user/.bashrc"
 fi
 
 # ImageMagick
@@ -163,7 +166,7 @@ if [ "O" != "$doYouWantToUseYourOwnMicMac" ]; then
   micMacPath=$(pwd)/micmac/bin/
 
   # ajout du chemin d'installation de MicMac au PATH
-  echo "# ajout du chemin d installation de MicMac au PATH" >> ~/.bashrc
+  echo "# ajout du chemin d installation de MicMac au PATH" >> "/home/$user/.bashrc"
   echo PATH='$PATH':micMacPath >> ~/.bashrc
 fi
 
