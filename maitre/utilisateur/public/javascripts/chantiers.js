@@ -58,9 +58,6 @@ function ungrey(id) {
     element.disabled = "";
     parentDiv.className = parentDiv.className.replace(" greyed-out","");
 
-	console.log("ungrey id",element);
-	console.log("ungrey parent",parentDiv);
-
     return true;
 }
 
@@ -72,9 +69,6 @@ function grey(id) {
     if(parentDiv.className.indexOf("greyed-out") == -1) {
 		parentDiv.className += " greyed-out";
 	}
-    
-    console.log("grey id",element);
-	console.log("grey parent",parentDiv);
     
     return true;
 }
