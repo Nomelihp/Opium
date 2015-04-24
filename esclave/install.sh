@@ -68,6 +68,7 @@ if [ "" == "$PKG_OK" ]; then
   # ajout du chemin d'installation de cmake au PATH
   echo "# ajout du chemin d installation de cmake au PATH" >> "/home/$user/.bashrc"
   echo PATH='$PATH':$(pwd)/cmake-3.2.2-Linux-x86_64/bin >> "/home/$user/.bashrc"
+  path2cmake=$(pwd)/cmake-3.2.2-Linux-x86_64/bin
 fi
 
 
@@ -157,7 +158,7 @@ if [ "O" != "$doYouWantToUseYourOwnMicMac" ]; then
 
   mkdir build
   cd build
-  cmake ../
+  $path2cmake/cmake ../
   NBRP=$(cat /proc/cpuinfo | grep processor | wc -l)
    echo "Nbre de coeurs à la compilation : " $NBRP
   make install -j$NBRP
@@ -178,6 +179,6 @@ echo "{" >> $(pwd)/config_esclave.json
   echo \"repertoire_micmac\":\"$micMacPath\", >> $(pwd)/config_esclave.json
   echo \"img_micmac_esclave\":\"$(pwd)/img_micmac\" >> $(pwd)/config_esclave.json
   echo "}" >> $(pwd)/config_esclave.json
-echo Merci, vous pouvez lancer \"lancement.bat\"
+echo Merci, vous pouvez lancer \"lancement.sh\"
 
 chmod -R 777 *

@@ -56,4 +56,4 @@ fi
 
 chmod -R 777 *
 
-echo "Installation terminée, vous pouvez lancer \"lancement.bat\""
+echo "Installation terminée, vous pouvez lancer \"lancement.sh\""
