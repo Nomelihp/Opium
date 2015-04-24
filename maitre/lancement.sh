@@ -1,39 +1,31 @@
-@echo off
-:----  Ajout des logiciels nécessaire dans le path
-set PATH=%PATH%;%CD%\soft\exiftool
-
-:--- Lancement de l'application  
-mkdir C:\data\db
-echo Historique du mongo de l'application MOJITO > mongo.log
-echo Date du jour de lancement: %date% >> mongo.log
-echo Heure de lancement : %time% >> mongo.log
-start /B ./soft/mongo/mongod >> mongo.log
+# Lancement de l'application  
+echo "Historique du mongo de l'application MOJITO" > mongo.log
+echo "Date du lancement: $(date)" >> mongo.log
+echo nohup mongod & >> mongo.log
 echo Mongo ...
-timeout 15 > NUL
+sleep 15
 
-echo Historique de l'utilisateur de l'application MOJITO > utilisateur.log
-echo Date du jour de lancement: %date% >> utilisateur.log
-echo Heure de lancement : %time% >> utilisateur.log
+echo "Historique de l'utilisateur de l'application MOJITO" > utilisateur.log
+echo "Date du lancement: $(date)" >> utilisateur.log
 cd utilisateur
-start /B ./../soft/node64/node ./bin/www >> ../utilisateur.log
+nohup ./bin/www & >> ../utilisateur.log
 cd ..
 echo Utilisateur ...
-timeout 5 > NUL
+sleep 5
 
-echo Historique du metier de l'application MOJITO > metier.log
-echo Date du jour de lancement: %date% >> metier.log
-echo Heure de lancement : %time% >> metier.log
+echo "Historique du metier de l'application MOJITO" > metier.log
+echo "Date du lancement: $(date)" >> metier.log
 cd metier
-start /B ./../soft/node64/node ./metier.js >> ../metier.log
+nohup ./metier.js & >> ../metier.log
 cd ..
 echo Metier ...
-timeout 5 > NUL
+sleep 5
 
-echo Historique du MMManager de l'application MOJITO > MMManager.log
-echo Date du jour de lancement: %date% >> MMManager.log
-echo Heure de lancement : %time% >> MMManager.log
+echo "Historique du MMManager de l'application MOJITO" > MMManager.log
+echo "Date du lancement: $(date)" >> MMManager.log
 cd MMManager
-start /B ./../soft/node64/node ./MMManager.js >> ../MMManager.log
+echo nohup ./MMManager.js & >> ../MMManager.log
 cd ..
 echo MMManager ...
-echo Application en cours ...
+
+echo Application lancée avec succès ...

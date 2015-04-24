@@ -10,12 +10,10 @@ if %VarQuestion%== O (
  	)
 )
 
-
-
 set cheminMicMac=%cheminMicMac:\=/%
 
 set /p IPmaitre= Quelle est l'adresse IP de l'ordinateur maitre  {ex: 135.65.65.3, 127.0.0.1 si le maitre est sur le meme ordinateur} ?
-echo { >> %CD%\config_esclave.json
+echo { > %CD%\config_esclave.json
  echo "maitre_ip":"%IPmaitre%", >> %CD%\config_esclave.json
  echo "maitre_port":"9207", >> %CD%\config_esclave.json
  echo "esclave_port":"9208", >> %CD%\config_esclave.json

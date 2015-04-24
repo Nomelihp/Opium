@@ -33,6 +33,12 @@ if [ "" == "$PKG_OK" ]; then
   echo "# ajout du chemin d installation de MongoDB au PATH" >> ~/.bashrc
   echo PATH='$PATH':$(pwd)/mongodb-linux-x86_64-3.0.2/bin >> ~/.bashrc
 fi
+if [ ! -d "/data/db" ]; then #creates folder if not existing already
+  mkdir /data
+  mkdir /data/db
+fi
+
+
 
 #node.js
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' nodejs|grep "install ok installed")
