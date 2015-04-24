@@ -1,0 +1,6 @@
+Exit with code 1 
+Generated from line 193  of file ..\..\MicMac\src\util\error.cpp 
+PID=1324
+Context=[cEliseFatalErrorHandler::cEFEH_OnErreur]
+GMEC:mes=Not enough arg line=74 file=..\..\MicMac\src\uti_phgrm\CPP_Apero.cpp
+MM3D-Command=[C:\Users\Hippolyte\Documents\cours_IT3\opium_install_windows_64\esclave\micmac\bin/mm3d Apero ]

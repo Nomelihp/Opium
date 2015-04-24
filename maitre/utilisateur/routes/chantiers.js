@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
 	{	
 		// Code a executer
 		console.log("[info : Utilisateur / chantiers / get / ] recuperation de fichier "+req.query.typeFichier);
-		var cheminFichier = params.repertoire_donnees+params.login+"/"+req.query.idChantier+"/"+tabCorrespondanceFichiers[req.query.typeFichier];
+		var cheminFichier = config.repertoire_donnees+config.login+"/"+req.query.idChantier+"/"+tabCorrespondanceFichiers[req.query.typeFichier];
 		res.download(cheminFichier,tabCorrespondanceFichiers[req.query.typeFichier]);
 	}
 	else
