@@ -153,7 +153,7 @@ function majChantier(besoins) {
             ungrey("zone-button");
             ungrey("produits-button");
             plusMoins("zone");
-            webGL_MicMac("/chantiers?getFichier=yes&typeFichier=nuagePly&idChantier="+besoins._id,"Restriction");
+            webGL_MicMac("/chantiers?getFichier=yes&typeFichier=position&idChantier="+besoins._id,"Restriction");
             document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
             break;
         case "7":
