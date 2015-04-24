@@ -49,7 +49,7 @@ function onPageOpen(besoins) {
             myTable = ajout(myTable,"État","ÉCHEC DE LA MISE EN PLACE","red");
             break;
         case "10":
-			myTable = ajout(myTable,"État","Calculs finaux en cours");
+			myTable = ajout(myTable,"État","Calculs appariement dense en cours");
             break;
         case "8":
             myTable = ajout(myTable,"État","Calculs terminés avec succès","green");

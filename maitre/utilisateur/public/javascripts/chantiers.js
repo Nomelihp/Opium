@@ -58,6 +58,9 @@ function ungrey(id) {
     element.disabled = "";
     parentDiv.className = parentDiv.className.replace(" greyed-out","");
 
+	console.log("ungrey id",element);
+	console.log("ungrey parent",parentDiv);
+
     return true;
 }
 
@@ -66,9 +69,22 @@ function grey(id) {
     var parentDiv = element.parentNode.parentNode.parentNode;
 
     element.disabled = "disabled";
-    console.log(element);
     parentDiv.className += " greyed-out";
     
+    console.log("grey id",element);
+	console.log("grey parent",parentDiv);
+    
+    return true;
+}
+
+//change la couleur du panel "id" pour le passer à orange
+function toSuccess(id) {
+    var element = document.getElementById(id);
+    var button = element.children[0].children[0].children[0];
+
+    element.className = element.className.replace("success","warning");
+    button.className = button.className.replace("success","warning");
+
     return true;
 }
 
@@ -154,7 +170,9 @@ function majChantier(besoins) {
             if(besoins.residus > 1) {
                 toWarning("mise");
             }
+            ungrey("produits");
             toDanger("produits");
+            document.getElementById("nuage").disabled = "disabled"; //interdit le téléchargement du fichier de résultat tant que le calcul n'est pas fini
             break;
     }
 	
