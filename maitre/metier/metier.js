@@ -121,6 +121,11 @@ server.on('notification',function(message, data){
 
         noyau_metier.appariement_dense(Besoin2);
         // Ajouter finit avec succes ou erreur
+        model.besoins.findByIdAndUpdate(Besoin2._id,{etat:'8'},function(error6){
+          if(error6) console.log('[ERROR= metier[model.besoins.findByIdAndUpdate(Besoin3._id,{etat=\'8\'}]] = Probleme lors de la mise à jour de l\'etat à 7 [Vérifiez la connexion à votre BD]');
+
+
+        });
         
         setTimeout(function(){
           client.request('notification', {boulot:"oui"}, function(data){
