@@ -30,12 +30,15 @@ if [ "" == "$PKG_OK" ]; then
   tar xzvf mongodb-linux-x86_64-3.0.2.tar.gz
 
   # ajout du chemin d'installation de MongoDB au PATH
-  echo "# ajout du chemin d installation de MongoDB au PATH" >> ~/.bashrc
-  echo PATH='$PATH':$(pwd)/mongodb-linux-x86_64-3.0.2/bin >> ~/.bashrc
+  echo "# ajout du chemin d installation de MongoDB au PATH" >> ~/.bash_profile
+  echo PATH="$PATH:$(pwd)/mongodb-linux-x86_64-3.0.2/bin" >> ~/.profile
+  PATH="$PATH:$(pwd)/mongodb-linux-x86_64-3.0.2/bin"
+  export PATH
 fi
 if [ ! -d "/data/db" ]; then #creates folder if not existing already
   mkdir /data
   mkdir /data/db
+  chmod -R 777 /data/db
 fi
 
 
@@ -49,9 +52,10 @@ if [ "" == "$PKG_OK" ]; then
   
   # ajout du chemin d'installation de nodejs au PATH
   echo "# ajout du chemin d installation de nodejs au PATH" >> ~/.bashrc
-  echo PATH='$PATH':$(pwd)/node-v0.12.2-linux-x64/bin >> ~/.bashrc
+  echo PATH="$PATH:$(pwd)/node-v0.12.2-linux-x64/bin" >> ~/.bashrc
+  export PATH="$PATH:$(pwd)/node-v0.12.2-linux-x64/bin"
 fi
 
-echo "Installation terminée, vous pouvez lancer \"lancement.bat\""
-
 chmod -R 777 *
+
+echo "Installation terminée, vous pouvez lancer \"lancement.bat\""
