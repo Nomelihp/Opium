@@ -69,7 +69,9 @@ function grey(id) {
     var parentDiv = element.parentNode.parentNode.parentNode;
 
     element.disabled = "disabled";
-    parentDiv.className += " greyed-out";
+    if(parentDiv.className.indexOf("greyed-out") == -1) {
+		parentDiv.className += " greyed-out";
+	}
     
     console.log("grey id",element);
 	console.log("grey parent",parentDiv);
@@ -180,3 +182,6 @@ function majChantier(besoins) {
     document.getElementById("deleteButton").onclick="javascript: supprimerChantier('"+besoins._id+"')"; //màj du bouton de suppression
 }
 
+ungrey("mise-button");
+toWarning("mise");
+ungrey("produits-button");
