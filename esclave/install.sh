@@ -13,17 +13,19 @@ read user
 
 #vérification des prérequis
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' make | grep "install ok installed")
-echo "Checking for make: $PKG_OK"
+echo "Recherche de make: $PKG_OK"
 if [ "" == "$PKG_OK" ];
 then
-  echo "make not found. Exiting."
+  echo "Erreur : pas de version de make trouvée."
+  echo "Veuillez installer make, avec 'apt-get install make' par exemple." #et s'il n'a pas apt-get, c'est un gros geek, donc il comprendra quand même.
   exit 1
 fi
 
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' libx11-dev|grep "install ok installed")
 echo Checking for libx11-dev: $PKG_OK
 if [ "" == "$PKG_OK" ]; then
-  echo "libx11-dev not found. Exiting."
+   echo "Erreur : pas de version de libx11-dev trouvée."
+  echo "Veuillez installer libx11-dev, avec 'apt-get install libx11-11' par exemple."
   exit 2
 fi
 
@@ -60,9 +62,9 @@ fi
 
 #cmake
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' cmake|grep "install ok installed")
-echo Checking for cmake: $PKG_OK
+echo C"Recherche de cmake: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
-  echo "No cmake found. Setting it up."
+  echo "Pas version de cmake trouvée. Installation."
   tar xzvf cmake-3.2.2-Linux-x86_64.tar.gz
   
   # ajout du chemin d'installation de cmake au PATH
@@ -74,9 +76,9 @@ fi
 
 #node.js
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' nodejs|grep "install ok installed")
-echo Checking for nodejs: $PKG_OK
+echo "Recherche de nodejs: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
-  echo "No node.js found. Setting it up."
+  echo "Pas de version de nodejs trouvée. Installation."
   tar xzvf node-v0.12.2-linux-x64.tar.gz
   
   # ajout du chemin d'installation de nodejs au PATH
@@ -86,9 +88,9 @@ fi
 
 # ImageMagick
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' imagemagick|grep "install ok installed")
-echo Checking for ImageMagick: $PKG_OK
+echo "Recherche d'ImageMagick: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
-  echo "No ImageMagick found. Setting it up."
+  echo "Pas de version d'ImageMagick trouvée. Installation."
   tar xzvf ImageMagick-6.7.7-0.tar.gz
   cd ImageMagick-6.7.7-0
   ./configure
@@ -100,9 +102,9 @@ fi
 
 # ExifTool
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' libimage-exiftool-perl|grep "install ok installed")
-echo Checking for ExifTool: $PKG_OK
+echo "Recherche d'ExifTool: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
-  echo "No ExifTool found. Setting it up."
+  echo "Pas de version d'ExifTool trouvée. Installation."
   tar xzvf Image-ExifTool-9.82.tar.gz
   cd Image-ExifTool-9.82
   perl Makefile.PL
@@ -112,9 +114,9 @@ fi
 
 # expat
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' expat|grep "install ok installed")
-echo Checking for Expat: $PKG_OK
+echo "Recherche d'Expat: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
-  echo "No Expat found. Setting it up."
+  cho "Pas de version d'Expat trouvée. Installation."
   tar xzvf expat-2.1.0.tar.gz
   cd expat-2.1.0
   ./configure
@@ -125,9 +127,9 @@ fi
 
 # exiv
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' exiv2|grep "install ok installed")
-echo Checking for Exiv: $PKG_OK
+echo "Recherche d'Exiv: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
-  echo "No Exiv found. Setting it up."
+  echo "Pas de version d'Exif trouvée. Installation."
   tar xzvf exiv2-0.24.tar.gz
   cd exiv2-0.24
   ./configure
@@ -138,9 +140,9 @@ fi
 
 # proj 4
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' libgeo-proj4-perl|grep "install ok installed")
-echo Checking for proj4: $PKG_OK
+echo "Recherche de proj4: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
-  echo "No proj4 found. Setting it up."
+  echo "Pas de version de proj4 trouvée. Installation."
   tar xzvf proj-4.9.1.tar.gz
   cd proj-4.9.1
   ./configure
@@ -160,7 +162,7 @@ if [ "O" != "$doYouWantToUseYourOwnMicMac" ]; then
   cd build
   $path2cmake/cmake ../
   NBRP=$(cat /proc/cpuinfo | grep processor | wc -l)
-   echo "Nbre de coeurs à la compilation : " $NBRP
+  echo "Nombre de coeurs à la compilation : " $NBRP
   make install -j$NBRP
   cd ../..
 

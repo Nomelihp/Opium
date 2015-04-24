@@ -15,9 +15,9 @@ cd softs_linux
 
 # ExifTool
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' libimage-exiftool-perl|grep "install ok installed")
-echo Checking for ExifTool: $PKG_OK
+echo "Recherche d'ExifTool: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
-  echo "No ExifTool found. Setting it up."
+  echo "Pas de version d'ExifTool trouvée. Installation."
   tar xzvf Image-ExifTool-9.82.tar.gz
   cd Image-ExifTool-9.82
   perl Makefile.PL
@@ -27,9 +27,9 @@ fi
 
 # MongoDB
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' mongodb|grep "install ok installed")
-echo Checking for MongoDB: $PKG_OK
+echo "Recherche de MongoDB: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
-  echo "No MongoDB found. Setting it up."
+  echo "Pas de version de MongoDB trouvée. Installation."
   tar xzvf mongodb-linux-x86_64-3.0.2.tar.gz
 
   # ajout du chemin d'installation de MongoDB au PATH
@@ -44,9 +44,9 @@ fi
 
 #node.js
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' nodejs|grep "install ok installed")
-echo Checking for nodejs: $PKG_OK
+echo "Recherche de nodejs: $PKG_OK"
 if [ "" == "$PKG_OK" ]; then
-  echo "No node.js found. Setting it up."
+  echo "Pas de version de nodejs trouvée. Installation."
   tar xzvf node-v0.12.2-linux-x64.tar.gz
   
   # ajout du chemin d'installation de nodejs au PATH
