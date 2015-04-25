@@ -70,9 +70,9 @@ if [ "" == "$PKG_OK" ]; then
   # ajout du chemin d'installation de cmake au PATH
   echo "# ajout du chemin d installation de cmake au PATH" >> "/home/$user/.bashrc"
   echo PATH='$PATH':$(pwd)/cmake-3.2.2-Linux-x86_64/bin >> "/home/$user/.bashrc"
-  path2cmake=$(pwd)/cmake-3.2.2-Linux-x86_64/bin
 fi
 
+path2cmake=$(pwd)/cmake-3.2.2-Linux-x86_64/bin
 
 #node.js
 PKG_OK=$(dpkg-query -W --showformat='${Status}\n' nodejs|grep "install ok installed")
@@ -160,6 +160,7 @@ if [ "O" != "$doYouWantToUseYourOwnMicMac" ]; then
 
   mkdir build
   cd build
+  echo $path2cmake/cmake
   $path2cmake/cmake ../
   NBRP=$(cat /proc/cpuinfo | grep processor | wc -l)
   echo "Nombre de coeurs à la compilation : " $NBRP
