@@ -111,7 +111,7 @@ exports.besoin2jobs = function(jsonBesoin){
     /** ATTENTION ICI IL FAUT QU'UN DOSSIER SOIT CREER DANS UTILISATEUR **/
     else{
       commandes.push(config.repertoire_micmac+"mm3d Tapioca All RadialStd \'"+liste_images.join("|")+"\' "+quantite_points_liaison.toString()+" "+"@ExitOnBrkp");
-      commandes.push(config.repertoire_micmac+"mm3d Tapas "+jsonBesoin.type_auto_etalonage+" \'"+liste_images.join("|")+"\' InCal=Calib Out=MEP "+"@ExitOnBrkp");
+      commandes.push(config.repertoire_micmac+"mm3d Tapas AutoCal "+jsonBesoin.type_auto_etalonage+" \'"+liste_images.join("|")+"\' InCal=Calib Out=MEP "+"@ExitOnBrkp");
     }
 
     // Commande pour le calcul d'un nuage de points
